@@ -1,27 +1,33 @@
-<?php
+<?php 
 
-include_once '../apiCaller.php';
-$apiCaller = new apiCaller('APP001', '28e336ac6c9423d946ba02d19c6a2632', 'http://localhost/api/route.php');
+if(!isset($_POST['submit'])){
+// illegal access
+
+}
+
+//include './route.php';
 
 try {
-	header('Content-Type:application/json; charset=utf-8');
-	$result = $apiCaller->sendRequest(array(
-		'controller' => 'account',
-		'action' => 'login',
-		'account' =>$_GET['account'],
-		'password' =>$_GET['password'],
-		'type' =>$_GET['type']
-		//'uri' => $_GET['uri'],
-		//'range' => $_GET['range']
-	));
 
+	//$req = new APICaller($_GET['controller'], $_GET['method']);
+	//$res = $req->run();
 
-	echo json_encode($result, JSON_UNESCAPED_SLASHES);
+	$res = array();
+	foreach($_GET as $key=>$val) {
+
+		$res[$key] = $val;
+
+	}
+	var_dump ($res);
+
+	// handle $res['data']
+	// restriction
 	exit();
 }
 catch (Exception $e) {
 
-	echo json_encode($e->getMessage(), JSON_UNESCAPED_SLASHES);
+	// error handle
+	// $e->getMessage();
 	exit();
 }
 

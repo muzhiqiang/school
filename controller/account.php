@@ -1,41 +1,41 @@
 <?php
 
-include './model/accountItem.php';
+require './model/accountItem.php';
 
 class account {
 
-	private $params_ ;
 	private $item_ ;
 
-	public function __construct($params) {
+	public function __construct() {
 		
-		$this->params_ = $params;
 		$this->item_ = new accountItem();
 	}
 
 	public function loginAction() {
 
-		$this->item_->load($this->params_['account']);
-		if($this->params_['type'] !== $this->item_->type) {
+		$this->item_->load($_POST['Account']);
+		if($_POST['Type'] !== $this->item_->type) {
 			throw new Exception('Type error');
 		}
-		if($this->params_['password'] !== $this->item_->password) {
+		if($_POST['Password'] !== $this->item_->password) {
 			throw new Exception('Password wrong');
 		}
-		return true;
+
+   		$_SESSION['Account'] = $_POST['Account'];   
+		return ;
 	}
 
 	public function registAction() {
 		
 		try {
-			$this->item_->load($this->params_['account']);
+			$this->item_->load($_POST['Account']);
 		}
 		catch(Exception $e) {
 			if($e->getMessage() == 'account doesn\'t exist') {
-				$this->item_->password = $this->params_['password'];
-				$this->item_->type = $this->params_['type'];
+				$this->item_->password = $_POST['Password'];
+				$this->item_->type = $_POST['Type'];
 				$this->item_->save();
-				return;
+				return ;
 			}
 			else {
 				throw $e;
@@ -44,17 +44,24 @@ class account {
 		throw new Exception('account has existed');
 	}
 
+	public function logoutAction() {
+
+		unset($_SESSION['Account']);
+		exit();
+	} 
+
 	public function updateAction() {
 		
-		$this->item_->account = $this->params_['account'];
-		$this->item_->password = $this->params_['password'];
+		$this->item_->account = $_SESSION['Account'];
+		$this->item_->password = $_POST['Password'];
 		$this->item_->update();
 	}	
 
 	public function deleteAction() {
 
-		$this->item_->account = $this->params_['account'];
+		$this->item_->account = $_SESSION['Account'];
 		$this->item_->delete();
+		unset($_SESSION[$_POST['Account']]);
 	}		
 
 
