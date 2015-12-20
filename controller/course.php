@@ -13,6 +13,9 @@ class course {
 	// Argument Course_year_name
 	public function showYearCourse() {
 		
+		if(!isset($_POST['Course_year_term'])) {
+			throw new Exception('Argument not set');
+		}	
 		$course = new cousrseItem();
 		$req = array();
 		$req[0] = array('key' => 'Course_year_term', 'Course_year_term' => $_POST['Course_year_term'], 'table' =>'courseItem');
@@ -27,6 +30,9 @@ class course {
 	// Argument Property, Course_year_term
 	public function showYearPropertyCourse() {
 		
+		if(!isset($_POST['Award_ID']) ||!isset($_POST['Property'])) {
+			throw new Exception('Argument not set');
+		}
 		$course = new cousrseItem();
 		$req = array();
 		$req[0] = array('key' => 'Course_year_term', 'Course_year_term' => $_POST['Course_year_term'], 'table' =>'courseItem');
@@ -44,6 +50,9 @@ class course {
 	// TODO:: big problem How to select
 	public function selectCourse() {
 		
+		if(!isset($_POST['Course_ID'])) {
+			throw new Exception('Argument not set');
+		}
 		$sc = new studentcourseItem();
 		$sc->Course_ID = $_POST['Course_ID'];
 		$sc->Stu_ID = $_SESSION['Account'];
@@ -56,6 +65,9 @@ class course {
 	//show all course that student selected
 	public function showStudentAllCourse() {
 
+		if(!isset($_POST['Course_year_term'])) {
+			throw new Exception('Argument not set');
+		}
 		$sc = new studentcourseItem();
 		$req = array();
 		$req[0] = array('key' => 'Stu_ID', 'Stu_ID' => $_SESSION['Account'], 'table' => 'studentcourseItem');
@@ -69,7 +81,10 @@ class course {
 	//Show the coure accoding to stu_id and course_year_term
 	// Argument : Stu_ID, Course_year_term
 	public function showStudentYearCourseTable() {
-	
+
+		if(!isset($_POST['Course_year_term'])) {
+			throw new Exception('Argument not set');
+		}	
 		$sc = new studentcourseItem();
 		$req = array();
 		$req[0] = array('key' => 'Stu_ID', 'Stu_ID' => $_SESSION['Account'], 'table' => 'studentcourseItem');
@@ -102,6 +117,9 @@ class course {
 	// Argument stu_id, course_year_term
 	public function showStudentYearCourseScore() {
 
+		if(!isset($_POST['Course_year_term'])) {
+			throw new Exception('Argument not set');
+		}
 		$sc = new studentcourseItem();
 		$req = array();
 		$req[0] = array('key' => 'Stu_ID', 'Stu_ID' => $_SESSION['Account'], 'table' => 'studentcoursrItem');

@@ -13,6 +13,12 @@
 
 try {
 	
+	if(!isset($_GET['controller'])) {
+		throw new Exception('controller is not set');
+	}
+	if(!isset($_GET['method'])) {
+		throw new Exception('method is not set');
+	}
 	$controller = $_GET['controller'];
 	$method = $_GET['method'].'Action';
 

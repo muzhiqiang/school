@@ -12,7 +12,7 @@ class studentAward {
 
 	// show All Award of the student except detail intro;
 	public function showAllAwardAction() {
-
+		
 		$req = array();
 		$req[0] = array('key' => 'Stu_ID', 'Stu_ID' = $_SESSION['Account']);
 		$arg = array('Award_ID', 'Award_time', 'Award_name', 'Award_Rank', 'Verify_staue');
@@ -25,6 +25,9 @@ class studentAward {
 	// Argument Award_ID
 	public function showDetailAwardAction() {
 
+		if(!isset($_POST['Award_ID'])) {
+			throw new Exception('Argument not set');
+		}
 		$this->item_->load($_POST['Award_ID'];
 		$res = array();
 		$res['Award_intro'] = $this->item_->Award_intro;
@@ -47,6 +50,9 @@ class studentAward {
 	// argument Award_ID, Verify_statue
 	public function VerifyAwardAction() {
 
+		if(!isset($_POST['Award_ID'])) {
+			throw new Exception('Argument not set');
+		}
 		$req = array();
 		$req[0] = array('key' = 'Award_ID', 'Award_ID' => $_POST['Award_ID']);
 		$arg = array('Verify_statue' => $_POST['Verify_statue']);
