@@ -69,7 +69,8 @@
 				<div class='panel panel-default panel-block'>
 					<div class='panel-heading'>
 						<div class='panel-title'>
-							<p>奖项申请</p>
+							<sapn>奖项申请</span>
+							<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="return_home()">返回</button>	
 						</div>
 					</div>
 					<div class='panel-body'>
@@ -136,5 +137,9 @@
 			$("#prideInfo").addClass("hide");
 			$("#prideApply").removeClass("hide");
 		}
+		function return_home(){
+			$("#prideInfo").removeClass("hide");
+			$("#prideApply").addClass("hide");
+		}				
 	</script>
 </body>
