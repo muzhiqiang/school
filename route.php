@@ -12,7 +12,9 @@
 //);// demo app id
 
 try {
-	
+
+	header('Content-Type:application/json; charset=utf-8');
+		
 	if(!isset($_GET['controller'])) {
 		throw new Exception('controller is not set');
 	}

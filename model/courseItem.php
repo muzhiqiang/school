@@ -101,7 +101,6 @@ class courseItem {
 
 		$sql = $db->genLinkSql($req, $lk, $arg, $table, $map);
 		$res = $db->query($sql);
-d
 
 		return $res;
 

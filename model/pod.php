@@ -10,7 +10,7 @@ class POD {
 
 	public function connect() {
 
-		$this->con = mysql_connect('localhost', 'root', '23333');
+		$this->con = mysql_connect('localhost', 'root', '283447');
 		if(!$this->con) {
 			return false;
 		}
@@ -22,6 +22,10 @@ class POD {
 	public function query($sql) {
 
 		$request =  mysql_query($sql);
+		if (!$request) {
+			throw new Exception('Invalid query: ' . mysql_error());
+		}
+
 		$res = array();
 		$num = 0;
 		while($row = mysql_fetch_array($request, MYSQL_ASSOC)) {
@@ -120,7 +124,7 @@ class POD {
 			$i++;
 		}
 		foreach($lk as $tmp) {
-			$lag[$i] = 'course.'.$tmp.' = teacher_basic_info.'.$tmp;
+			$lag[$i] = $table[0].'.'.$tmp.' = '.$table[1].'.'.$tmp;
 			$i++;
 		}
 		$num = count($lag);
