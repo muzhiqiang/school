@@ -1,52 +1,95 @@
 <?php
 
-require './model/staffInfoItem.php';
-require './model/staffIdentifyItem.php';
+require 'util.php'
 
 class staff {
 
-	public function __construct() {
+	private $util_;
 
+	public function __construct() {
+		
+		$this->util_ = new Util();
 	}
 
+	// show staff basic info and identify info
 	public function showInfoAction() {
 		
-		$info = new staffInfoItem();
-		$identify = new staffIdentifyItem();
-		
-		$info->load($_SESSION['Account']);
-		$identify->load($_SESSION['Account']);
+		$arg = array('Sta_ID', 'Sta_name', 'Sex', 'Position', 'Entry_time');
+		$req = array();
+		$req[0] = array('key' => 'Sta_ID', 'Sta_ID' => $_SESSION['Account'];
+		$res = $this->util_->searchRecord($req, $arg, 'staffInfoItem');
 
-		$res = array();
-		$res['Sta_ID'] = $info->Sta_ID;
-		$res['Sta_name'] = $info->Sta_name;
-		$res['Sex'] = $info->Sex;
-		$res['Position'] = $info->Position;
-		$res['Entry_time'] = $info->Entry_time;		
-		$res['Address'] = $identify->Address;
-		$res['Birth'] = $identify->Birth;
-		$res['ID_no'] = $identify->ID_no;
-		$res['Race'] = $identify->Race;
-		$res['Polit'] = $identify->Polit;
-		$res['Native_place'] = $identify->Native_place;
-		$res['Tel'] = $identify->Tel;
-		$res['Health'] = $identify->Health;
-		$res['Experience'] = $identify->Experience;
-		$res['Intro'] = $identify->Intro;
-
+		$arg = array('Address', 'Birth', 'ID_no', 'Race', 'Polit', 'Native_place'
+		'Tel', 'Health', 'Experience', 'Intro');
+		$identify = $this->util_->searchRecord($req, $arg, 'staffIdentifyItem');
+		foreach($arg as $tmp) {
+			$res[$tmp] = $identify[$tmp];
+		}
 		return $res;
 	
 	}
 
+	// update the identify info
+	// Argument: only the identify info
 	public function updateInfoAction() {
+
+		require './model/staffIdentifyItem.php';
 
 		$identify = new staffIdentifyItem();
 		$identify->Sta_ID = $_SESSION['Account'];
 		$arg = array();
 		foreach($_POST as $key => $value) {
+			if(!property_exists($identify, $key)) {
+				continue;
+			}
 			array[$key] = $value;
 		}
 		$identify->update($arg);
+	}
+
+	// Add staff
+	// basic info, identify info 
+	// init password '000000'
+	public function addStaffAction() {
+
+		// TODO:: Authority
+		$infoArg = array('Sta_ID', 'Sta_name', 'Sex', 'Position', 'Entry_time');
+		$default = array('Authority' => 'default');
+		$this->util_->addRecord($infoArg, $_POST, 'staffInfoItem', $default);
+	
+		$infoArg = array('Sta_ID', 'Address', 'Birth', 'ID_no', 'Race', 'Polit', 'Native_place', 'Tel', 'Health', 'Experience', 'Intro');
+		$default = array('Password' => '000000');
+		$this->util_->addRecord($infoArg, $_POST, 'staffIdentifyItem', $default);
+	
+	}
+
+	//
+	public function removeStaffAction() {
+
+	}
+
+	// change password for staff themselves
+	// Argument old passeword, new password
+	public function changePasswordAction() {
+
+		$require './model/staffIdentifyItem.php';
+
+		$identify = new staffIdentifyItem();
+		$this->util_->requireArg('OP', $_POST);
+		$this->util_->requireArg('NP', $_POST);
+		$req = array();
+		$req[0] = array('key' => 'Sta_ID', 'Sta_ID' => $_SESSION['Account'])
+		$identify->Sta_ID = $_SESSION['Account'];
+		$arg = array('Password');
+		$res = $identify->search($req, $arg);
+		
+		if($res[0]['Password'] != $_POST['OP']) {
+			throw new Exception('Password wrong');
+		}
+
+		$arg1 = array('Password' => $_PSOT['NP']);
+		$identify->update($arg1);
+
 	}
 
 

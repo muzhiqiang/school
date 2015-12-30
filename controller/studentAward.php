@@ -1,22 +1,22 @@
 <?php
 
-require './model/studentAwardItem.php';
+require 'util.php';
 
 class studentAward {
 
-	private $item_;
+	private $util_;
 
 	public function __construct() {
-		$this->item_ = new studentAwardItem();
+		$this->util_ = new Util();
 	}
 
 	// show All Award of the student except detail intro;
 	public function showAllAwardAction() {
 		
 		$req = array();
-		$req[0] = array('key' => 'Stu_ID', 'Stu_ID' = $_SESSION['Account']);
+		$req[0] = array('key' => 'Stu_ID', 'Stu_ID' => $_SESSION['Account']);
 		$arg = array('Award_ID', 'Award_time', 'Award_name', 'Award_Rank', 'Verify_staue');
-		$res = $this->item_->search($req, $arg);
+		$res = $this->util_->searchRecord($req, $arg, 'studentAwardItem');
 
 		return res;
 	}
@@ -25,12 +25,10 @@ class studentAward {
 	// Argument Award_ID
 	public function showDetailAwardAction() {
 
-		if(!isset($_POST['Award_ID'])) {
-			throw new Exception('Argument not set');
-		}
-		$this->item_->load($_POST['Award_ID'];
-		$res = array();
-		$res['Award_intro'] = $this->item_->Award_intro;
+		$arg = array('Award_intro');
+		$req = array();
+		$req[0] = array('key' => 'Award_ID', 'Award_ID' => $_POST['Award_ID']);
+		$res = $this->util_->searchRecord($req, $arg, 'studentAwardItem');
 
 		return res;
 	}
@@ -41,7 +39,7 @@ class studentAward {
 		$req = array();
 		$req[0] = array('key' => 'Verify_statue', 'Verify_statue' => 'Non-Verify');
 		$arg = array('Award_ID', 'Award_time', 'Award_name', 'Award_Rank', 'Verify_statue');
-		$res = $this->item_->search($req, $arg);
+		$res = $this->util_->search($req, $arg, 'studentAwardItem');
 
 		return res;
 	}
@@ -50,24 +48,24 @@ class studentAward {
 	// argument Award_ID, Verify_statue
 	public function VerifyAwardAction() {
 
-		if(!isset($_POST['Award_ID'])) {
-			throw new Exception('Argument not set');
-		}
-		$req = array();
-		$req[0] = array('key' = 'Award_ID', 'Award_ID' => $_POST['Award_ID']);
+		$this->util_->requireArg('Award_ID', $_POST);
+		$this->util_->requireArg('Verify_statue', $_POST);
+
+		require './model/studentAwardItem.php';
+		$item = new studentAwardItem();
+		$item->Award_ID = $_POST['Awarid_ID'];
 		$arg = array('Verify_statue' => $_POST['Verify_statue']);
-		$this->item_->update($req, $arg);
+		$item->update($arg);
 	}
 
 	// Add an Award Recode
 	public function addAward() {
 
-		$this->item_->Stu_ID = $_PSOT['Stu_ID'];
-		$this->item_->Award_time = $_POST['Award_time'];
-		$this->item_->Award_Rank = $_POST['Award_Rank'];
-		$this->item_->Award_intro = $_POST['Award_intro'];
+		$arg = array('Award_time', 'Award_Rank', 'Award_intro');
+		$default = array('Stu_ID' => $_SESSION['Account']);
 
-		$this->item_->save();
+		$this->util_->addRecord($arg, $_POST, 'studentAwardItem', $default);
+
 	}
 
 

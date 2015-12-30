@@ -6,6 +6,8 @@ class account {
 
 	}
 
+	// login function, accdoing to the account type, set the session
+	// Aegument ID, Password, Type
 	public function loginAction() {
 
 		if(!isset($_POST('ID'))) {
@@ -57,6 +59,7 @@ class account {
 
 	}
 
+	// logout remove the session
 	public function logoutAction() {
 
 		unset($_SESSION['Account']);

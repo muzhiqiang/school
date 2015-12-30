@@ -2,11 +2,24 @@
 
 require './model/courseItem.php'
 require './model/studentcourseItem.php'
+require 'util.php'
 
 class course {
 
+	private $util_;
+
 	public function __construct() {
 
+		$this->util_ = new Util();
+	}
+
+	// add course
+	// argument course info
+	public function addCourse() {
+
+		$arg = array('Course', 'Tea_ID', 'Classroom', 'Teach_time', 'Total_time', 'Course_year_term', 'Property', 'Credit', 'Intro');
+		$default = array();
+		$this->util_->addRecord($arg, $_POST, 'CourseItem', $default);
 	}
 
 	// show the course list according Cousrse name and Course_year_term
@@ -30,7 +43,7 @@ class course {
 	// Argument Property, Course_year_term
 	public function showYearPropertyCourse() {
 		
-		if(!isset($_POST['Award_ID']) ||!isset($_POST['Property'])) {
+		if(!isset($_POST['Course_year_term']) ||!isset($_POST['Property'])) {
 			throw new Exception('Argument not set');
 		}
 		$course = new cousrseItem();

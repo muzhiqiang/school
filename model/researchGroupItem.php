@@ -1,12 +1,13 @@
 <?php
 require 'pod.php';
 
-class studentcourseItem{
+class researchGroupItem{
 	
-	public $Course_ID;
-	public $Stu_ID;
-	public $Score;
-	public $Is_Fail;
+	public $Res_group_ID;
+	public $Res_group_name;
+	public $Tea_ID;
+	public $project;
+	public $Intro;
 	
 	public function __construct(){
 		
@@ -16,71 +17,75 @@ class studentcourseItem{
 		
 	}
 	
-	public function save() {
+	public function save(){
 		$db = new POD();
 		$p = $db->connect();
 		if($p == false) {
 			throw new Exception('Database connect failed');
 		}
-		$db->query('insert into stu_course (Course_ID, Stu_ID, Score, Is_Fail) values(\''.$this->Course_ID.'\', \''.$this->Stu_ID.'
-		\', \''.$this->Score.'\', \''.$this->Is_Fail.'
-		\');');
+		$db->query('insert into res_group (Res_group_name, Tea_id, project,
+		Intro) values(\''.
+		$this->Res_group_name.'\', \''.$this->Tea_ID.'\', \''.$this->project.
+		'\', \''.$this->Intro.'\');');
 		$db->close();
 	}
+	
 	public function delete($req){
 		$db = new POD();
 		$p = $db->connect();
 		if($p == false) {
 			throw new Exception('Database connect failed');
 		}
-		$table = 'stu_course';
+		$table = 'res_group';
 		$sql = $db->genDeleteSql($req,$table);
 		$res = $db->query($sql);
 		$db->close();
 		return $res;
 	}
-	public function update($arg) {
+	
+	public function search($req,$arg){
 		$db = new POD();
 		$p = $db->connect();
 		if($p == false) {
 			throw new Exception('Database connect failed');
 		}
+		$table = 'res_group';
+		$sql = $db->genSearchSql($req, $arg, $table);
+		$res = $db->query($sql);
+		$db->close();
+		return $res;
+	}
+	
+	public function update($arg){
+		$db = new POD();
+		$p = $db->connect();
+		if($p == false) {
+			throw new Exception('Database connect failed');
+		}
+		$table = 'res_group';
+		//#########################
 		$req = array();
-		$req[0] = array('Course_ID'=>$this->Course_ID,'Stu_ID'=>$this->Stu_ID);
-		$table = 'stu_course';
-		$sql = $db->genUpdateSql($req, $arg, $table);
+		$req[0] = array('Res_group_ID'=>$this->Res_group_ID);
+		$sql = $db->genUpdateSql($req,$arg,$table);
 		$db->query($sql);
 		$db->close();
 	}
-	public function search($req, $arg) {
 	
+	public function stuLinkClass($req, $lk, $arg) {
 		$db = new POD();
 		$p = $db->connect();
 		if($p == false) {
 			throw new Exception('Database connect failed');
 		}
-		$table = 'stu_course';
-		$sql = $db->genSearchSql($req, $arg, $table);
-		$res = $db->query($sql);
-		return $res;
-	}
-	public function courseLinkTeacher($req, $lk, $arg) {
-		$db = new POD();
-		$p = $db->connect();
-		if($p == false) {
-			throw new Exception('Database connect failed');
-		}
-		$map = array('courseItem' =>'course', 'teacherInfoItem' => 'teacher_basic_info');
-		$table = array('course', 'teacher_basic_info');
+		$map = array('studentIdentityItem' =>'stu_identification_info', 
+		'studentInfoItem' => 'stu_basic_info');
+		$table = array('stu_identification_info', 'stu_basic_info');
 		$sql = $db->genLinkSql($req, $lk, $arg, $table, $map);
 		$res = $db->query($sql);
 		return $res;
 	}
 	
 	
-	
-	
 }
-
 
 ?>

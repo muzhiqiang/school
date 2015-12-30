@@ -5,7 +5,7 @@ create database sms character set utf8;
 use sms;
 
 create table teacher_basic_info(
-	tea_id varchar(12),
+	tea_id int not null,
 	tea_name varchar(20),
 	sex char(1) default 'm',
 	rank varchar(20),
@@ -14,24 +14,9 @@ create table teacher_basic_info(
 	primary key(tea_id)
 )DEFAULT CHARSET=utf8; 
 
-create table stu_union_member(
-	group_id varchar(20),
-	stu_no varchar(12),
-	is_leader int(1),
-	gro_position varchar(20),
-	power varchar(10),
-	primary key(group_id,stu_no)
-)DEFAULT CHARSET=utf8;
-
-create table stu_union(
-	group_id varchar(20),
-	group_name varchar(20),
-	intro varchar(300),
-	primary key(group_id)
-)DEFAULT CHARSET=utf8;
 
 create table emp_basic_info(
-	sta_id varchar(20) not null,
+	sta_id int not null,
 	sta_name varchar(20),
 	sex char(1) default 'm',
 	enrty_time date,
@@ -41,25 +26,14 @@ create table emp_basic_info(
 )DEFAULT CHARSET=utf8;
 
 create table message(
-	message_id varchar(20),
+	message_id int auto_increment,
 	message_text varchar(300),
 	primary key (message_id)
 )DEFAULT CHARSET=utf8;
 
-create table stu_union_act(
-	act_id varchar(20),
-	group_id varchar(20),
-	act_name varchar(12),
-	act_time date,
-	act_position varchar(20),
-	intro varchar(300),
-	primary key(act_id),
-	constraint stu_union_act_fk foreign key(group_id) references stu_union(group_id)
-)DEFAULT CHARSET=utf8;
-
 create table teacher_award(
 	award_id varchar(12),
-	tea_id varchar(20),
+	tea_id int,
 	award_time date,
 	award_name varchar(20),
 	verify_statue varchar(20),
@@ -68,30 +42,30 @@ create table teacher_award(
 )DEFAULT CHARSET=utf8;
 
 create table class(
-	class_id varchar(20),
+	class_id int auto_increment,
 	dept varchar(20),
 	grade varchar(20),
 	year varchar(10),
 	class_name varchar(10),
 	major varchar(20),
-	sta_id varchar(20),
+	sta_id int,
 	intro varchar(300),
 	primary key(class_id),
 	constraint class_fk foreign key(sta_id) references emp_basic_info(sta_id)
 )DEFAULT CHARSET=utf8;
 
 create table stu_basic_info(
-	stu_id varchar(20) not null ,
+	stu_id int not null,
 	stu_name varchar(20),
 	sex char(1) default 'm',
-	class_id varchar(20),
+	class_id int,
 	primary key(stu_id),
 	constraint stu_basic_info_fk foreign key(class_id) references class(class_id) 
 )DEFAULT CHARSET=utf8;
 
 create table class_leader(
-	class_id varchar(20),
-	stu_id varchar(20),
+	class_id int,
+	stu_id int,
 	is_monitor int(1),
 	position varchar(10),
 	power varchar(10),
@@ -100,10 +74,40 @@ create table class_leader(
 	constraint class_leader_fk2 foreign key(stu_id) references stu_basic_info(stu_id)
 )DEFAULT CHARSET=utf8;
 
+
+create table stu_union(
+	group_id int auto_increment,
+	group_name varchar(20),
+	intro varchar(300),
+	primary key(group_id)
+)DEFAULT CHARSET=utf8;
+
+create table stu_union_member(
+	group_id int,
+	stu_id int,
+	is_leader int(1),
+	gro_position varchar(20),
+	power varchar(10),
+	constraint stu_union_member_fk1 foreign key(group_id) references stu_union(group_id),
+	constraint stu_union_member_fk2 foreign key(stu_id) references stu_basic_info(stu_id),
+	primary key(group_id,stu_id)
+)DEFAULT CHARSET=utf8;
+
+create table stu_union_act(
+	act_id int auto_increment,
+	group_id int,
+	act_name varchar(12),
+	act_time date,
+	act_position varchar(20),
+	intro varchar(300),
+	primary key(act_id),
+	constraint stu_union_act_fk foreign key(group_id) references stu_union(group_id)
+)DEFAULT CHARSET=utf8;
+
 create table res_group(
-	res_group_id varchar(10),
+	res_group_id int auto_increment,
 	res_group_name varchar(20),
-	tea_id varchar(20),
+	tea_id int,
 	project varchar(20),
 	intro varchar(300),
 	primary key(res_group_id),
@@ -112,10 +116,10 @@ create table res_group(
 
 create table res_member(
 	member_id varchar(20),
-	res_group_id varchar(10),
+	res_group_id int,
 	member_type varchar(20),
-	stu_id varchar(20),
-	tea_id varchar(20),
+	stu_id int,
+	tea_id int,
 	power varchar(20),
 	primary key(member_id),
 	constraint res_member_fk1 foreign key(tea_id) references teacher_basic_info(tea_id),
@@ -127,10 +131,10 @@ create table res_member(
 
 
 create table res_group_log(
-	log_id varchar(20),
-	res_group_id varchar(20),
-	create_date date,
-	update_date date,
+	log_id int auto_increment,
+	res_group_id int,
+	create_date varchar(20),
+	update_date varchar(20),
 	member_id varchar(20),
 	log_content varchar(120),
 	primary key(log_id),
@@ -144,35 +148,35 @@ create table res_group_log(
 
 
 create table stu_award(
-	award_id varchar(20),
-	stu_no varchar(12),
-	award_time date,
+	award_id int auto_increment,
+	stu_id int,
+	award_time varchar(20),
 	award_name varchar(20),
 	award_intro varchar(300),
 	award_rank varchar(10),
 	verify_statue varchar(20),
 	primary key(award_id),
-	constraint stu_award_fk foreign key(stu_no) references stu_basic_info(stu_id)
+	constraint stu_award_fk foreign key(stu_id) references stu_basic_info(stu_id)
 )DEFAULT CHARSET=utf8;
 
 create table course(
 	course varchar(20),
-	course_id varchar(20),
-	teacher_id varchar(20),
+	course_id int auto_increment,
+	teacher_id int,
 	classroom varchar(20),
 	teach_time varchar(20),
-	total_time int(10),
+	total_time varchar(20),
 	course_year_term varchar(10),
 	property varchar(20),
-	credit int(5),
+	credit varchar(10),
 	intro varchar(300),
 	primary key(course_id),
 	constraint course_fk foreign key(teacher_id) references teacher_basic_info(tea_id)
 )DEFAULT CHARSET=utf8;
 
 create table stu_course(
-	course_id varchar(20),
-	stu_id varchar(12),
+	course_id int,
+	stu_id int,
 	score varchar(10),
 	is_fail char(1) default 0,
 	primary key(course_id,stu_id),
@@ -181,7 +185,7 @@ create table stu_course(
 )DEFAULT CHARSET=utf8;
 
 create table stu_evaluate(
-	stu_id varchar(12),
+	stu_id int,
 	course_year_term varchar(10),
 	avg_score float(6,4),
 	gain_credit int(10),
@@ -194,7 +198,7 @@ create table stu_evaluate(
 )DEFAULT CHARSET=utf8;
 
 create table stu_identification_info(
-	stu_id varchar(12) not null,
+	stu_id int,
 	loc varchar(10),
 	birth date,
 	id_no varchar(18),
@@ -211,7 +215,7 @@ create table stu_identification_info(
 )DEFAULT CHARSET=utf8;
 
 create table teacher_identification_info(
-	tea_id varchar(12),
+	tea_id int,
 	address varchar(50),
 	birth date,
 	id_no varchar(18),
@@ -229,12 +233,12 @@ create table teacher_identification_info(
 
 
 create table res_group_achievement(
-	result_id varchar(20),
-	res_group_id varchar(20),
+	result_id int auto_increment,
+	res_group_id int,
 	result_time date,
 	result_intro varchar(300),
 	verify_statue varchar(20),
-	tea_id varchar(20),
+	tea_id int,
 	primary key(result_id),
 	constraint res_group_achievement_fk1 foreign key(res_group_id) references res_group(res_group_id),
 	constraint res_group_achievement_fk2 foreign key(tea_id) references teacher_basic_info(tea_id)
@@ -249,12 +253,12 @@ create table res_group_achievement(
 
 
 create table message_interconnect(
-	trans_id varchar(20),
-	message_id varchar(20),
+	trans_id int auto_increment,
+	message_id int,
 	src_type varchar(10),
-	src_stu_id varchar(20),
+	src_stu_id int,
 	tar_type varchar(10),
-	tar_stu_id varchar(20),
+	tar_stu_id int,
 	send_time date,
 	primary key(trans_id),
 	constraint message_interconnect_fk1 foreign key(message_id) references message(message_id),
@@ -268,7 +272,7 @@ create table message_interconnect(
 
 
 create table emp_identification_info(
-	tea_id varchar(12),
+	tea_id int,
 	address varchar(50),
 	birth date,
 	id_no varchar(18),
@@ -285,18 +289,18 @@ create table emp_identification_info(
 )DEFAULT CHARSET=utf8;
 
 create table evaluate(
-	eva_id varchar(20),
+	eva_id int auto_increment,
 	eva_name varchar(20),
 	eva_type varchar(10),
-	tar_res_group_id varchar(20),
+	tar_res_group_id int,
 	primary key(eva_id),
 	constraint evaluate_fk1 foreign key(tar_res_group_id) references res_group(res_group_id)
 )DEFAULT CHARSET=utf8;
 
 create table evaluate_list(
-	eva_one_id varchar(20),
-	eva_id varchar(20),
-	eva_stu_id varchar(20),
+	eva_one_id int auto_increment,
+	eva_id int,
+	eva_stu_id int,
 	score int(4),
 	context varchar(300),
 	time date,
@@ -306,29 +310,29 @@ create table evaluate_list(
 )DEFAULT CHARSET=utf8;
 
 create table financial_report(
-	req_id varchar(20),
+	req_id int auto_increment,
 	req_type varchar(10),
-	req_res_group_id varchar(20),
+	req_res_group_id int,
 	req_time date,
 	req_money int(10),
 	req_intro varchar(300),
 	verify_statue varchar(20),
 	verify_time date,
-	sta_id varchar(20),
+	sta_id int,
 	primary key(req_id),
 	constraint financial_report_fk foreign key(req_res_group_id) references teacher_basic_info(tea_id)
 	
 )DEFAULT CHARSET=utf8;
 
 create table financial_account(
-	money_id varchar(20),
+	money_id int auto_increment,
 	money_time date,
 	get_in_from varchar(20),
 	in_out varchar(10),
 	cur_money int(30),
 	intro varchar(300),
-	sta_id varchar(20),
-	req_id varchar(20),
+	sta_id int,
+	req_id int,
 	primary key (money_id),
 	constraint financial_account_fk1 foreign key(sta_id) references emp_basic_info(sta_id),
 	constraint financial_account_fk2 foreign key(req_id) references financial_report(req_id) 

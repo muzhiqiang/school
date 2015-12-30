@@ -1,83 +1,74 @@
 <?php
 
-require './model/studentInfoItem.php';
-require './model/studentIdentifyItem.php';
-require './model/classItem.php';
+require 'util.php';
 
 class student {
 
-	public function __construct() {
+	private $util_;
 
+	public function __construct() {
+		$this->util_ = new Util();
 	}
 
+	// show student's basic info , identify info and class info
 	public function showInfoAction() {
-		
-		$info = new studentInfoItem();
-		$identify = new studentIdentifyItem();
-		$class = new classItem();
-		
-		$info->load($_SESSION['Account']);
-		$identify->load($_SESSION['Account']);
-		$class->load($info->Class_ID);
 
-		$res = array();
-		$res['Stu_ID'] = $info->Stu_ID;
-		$res['Stu_name'] = $info->Stu_name;
-		$res['Sex'] = $info->Sex;
-		$res['Loc'] = $identify->Loc;
-		$res['Birth'] = $identify->Birth;
-		$res['ID_no'] = $identify->ID_no;
-		$res['Race'] = $identify->Race;
-		$res['Polit'] = $identify->Polit;
-		$res['Native_place'] = $identify->Native_place;
-		$res['Tel'] = $identify->Tel;
-		$res['Health'] = $identify->Health;
-		$res['Enroll_time'] = $identify->Enroll_time;
-		$res['Intro'] = $identify->Intro;
-		$res['Dept'] = $class->Dept;
-		$res['Grade'] = $class->Grade;
-		$res['Year'] = $class->Year;
-		$res['Class_name'] = $class->Class_name;
-		$res['Major'] = $class->Major;
+		$arg = array('Stu_ID', 'Stu_name', 'Sex', 'Class_ID');
+		$req = array();
+		$req[0] = array('key' => 'Stu_ID', 'Stu_ID' => $_SESSION['Account']);
+		$res = $this->util_->searchRecord($req, $arg, 'studentInfoItem');
+
+		$arg = array('Loc', 'Birth', 'ID_no', 'Race', 'Polit', 'Native_place', 
+		'Tel', 'Health', 'Enroll_time', 'Intro');
+		$identify = $this->util_->searchRecord($req, $arg, 'studentIdentifyItem');
+
+		foreach($arg as $tmp) {
+			$res[$tmp] = $identify[$tmp];
+		}
+
+		$arg = array('Dept', 'Grade', 'Year', 'Class_name', 'Major');
+		$req[0] = array('key' => 'Class_ID', 'Class_ID' => $res['Class_ID']);
+		unset($res['Class_ID']);
+		$class = $this->util_->searchRecord($req, $arg, 'classItem');
+		foreach($arg as $tmp) {
+			$res[$tmp] = $class[$tmp];
+		}
 
 		return $res;
 	
 	}
 
+	// update student identify info
+	// argument only for identify info
 	public function updateInfoAction() {
 
+		require './model/studentIdentifyItem.php';
+		
 		$identify = new studentIdentifyItem();
 		$identify->Stu_ID = $_SESSION['Account'];
 		$arg = array();
 		foreach($_POST as $key => $value) {
+			if(!property_exists($identify, $key)) {
+				continue;
+			}
 			array[$key] = $value;
 		}
 		$identify->update($arg);
 	}
 
+	// add student item
+	// Argument base info, identify info Class_ID
+	// init password = '000000'
 	public function addStudentAction() {
 
-		$info = new studentInfoItem();
-		$identify = new studentIdentifyItem();
-		$info->Stu_ID = $_POST['Stu_ID'];
-		$info->Stu_name = $_POST['Stu_name'];
-		$info->Sex = $_POST['Sex'];
-		$info->Class_ID = $_POST['Class_ID'];
-		$info->save();
-		
-		$identify->Stu_ID = $_POST['Stu_ID'];
-		$identify->Loc = $_POST['Loc'];
-		$identify->Birth = $_POST['Birth'];
-		$identify->ID_no = $_POST['ID_no'];
-		$identify->Race = $_POST['Race'];
-		$identify->Polit = $_POST['Polit'];
-		$identify->Native_place = $_POST['Native_place'];
-		$identify->Tel = $_POST['Tel'];
-		$identify->Health = $_POST['Health'];
-		$identify->Entroll_time = $_POST['Entroll_time'];
-		$identify->Intro = $_POST['Intro'];
-		$identify->Passwrod = '00000';
-		$identify->save();
+		$arg = array('Stu_ID', 'Stu_name', 'Sex', 'Class_ID');
+		$default = array();
+		$this->util_->addRecord($arg, $_POST, 'studentInfoItem', $default);
+
+		$arg = array('Stu_ID', 'Loc', 'Birth', 'ID_no', 'Race', 'Polit', 'Native_place', 'Tel',
+		'Health', 'Entroll_time', 'Intro');
+		$default['Password'] = '000000';
+		$this->util_->addRecord($arg, $_POST, 'studentIdentifyItem', $default);		
 	}
 
 	//TODO:: info, identify, group delete
@@ -86,11 +77,17 @@ class student {
 	
 	}
 
+	// change password for student themselves
+	// Argument old password OP, new password NP
 	public function changePasswordAction() {
 
+		require './model/studentIdentifyItem.php';
+
+		$this->util_->requireArg('OP');
+		$this->util_->requireArg('NP');
 		$identify = new studentIdentifyItem();
 		$req = array();
-		$req[0] = array('key' => 'Stu_ID', 'Stu_ID' => $_SESSION['Account']);
+		$req[0] = array('key' => 'Stu_ID', 'Stu_ID' => $_SESSION['Account'])
 		$arg = array('Password');
 		$res = $identify->search($req, $arg);
 		
@@ -98,8 +95,9 @@ class student {
 			throw new Exception('Password wrong');
 		}
 
-		$arg1 = array('Password' => $_PSOT['NP']);
-		$identify->update($req, $arg1);
+		$identify->Stu_ID = $_SESSION['Account'];
+		$arg1 = array('Password' => $_POST['NP']);
+		$identify->update($arg1);
 	}
 
 

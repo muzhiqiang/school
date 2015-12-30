@@ -1,44 +1,40 @@
 <?php
 
-require './model/teacherInfoItem.php';
-require './model/teacherIdentifyItem.php';
+
+require 'util.php'
 
 class teacher {
 
-	public function __construct() {
+	private $util_;
 
+	public function __construct() {
+		
+		$this->util_ = new Util();
 	}
 
+	// show base info , identify info of the teacher
 	public function showInfoAction() {
 		
-		$info = new teacherInfoItem();
-		$identify = new teacherIdentifyItem();
+		$arg = array('Tea_ID', 'Tea_name', 'Sex', 'Rank', 'Entry_time');
+		$req = array();
+		$req[0] = array('key' => 'Tea_ID', 'Tea_ID' => $_SESSION['Account']);
+		$res = $this->util_->searchRecord($req, $arg, 'teacherInfoItem');	
 		
-		$info->load($_SESSION['Account']);
-		$identify->load($_SESSION['Account']);
-
-		$res = array();
-		$res['Tea_ID'] = $info->Tea_ID;
-		$res['Tea_name'] = $info->Tea_name;
-		$res['Sex'] = $info->Sex;
-		$res['Rank'] = $info->Rank;
-		$res['Entry_time'] = $info->Entry_time;		
-		$res['Address'] = $identify->Address;
-		$res['Birth'] = $identify->Birth;
-		$res['ID_no'] = $identify->ID_no;
-		$res['Race'] = $identify->Race;
-		$res['Polit'] = $identify->Polit;
-		$res['Native_place'] = $identify->Native_place;
-		$res['Tel'] = $identify->Tel;
-		$res['Health'] = $identify->Health;
-		$res['Experience'] = $identify->Experience;
-		$res['Intro'] = $identify->Intro;
-
+		$arg = array('Address', 'Birth', 'ID_no', 'Race', 'Polit', 'Native_place',
+		'Tel', 'Health', 'Experience', 'Intro');
+		$identify = $this->util_->serchRecord($req, $arg, 'teacherIdentifyItem');
+		foreach($arg as $tmp) {
+			$res[$tmp] = $identify[$tmp];
+		}
 		return $res;
 	
 	}
 
+	// update identify info of teacher
+	// Argument: only for the identify info
 	public function updateInfoAction() {
+
+		require './model/teacherIdentifyItem.php';	
 
 		$identify = new teacherIdentifyItem();
 		$identify->Tea_ID = $_SESSION['Account'];
@@ -47,6 +43,50 @@ class teacher {
 			array[$key] = $value;
 		}
 		$identify->update($arg);
+	}
+
+	// Add teacher
+	// basic info, identify info 
+	// init password '000000'
+	public function addTeacherAction() {
+
+		// TODO:: Authority
+		$infoArg = array('Tea_ID', 'Tea_name', 'Sex', 'Rank', 'Entry_time');
+		$default = array('Authority' => 'default');
+		$this->util_->addRecord($infoArg, $_POST, 'teacherInfo', $default);
+
+		$infoArg = array('Tea_ID', 'Address', 'Birth', 'ID_no', 'Race', 'Polit', 'Native_place', 'Tel', 'Health', 'Experience', 'Intro');
+		$default['Password'] = '000000';
+		$this->util_->addRecord($infoArg, $_POST, 'teacherIdentify', $default);
+	}
+
+	//
+	public function removeTeacherAction() {
+
+	}
+
+	// change password for teacher themselves
+	// Argument old passeword, new password
+	public function changePasswordAction() {
+
+		require './model/teacherIdentifyItem.php';	
+
+		$this->util_->requireArg('OP');
+		$this->util_->requireArg('NP');
+		$identify = new teacherIdentifyItem();
+		$req = array();
+		$req[0] = array('key' => 'Tea_ID', 'Tea_ID' => $_SESSION['Account']);
+		$arg = array('Password');
+		$res = $identify->search($req, $arg);
+		
+		if($res[0]['Password'] != $_POST['OP']) {
+			throw new Exception('Password wrong');
+		}
+
+		$identify->Tea_ID = $_SESSION['Account'];
+		$arg1 = array('Password' => $_PSOT['NP']);
+		$identify->update($arg1);
+
 	}
 
 
