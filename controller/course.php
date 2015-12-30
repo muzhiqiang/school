@@ -1,8 +1,8 @@
 <?php
 
-require './model/courseItem.php'
-require './model/studentcourseItem.php'
-require 'util.php'
+require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/courseItem.php'
+require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/studentcourseItem.php'
+require $_SERVER['DOCUMENT_ROOT'].'/school'.'/controller/util.php'
 
 class course {
 

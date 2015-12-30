@@ -1,22 +1,22 @@
 <div class='col-xs-2' id="leftSection">
 	<ul class='nav nav-pills nav-stacked text-center'>
 		<li id="myInfo">
-			<a class='row' href="/school/student/info.php">
+			<a class='row' href="./stu_info.php">
 				<p class='navbar-font'>我的信息</p>
 			</a>
 		</li>
 		<li id="myCourse">
-			<a class='row' href="/school/student/course.php">
+			<a class='row' href="./stu_course.php">
 				<p class='navbar-font'>我的课程</p>
 			</a>
 		</li>
 		<li id="myScore">
-			<a class='row' href="/school/student/score.php">
+			<a class='row' href="./stu_score.php">
 				<p class='navbar-font'>我的成绩</p>
 			</a>
 		</li>
 		<li id="myPride" >
-			<a class='row' href="/school/student/pride.php">
+			<a class='row' href="./stu_pride.php">
 				<p class='navbar-font'>获奖记录</p>
 			</a>
 		</li>

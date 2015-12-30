@@ -4,7 +4,7 @@ class test {
 
 	public function test1Action() {
 
-		require './model/pod.php';
+		require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/pod.php';
 		$db = new POD();
 		$p = $db->connect();
 		if($p == false) {
@@ -23,7 +23,7 @@ class test {
 
 	public function test2Action() {
 
-		require './model/pod.php';
+		require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/pod.php';
 		$db = new POD();
 		$p = $db->connect();
 		if($p == false) {
@@ -45,11 +45,11 @@ class test {
 
 	public function testAction() {
 
-		require './model/courseItem.php';
+		require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/courseItem.php';
 		$item = new courseItem();
 
 		$arg = array('Course', 'Course_ID');
-		require 'util.php';
+		require $_SERVER['DOCUMENT_ROOT'].'/school'.'/controller/util.php';
 		$Util = new util();
 
 		echo property_exists($item, 'Course_ID');

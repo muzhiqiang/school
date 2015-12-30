@@ -28,6 +28,7 @@ class Util {
 
 		if(!isset($src[$arg])) {
 			throw new Exception($arg.' is not set');
+		}
 	}
 
 	// Add an record to the target model
@@ -38,7 +39,7 @@ class Util {
 	public function addRecord($list, $arg, $model, $default) {
 
 		$this->argCheck($list, $arg);
-		$file = './model/'.$model.'.php';
+		$file = $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/'.$model.'.php';
 		require $file;
 
 		$item = new $model();
@@ -59,7 +60,7 @@ class Util {
 	// return the search result as array[num][kv]
 	public function searchRecord($req, $arg, $model) {
 		
-		$file = './model/'.$model.'.php';
+		$file = $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/'.$model.'.php';
 		require $file;
 
 		$item = new $model();
@@ -76,7 +77,7 @@ class Util {
 		$this->argCheck($key, $src);
 		$this->argCheck($arg, $src);
 
-		$file = './model/'.$model.'.php';
+		$file = $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/'.$model.'.php';
 		require $file;
 
 		$item = new $model();

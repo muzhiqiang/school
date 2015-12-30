@@ -1,5 +1,5 @@
 <?php
-require 'pod.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/pod.php';
 class staffInfoItem{
 	public $Sta_id;
 	public $Sta_name;

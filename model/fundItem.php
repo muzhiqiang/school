@@ -1,5 +1,5 @@
 <?php
-require 'pod.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/pod.php';
 class fundItem{
 	public $Req_id;
 	public $Req_type;

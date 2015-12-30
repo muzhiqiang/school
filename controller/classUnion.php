@@ -1,6 +1,6 @@
 <?php
 
-require 'util.php';
+require $_SERVER['DOCUMENT_ROOT'].'/school'.'/controller/util.php';
 
 class classUnion {
 

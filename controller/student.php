@@ -1,6 +1,6 @@
 <?php
 
-require 'util.php';
+require $_SERVER['DOCUMENT_ROOT'].'/school'.'/controller/util.php';
 
 class student {
 
@@ -13,22 +13,24 @@ class student {
 	// show student's basic info , identify info and class info
 	public function showInfoAction() {
 
-		$arg = array('Stu_ID', 'Stu_name', 'Sex', 'Class_ID');
+		$arg = array('stu_id', 'stu_name', 'sex', 'class_id');
 		$req = array();
-		$req[0] = array('key' => 'Stu_ID', 'Stu_ID' => $_SESSION['Account']);
+
+		echo $_SESSION['Account'];
+		$req[0] = array('key' => 'stu_id', 'stu_id' => $_SESSION['Account']);
 		$res = $this->util_->searchRecord($req, $arg, 'studentInfoItem');
 
-		$arg = array('Loc', 'Birth', 'ID_no', 'Race', 'Polit', 'Native_place', 
-		'Tel', 'Health', 'Enroll_time', 'Intro');
-		$identify = $this->util_->searchRecord($req, $arg, 'studentIdentifyItem');
-
+		$arg = array('loc', 'birth', 'id_no', 'race', 'polit', 'native_place', 
+		'tel', 'health', 'enroll_time', 'intro');
+		$identify = $this->util_->searchRecord($req, $arg, 'studentIdentityItem');
+		
 		foreach($arg as $tmp) {
 			$res[$tmp] = $identify[$tmp];
 		}
 
-		$arg = array('Dept', 'Grade', 'Year', 'Class_name', 'Major');
-		$req[0] = array('key' => 'Class_ID', 'Class_ID' => $res['Class_ID']);
-		unset($res['Class_ID']);
+		$arg = array('dept', 'grade', 'year', 'class_name', 'major');
+		$req[0] = array('key' => 'class_id', 'class_id' => $res['class_id']);
+		unset($res['class_id']);
 		$class = $this->util_->searchRecord($req, $arg, 'classItem');
 		foreach($arg as $tmp) {
 			$res[$tmp] = $class[$tmp];
@@ -42,7 +44,7 @@ class student {
 	// argument only for identify info
 	public function updateInfoAction() {
 
-		require './model/studentIdentifyItem.php';
+		require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/studentIdentifyItem.php';
 		
 		$identify = new studentIdentifyItem();
 		$identify->Stu_ID = $_SESSION['Account'];
@@ -51,7 +53,7 @@ class student {
 			if(!property_exists($identify, $key)) {
 				continue;
 			}
-			array[$key] = $value;
+			$arg[$key] = $value;
 		}
 		$identify->update($arg);
 	}
@@ -81,13 +83,13 @@ class student {
 	// Argument old password OP, new password NP
 	public function changePasswordAction() {
 
-		require './model/studentIdentifyItem.php';
+		require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/studentIdentifyItem.php';
 
 		$this->util_->requireArg('OP');
 		$this->util_->requireArg('NP');
 		$identify = new studentIdentifyItem();
 		$req = array();
-		$req[0] = array('key' => 'Stu_ID', 'Stu_ID' => $_SESSION['Account'])
+		$req[0] = array('key' => 'Stu_ID', 'Stu_ID' => $_SESSION['Account']);
 		$arg = array('Password');
 		$res = $identify->search($req, $arg);
 		

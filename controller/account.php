@@ -10,50 +10,51 @@ class account {
 	// Aegument ID, Password, Type
 	public function loginAction() {
 
-		if(!isset($_POST('ID'))) {
+		if(!isset($_POST['ID'])) {
 			throw new Exception('ID is not set');
 		}
-		if(!isset($_POST('Password'))) {
+		if(!isset($_POST['Password'])) {
 			throw new Exception('Password is not set');
 		}
-		if(!isset($_POST('Type'))) {
+		if(!isset($_POST['Type'])) {
 			throw new Exception('Type is not set');
 		}
 
 		$info;
 		$id;
 		if($_POST['Type'] == 'student') {
-			require './model/studentIdentify.php';
-			$info = new stuentIdentify();
-			$id = Stu_ID;
+			require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/studentIdentityItem.php';
+			$info = new studentIdentityItem();
+			$id = 'Stu_ID';
 		}
 		else if($_PSOT['Type'] == 'teacher') {
-			require './model/teacherIdentify.php';
-			$info = new teacherIdentify();
-			$id = Tea_ID;
+			require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/teacherIdentityItem.php';
+			$info = new teacherIdentityItem();
+			$id = 'Tea_ID';
 		}
 		else if($_PSOT['Type'] == 'staff') {
-			require './model/staffIdentify.php';
-			$info = new staffIdentify();
-			$id = Sta_ID;
+			require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/staffIdentityItem.php';
+			$info = new staffIdentityItem();
+			$id = 'Sta_ID';
 		}
 		else {
 			throw new Exception('Type us invalid');
 		}
 		$req = array();
 		$req[0] = array('key' => $id, $id =>$_POST['ID']);
-		$arg = array('Passwrod');
+		$arg = array('Password');
 		$res = $info->search($req, $arg);
 
 		if(count($res) == 0) {
 			throw new Exception('Account does not exist');
 		}
 		else {
-			if(res[0]['Password'] != $_POST['Password']) {
+			if($res[0]['Password'] != $_POST['Password']) {
 				throw new Exception('Password is wrong');
 			}
 		}
-		$_SESSION['Account'] = $id;
+
+		$_SESSION['Account'] = $_POST['ID'];
 		$_SESSION['Type'] = $_POST['Type'];
 		return true;
 

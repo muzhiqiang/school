@@ -1,5 +1,5 @@
 <?php
-require 'pod.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/school'.'/pod.php';
 
 class studentcourseItem{
 	

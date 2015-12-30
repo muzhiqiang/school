@@ -1,7 +1,7 @@
 <?php
 
 
-require 'util.php'
+require $_SERVER['DOCUMENT_ROOT'].'/school'.'/controller/util.php'
 
 class teacher {
 
@@ -34,7 +34,7 @@ class teacher {
 	// Argument: only for the identify info
 	public function updateInfoAction() {
 
-		require './model/teacherIdentifyItem.php';	
+		require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/teacherIdentifyItem.php';	
 
 		$identify = new teacherIdentifyItem();
 		$identify->Tea_ID = $_SESSION['Account'];
@@ -69,7 +69,7 @@ class teacher {
 	// Argument old passeword, new password
 	public function changePasswordAction() {
 
-		require './model/teacherIdentifyItem.php';	
+		require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/teacherIdentifyItem.php';	
 
 		$this->util_->requireArg('OP');
 		$this->util_->requireArg('NP');

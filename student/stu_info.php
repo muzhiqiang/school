@@ -1,9 +1,15 @@
-<?php require_once("head.php"); ?>
+<?php require_once('stu_head.php'); ?>
 <body>
 	<?php require_once("../navbar.php"); ?>
+	<?php
+
+		// $_GET['controller'] = 'student';
+		// $_GET['method'] = 'showInfo';
+		// require('../route.php');
+	?>
 	<div class='container'>
 		<div class='row'>
-			<?php require_once("leftSection.php"); ?>
+			<?php require_once("stu_leftSection.php"); ?>
 			<div class='col-xs-10'>
 				<div class='panel panel-default panel-block'>
 					<div class='panel-heading'>
@@ -147,8 +153,7 @@
 			</div>
 		</div>
 	</div>
-	<script src="../public/javascripts/jquery.min.js"></script>
-	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+	<?php require_once('../footer.php'); ?>
 	<script type="text/javascript">
 		(function () {
 			$("#myInfo").addClass("active");

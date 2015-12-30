@@ -1,6 +1,6 @@
 <?php
 
-require 'util.php';
+require $_SERVER['DOCUMENT_ROOT'].'/school'.'/controller/util.php';
 
 class studentAward {
 
@@ -51,7 +51,7 @@ class studentAward {
 		$this->util_->requireArg('Award_ID', $_POST);
 		$this->util_->requireArg('Verify_statue', $_POST);
 
-		require './model/studentAwardItem.php';
+		require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/studentAwardItem.php';
 		$item = new studentAwardItem();
 		$item->Award_ID = $_POST['Awarid_ID'];
 		$arg = array('Verify_statue' => $_POST['Verify_statue']);

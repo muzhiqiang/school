@@ -1,6 +1,6 @@
 <?php
 
-require 'util.php'
+require $_SERVER['DOCUMENT_ROOT'].'/school'.'/controller/util.php'
 
 class researchGroup {
 
@@ -73,7 +73,7 @@ class researchGroup {
 		$req = array();
 		$req[0] = array('key' => 'Verify_statue', 'Verify_statue' => 'non-verify', 'table' => 'researchGroupProjectItem');
 
-		require './model/researchGroupProjectItem.php';
+		require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/researchGroupProjectItem.php';
 		$item = new researchGroupProjectItem();
 		$res = $item->projectLinkGroup($req, $lk, $arg);
 		return $res;
@@ -88,11 +88,11 @@ class researchGroup {
 		$req = array();
 		$req[0] = array('key' =>'Result_ID', 'Result_ID' =>$_PSOT['Result_ID'], 'table' => 'researchGroupProjectItem');
 
-		require './model/researchGroupProjectItem.php';
+		require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/researchGroupProjectItem.php';
 		$item = new researchGroupProjectItem();
 		$res = $item->projectLinkGroup($req, $lk, $arg);
 
-		require './model/teacherInfoItem.php';
+		require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/teacherInfoItem.php';
 		$item = new researchGroupItem();
 		$arg = array('Tea_name');
 		$req[0] = array('key' => 'Tea_ID', 'Tea_ID' => $res['Tea_ID']);
@@ -145,11 +145,11 @@ class researchGroup {
 		$lk = array('Member_ID');
 		$req[0] = array('key' => 'Log_ID', 'Log_ID' => $_POST['Log_ID'], 'table' => 'reserchGroupLogItem');
 		
-		require './model/researchGroupItem.php';
+		require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/researchGroupItem.php';
 		$item = new researchGroupItem();
 		$res = $item->logLinkGroupMember($req, $lk, $arg);
 		
-		require './model/studentInfoItem.php';
+		require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/studentInfoItem.php';
 		$item = new studentInfoItem();
 		$req[0] =array('key' => 'Stu_ID', 'Stu_ID' => $res['Stu_ID']);		
 		$arg = array('Stu_name');

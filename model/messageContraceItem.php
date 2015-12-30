@@ -1,5 +1,6 @@
+
 <?php
-require 'pod.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/pod.php';
 class messageContraceItem{
 	public $Trans_id;
 	public $message_id;

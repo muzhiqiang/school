@@ -1,5 +1,5 @@
 <?php
-require 'pod.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/pod.php';
 class evaluateItem{
 	public $Eva_one_id;
 	public $Eva_id;

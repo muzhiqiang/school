@@ -113,8 +113,7 @@
 			</div>
 		</div>
 	</div>
-	<script src="../public/javascripts/jquery.min.js"></script>
-	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+	<?php require_once('../footer.php'); ?>
 	<script type="text/javascript">
 		function init() {
 			$("#stu_research").addClass("active");

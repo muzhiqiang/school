@@ -1,5 +1,5 @@
 <?php
-require 'pod.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/pod.php';
 class studentAssocationItem{
 	public $Group_ID;
 	public $Group_name;

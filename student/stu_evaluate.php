@@ -1,9 +1,9 @@
-<?php require_once("head.php"); ?>
+<?php require_once(dirname(__FILE__).'/student/stu_head.php'); ?>
 <body>
-	<?php require_once("../navbar.php"); ?>
+	<?php require_once(dirname(__FILE__).'/navbar.php'); ?>
 	<div class='container'>
 		<div class='row'>
-			<?php require_once("./leftSection.php") ?>
+			<?php require_once(dirname(__FILE__).'/student/stu_leftSection.php') ?>
 			<div class="col-xs-10">
 				<div class='panel panel-default panel-block'>
 					<div class='panel-body'>
@@ -57,8 +57,7 @@
 			</div>
 		</div>
 	</div>
-	<script src="../public/javascripts/jquery.min.js"></script>
-	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+	<?php require_once(dirname(__FILE__).'/footer.php'); ?>
 	<script type="text/javascript">
 		function init() {
 			$("#stu_evaluate").addClass("active");
