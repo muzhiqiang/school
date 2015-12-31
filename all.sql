@@ -9,7 +9,7 @@ create table teacher_basic_info(
 	tea_name varchar(20),
 	sex char(1) default 'm',
 	rank varchar(20),
-	enrty_time date,
+	enrty_time varchar(20),
 	authority varchar(20),
 	primary key(tea_id)
 )DEFAULT CHARSET=utf8; 
@@ -19,7 +19,7 @@ create table emp_basic_info(
 	sta_id int not null,
 	sta_name varchar(20),
 	sex char(1) default 'm',
-	enrty_time date,
+	enrty_time varchar(20),
 	position varchar(20),
 	power varchar(10),
 	primary key(sta_id)
@@ -32,9 +32,9 @@ create table message(
 )DEFAULT CHARSET=utf8;
 
 create table teacher_award(
-	award_id varchar(12),
+	award_id int auto_increment,
 	tea_id int,
-	award_time date,
+	award_time varchar(20),
 	award_name varchar(20),
 	verify_statue varchar(20),
 	primary key(award_id),
@@ -97,7 +97,7 @@ create table stu_union_act(
 	act_id int auto_increment,
 	group_id int,
 	act_name varchar(12),
-	act_time date,
+	act_time varchar(20),
 	act_position varchar(20),
 	intro varchar(300),
 	primary key(act_id),
@@ -148,20 +148,20 @@ create table res_group_log(
 
 
 create table stu_award(
-	award_id int auto_increment,
 	stu_id int,
 	award_time varchar(20),
 	award_name varchar(20),
 	award_intro varchar(300),
 	award_rank varchar(10),
 	verify_statue varchar(20),
+	award_id int auto_increment,
 	primary key(award_id),
 	constraint stu_award_fk foreign key(stu_id) references stu_basic_info(stu_id)
 )DEFAULT CHARSET=utf8;
 
 create table course(
-	course varchar(20),
 	course_id int auto_increment,
+	course varchar(20),
 	teacher_id int,
 	classroom varchar(20),
 	teach_time varchar(20),
@@ -200,14 +200,14 @@ create table stu_evaluate(
 create table stu_identification_info(
 	stu_id int,
 	loc varchar(10),
-	birth date,
+	birth varchar(20),
 	id_no varchar(18),
 	race varchar(10),
 	polit varchar(10),
 	native_place varchar(20),
 	tel varchar(20),
 	health varchar(10),
-	enroll_time date,
+	enroll_time varchar(20),
 	intro varchar(300),
 	password varchar(40),
 	primary key(stu_id),
@@ -217,7 +217,7 @@ create table stu_identification_info(
 create table teacher_identification_info(
 	tea_id int,
 	address varchar(50),
-	birth date,
+	birth varchar(20),
 	id_no varchar(18),
 	race varchar(10),
 	polit varchar(10),
@@ -235,7 +235,7 @@ create table teacher_identification_info(
 create table res_group_achievement(
 	result_id int auto_increment,
 	res_group_id int,
-	result_time date,
+	result_time varchar(20),
 	result_intro varchar(300),
 	verify_statue varchar(20),
 	tea_id int,
@@ -259,7 +259,7 @@ create table message_interconnect(
 	src_stu_id int,
 	tar_type varchar(10),
 	tar_stu_id int,
-	send_time date,
+	send_time varchar(20),
 	primary key(trans_id),
 	constraint message_interconnect_fk1 foreign key(message_id) references message(message_id),
 	constraint message_interconnect_fk2 foreign key(src_stu_id) references stu_basic_info(stu_id),
@@ -272,9 +272,9 @@ create table message_interconnect(
 
 
 create table emp_identification_info(
-	tea_id int,
+	sta_id int,
 	address varchar(50),
-	birth date,
+	birth varchar(20),
 	id_no varchar(18),
 	race varchar(10),
 	polit varchar(10),
@@ -284,8 +284,8 @@ create table emp_identification_info(
 	experience varchar(120),
 	intro varchar(300),
 	password varchar(40),
-	primary key(tea_id),
-	constraint emp_identification_info_fk foreign key(tea_id) references teacher_basic_info(tea_id)
+	primary key(sta_id),
+	constraint emp_identification_info_fk foreign key(sta_id) references emp_basic_info(sta_id)
 )DEFAULT CHARSET=utf8;
 
 create table evaluate(
@@ -303,7 +303,7 @@ create table evaluate_list(
 	eva_stu_id int,
 	score int(4),
 	context varchar(300),
-	time date,
+	time varchar(20),
 	primary key (eva_one_id),
 	constraint evaluate_list_fk1 foreign key (eva_id) references evaluate (eva_id),
 	constraint evaluate_list_fk2 foreign key (eva_stu_id) references stu_basic_info (stu_id)
@@ -313,11 +313,11 @@ create table financial_report(
 	req_id int auto_increment,
 	req_type varchar(10),
 	req_res_group_id int,
-	req_time date,
+	req_time varchar(20),
 	req_money int(10),
 	req_intro varchar(300),
 	verify_statue varchar(20),
-	verify_time date,
+	verify_time varchar(20),
 	sta_id int,
 	primary key(req_id),
 	constraint financial_report_fk foreign key(req_res_group_id) references teacher_basic_info(tea_id)
@@ -326,7 +326,7 @@ create table financial_report(
 
 create table financial_account(
 	money_id int auto_increment,
-	money_time date,
+	money_time varchar(20),
 	get_in_from varchar(20),
 	in_out varchar(10),
 	cur_money int(30),

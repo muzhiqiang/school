@@ -1,9 +1,9 @@
-<?php require_once(dirname(__FILE__).'/student/stu_head.php'); ?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'].'/school'.'/student/stu_head.php'); ?>
 <body>
 	<?php require_once("../navbar.php"); ?>
 	<div class='container'>
 		<div class='row'>
-			<?php require_once(dirname(__FILE__).'/student/stu_leftSection.php') ?>
+			<?php require_once($_SERVER['DOCUMENT_ROOT'].'/school'.'/student/stu_leftSection.php') ?>
 			<div class="col-xs-10">
 				<div class='panel panel-default panel-block'>
 					<div class='panel-heading'>
@@ -310,7 +310,7 @@
 			</div>
 		</div>
 	</div>
-	<?php require_once(dirname(__FILE__).'/footer.php'); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/school'.'/footer.php'); ?>
 	<script type="text/javascript">
 		(function () {
 			$("#myCourse").addClass("active");

@@ -2,7 +2,7 @@
 <?php 
 	if(isset($result) && $result['success'] == true) {
 		switch($_SESSION['Type']) {
-			case 'student':
+			case 'student':				
 				header('location:./student/stu_info.php');
 				break;
 			case 'teacher':
@@ -23,8 +23,7 @@
 	</head>
 	<body>
 		<?php require_once('./navbar.php'); ?>
-		<form class="form-horizontal" role="form" method="POST" action="login.php?controller=account&method=login
-">
+		<form class="form-horizontal" role="form" method="POST" action="login.php?controller=account&method=login">
 			<div class="form-group">
 				<label for="firstname" class="col-sm-4 control-label">用户名</label>
 				<div class="col-sm-4">

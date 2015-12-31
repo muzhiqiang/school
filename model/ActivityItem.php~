@@ -1,21 +1,17 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/pod.php';
 
-class staffIdentityItem {
-	public $Sta_ID;
-	public $Address;
-	public $Birth;
-	public $ID_no;
-	public $Race;
-	public $Polit;
-	public $Native_place;
-	public $Tel;
-	public $Health;
-	public $Experience;
-	public $Intro;
-	public $Password;
+require dirname(__FILE__).'/model/pod.php';
+
+class ActivityItem{
 	
-	public function __construct(){
+	public $Act_ID;
+	public $Group_ID;
+	public $Act_name;
+	public $Act_time;
+	public $Act_position;
+	public $Intro;
+	
+public function __construct(){
 		
 	}
 	
@@ -29,12 +25,9 @@ class staffIdentityItem {
 		if($p == false) {
 			throw new Exception('Database connect failed');
 		}
-		$db->query('insert into emp_identification_info (Sta_ID, Address, Birth, ID_no,
-		Race,Polit,Native_place,Tel,Health,Experience,Intro,Password) values(\''.
-		$this->Sta_ID.'\', \''.$this->Address.'\', \''.$this->Birth.'\', \''.$this->ID_no.
-		'\', \''.$this->Race.'\', \''.$this->Polit.'\', \''.$this->Native_place.'\', \''.
-		$this->Tel.'\', \''.$this->Health.'\', \''.$this->Experience.'\', \''.$this->Intro.'\', \''.$this->Password.
-		'\');');
+		$db->query('insert into stu_union_act (Group_ID, Act_name, Act_time,
+		Act_position,Intro) values(\''.$this->Group_ID.'\', \''.$this->Act_name.'\', \''.$this->Act_time.
+		'\', \''.$this->Act_position.'\', \''.$this->Intro.'\');');
 		$db->close();
 	}
 	
@@ -44,7 +37,7 @@ class staffIdentityItem {
 		if($p == false) {
 			throw new Exception('Database connect failed');
 		}
-		$table = 'emp_identification_info';
+		$table = 'stu_union_act';
 		$sql = $db->genDeleteSql($req,$table);
 		$res = $db->query($sql);
 		$db->close();
@@ -57,7 +50,7 @@ class staffIdentityItem {
 		if($p == false) {
 			throw new Exception('Database connect failed');
 		}
-		$table = 'emp_identification_info';
+		$table = 'stu_union_act';
 		$sql = $db->genSearchSql($req, $arg, $table);
 		$res = $db->query($sql);
 		$db->close();
@@ -70,10 +63,10 @@ class staffIdentityItem {
 		if($p == false) {
 			throw new Exception('Database connect failed');
 		}
-		$table = 'emp_identification_info';
+		$table = 'stu_union_act';
 		//#########################
 		$req = array();
-		$req[0] = array('Sta_ID'=>$this->Sta_ID);
+		$req[0] = array('Act_ID'=>$this->Act_ID);
 		$sql = $db->genUpdateSql($req,$arg,$table);
 		$db->query($sql);
 		$db->close();
@@ -92,6 +85,7 @@ class staffIdentityItem {
 		$res = $db->query($sql);
 		return $res;
 	}
+	
 	
 	
 }

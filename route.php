@@ -12,6 +12,7 @@
 //);// demo app id
 if (isset($_GET['controller']) && isset($_GET['method'])) {
 	try {
+
 		header('Content-Type:text/html; charset=utf-8');
 			
 		// if(!isset($_GET['controller'])) {
@@ -40,10 +41,8 @@ if (isset($_GET['controller']) && isset($_GET['method'])) {
 		$controller = new $controller();
 		$result = array();
 		$result['data'] = $controller->$method();
-		echo $_SESSION['Account'];
 		$result['success'] = true;
-		
-		json_encode($result, JSON_UNESCAPED_SLASHES);
+		//json_encode($result, JSON_UNESCAPED_SLASHES);
 
 	}
 	catch (Exception $e) {

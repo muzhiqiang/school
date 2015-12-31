@@ -11,7 +11,7 @@ class POD {
 	// connect to mysql
 	public function connect() {
 
-		$this->con = mysql_connect('localhost', 'root', '');
+		$this->con = mysql_connect('localhost', 'root', '283447');
 		if(!$this->con) {
 			return false;
 		}
