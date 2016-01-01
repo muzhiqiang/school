@@ -2,15 +2,7 @@
 <body>
 	<?php require_once("../navbar.php"); ?>
 	<?php
-		if(!isset($_GET['controller'])) {
-		 	$_GET['controller'] = 'student';
-		 	$_GET['method'] = 'showInfo';
-		}
-		 require('../route.php');		 
-		if($result['success'] != 1) {
-			$_SESSION['errno'] = $result['data'];
-		 	header('location:../404.php');
-		}
+		require_once $_SERVER['DOCUMENT_ROOT'].'/school/service/studentInfo.php';
 	?>
 	<div class='container'>
 		<div class='row'>

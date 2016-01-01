@@ -17,7 +17,7 @@ class student {
 		$req = array();
 
 		//echo $_SESSION['Account'];
-		$req[0] = array('key' => 'stu_id', 'stu_id' => $_SESSION['Account']);
+		$req[0] = array('key' => 'stu_id', 'stu_id' => $_POST['Account']);
 		$info = $this->util_->searchRecord($req, $arg, 'studentInfoItem');
 
 		$res = array();

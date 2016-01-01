@@ -162,7 +162,7 @@ create table stu_award(
 create table course(
 	course_id int auto_increment,
 	course varchar(20),
-	teacher_id int,
+	tea_id int,
 	classroom varchar(20),
 	teach_time varchar(20),
 	total_time varchar(20),
@@ -171,7 +171,7 @@ create table course(
 	credit varchar(10),
 	intro varchar(300),
 	primary key(course_id),
-	constraint course_fk foreign key(teacher_id) references teacher_basic_info(tea_id)
+	constraint course_fk foreign key(tea_id) references teacher_basic_info(tea_id)
 )DEFAULT CHARSET=utf8;
 
 create table stu_course(

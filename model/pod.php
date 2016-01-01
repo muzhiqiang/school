@@ -127,7 +127,11 @@ class POD {
 		$sql = 'select ';
 		$num = count($arg);
 		for($i=0; $i<$num; $i++) {
-			$sql = $sql.$arg[$i];
+			if(in_array($arg[$i], $lk)) {
+				$sql = $sql.$table[0].'.'.$arg[$i];
+			}
+			else
+				$sql = $sql.$arg[$i];
 			if($i != $num -1) {
 				$sql = $sql.' ,';
 			}

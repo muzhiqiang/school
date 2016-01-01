@@ -1,6 +1,6 @@
 <?php
 
-require $_SERVER['DOCUMENT_ROOT'].'/school'.'/controller/util.php';
+require $_SERVER['DOCUMENT_ROOT'].'/school/controller/util.php';
 
 class studentAward {
 
@@ -10,12 +10,12 @@ class studentAward {
 		$this->util_ = new Util();
 	}
 
-	// show All Award of the student except detail intro;
+	// show All Award of the student 
 	public function showAllAwardAction() {
 		
 		$req = array();
 		$req[0] = array('key' => 'Stu_ID', 'Stu_ID' => $_SESSION['Account']);
-		$arg = array('Award_ID', 'Award_time', 'Award_name', 'Award_Rank', 'Verify_statue');
+		$arg = array('Award_ID', 'Award_time', 'Award_name', 'Award_Rank', 'Verify_statue', 'Award_intro');
 		$res = $this->util_->searchRecord($req, $arg, 'studentAwardItem');
 
 		return $res;
@@ -23,15 +23,15 @@ class studentAward {
 
 	// show the detail intro of the award recode
 	// Argument Award_ID
-	public function showDetailAwardAction() {
+	//public function showDetailAwardAction() {
 
-		$arg = array('Award_intro');
-		$req = array();
-		$req[0] = array('key' => 'Award_ID', 'Award_ID' => $_POST['Award_ID']);
-		$res = $this->util_->searchRecord($req, $arg, 'studentAwardItem');
+	//	$arg = array('Award_intro');
+	//	$req = array();
+	//	$req[0] = array('key' => 'Award_ID', 'Award_ID' => $_POST['Award_ID']);
+	//	$res = $this->util_->searchRecord($req, $arg, 'studentAwardItem');
 
-		return $res;
-	}
+	//	return $res;
+	//}
 
 	// list the non-verify statue of award recode
 	public function showNonVerifyAwardAction() {

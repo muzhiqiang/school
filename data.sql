@@ -8,12 +8,17 @@ insert into stu_identification_info values(2013119, '华工', '1994/1/1', '44512
 
 insert into teacher_basic_info values(210, 'MJ', '男', '1', '2000/1/1', '1');
 insert into teacher_identification_info values(210, '华工', '1980/1/1', '4455', '汉族', '党员', '广东', '188888', '健康', '博士', '', '000000');
-insert into course (course, teacher_id, classroom, teach_time, total_time, course_year_term, property, credit, intro) values('java', 210, 'A1-101', '112', '40', '20151', '必修', '4', '');
-insert into course (course, teacher_id, classroom, teach_time, total_time, course_year_term, property, credit, intro) values('C++', 210, 'A1-101', '134', '40', '20151', '必修', '4', '');
-insert into course (course, teacher_id, classroom, teach_time, total_time, course_year_term, property, credit, intro) values('php', 210, 'A1-101', '256', '40', '20151', '必修', '4', '');
-insert into course (course, teacher_id, classroom, teach_time, total_time, course_year_term, property, credit, intro) values('数据库', 210, 'A1-101', '378', '40', '20151', '必修', '4', '');
-insert into course (course, teacher_id, classroom, teach_time, total_time, course_year_term, property, credit, intro) values('软件工程', 210, 'A1-101', '434', '40', '20151', '必修', '4', '');
+insert into course (course, tea_id, classroom, teach_time, total_time, course_year_term, property, credit, intro) values('java', 210, 'A1-101', '112', '第4周-第10周', '20151', '必修', '4', '');
+insert into course (course, tea_id, classroom, teach_time, total_time, course_year_term, property, credit, intro) values('C++', 210, 'A1-101', '134', '第10周-第20周', '20151', '必修', '4', '');
+insert into course (course, tea_id, classroom, teach_time, total_time, course_year_term, property, credit, intro) values('php', 210, 'A1-101', '256', '第1周-第20周', '20151', '必修', '4', '');
+insert into course (course, tea_id, classroom, teach_time, total_time, course_year_term, property, credit, intro) values('数据库', 210, 'A1-101', '378', '第1周-第15周', '20151', '必修', '4', '');
+insert into course (course, tea_id, classroom, teach_time, total_time, course_year_term, property, credit, intro) values('软件工程', 210, 'A1-101', '434', '第1周-第9周', '20151', '必修', '4', '');
 insert into stu_award (stu_id, award_time, award_name, award_intro, award_rank, verify_statue) values(2013119, '20141', 'C++设计大赛', '', '安慰奖', '未通过');
 insert into stu_award (stu_id, award_time, award_name, award_intro, award_rank, verify_statue) values(2013119, '20141', 'java设计大赛', '', '安慰奖', '未通过');
 insert into stu_award (stu_id, award_time, award_name, award_intro, award_rank, verify_statue) values(2013119, '20151', 'php设计大赛', '', '安慰奖', '未通过');
 
+insert into stu_course(course_id, stu_id, score, is_fail) values(1, 2013119, 0, 0);
+insert into stu_course(course_id, stu_id, score, is_fail) values(2, 2013119, 0, 0);
+insert into stu_course(course_id, stu_id, score, is_fail) values(3, 2013119, 0, 0);
+insert into stu_course(course_id, stu_id, score, is_fail) values(4, 2013119, 0, 0);
+insert into stu_course(course_id, stu_id, score, is_fail) values(5, 2013119, 0, 0);

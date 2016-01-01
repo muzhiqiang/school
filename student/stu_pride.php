@@ -1,17 +1,9 @@
-<?php require_once($_SERVER['DOCUMENT_ROOT'].'/school'.'/student/stu_head.php'); ?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'].'/school/student/stu_head.php'); ?>
 <body>
-	<?php require_once("../navbar.php"); ?>
 	<?php
-		$_GET['controller'] = 'studentAward';
-		$_GET['method'] = 'showAllAward';
-		 require('../route.php');		 
-		if($result['success'] != 1) {
-			$_SESSION['errno'] = $result['data'];
-		 	header('location:../404.php');
-		}
-		//print_r($result);
+		require_once($_SERVER['DOCUMENT_ROOT'].'/school/service/studentAward.php');
+		 require_once("../navbar.php"); 
 	?>
-
 	<div class='container'>
 		<div class='row'>
 			<?php require_once($_SERVER['DOCUMENT_ROOT'].'/school'.'/student/stu_leftSection.php') ?>
@@ -57,7 +49,7 @@
 								<div class="panel-body">
 									<p>申请时间：'.$result['data'][$i]['Award_time'].'</p>
 									<p>审核状态：'.$result['data'][$i]['Verify_statue'].'</p>
-									<p>荣誉描述：最权威的C++设计大赛</p>
+									<p>荣誉描述：'.$result['data'][$i]['Award_intro'].'</p>
 								</div>
 							</div>
 						</div>';

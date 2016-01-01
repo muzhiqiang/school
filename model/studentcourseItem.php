@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'].'/school'.'/pod.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/school/model/pod.php';
 
 class studentcourseItem{
 	
@@ -64,15 +64,15 @@ class studentcourseItem{
 		$res = $db->query($sql);
 		return $res;
 	}
-	public function courseLinkTeacher($req, $lk, $arg) {
+	public function studentcourseLinkCourse($req, $lk, $arg) {
 		$db = new POD();
 		$p = $db->connect();
 		if($p == false) {
 			throw new Exception('Database connect failed');
 		}
-		$map = array('courseItem' =>'course', 'teacherInfoItem' => 'teacher_basic_info');
-		$table = array('course', 'teacher_basic_info');
-		$sql = $db->genLinkSql($req, $lk, $arg, $table, $map);
+		$map = array('studentcourseItem' =>'stu_course', 'courseItem' => 'course');
+		$table = array('stu_course', 'course');
+		$sql = $db->genLinkSql($req, $lk, $arg, $table, $map);		
 		$res = $db->query($sql);
 		return $res;
 	}

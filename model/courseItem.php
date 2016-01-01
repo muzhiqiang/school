@@ -26,7 +26,7 @@ class courseItem {
 		}
 		$this->Course = $row['course'];
 		$this->Course_ID = $row['course_id'];
-		$this->Tea_ID = $row['teacher_id'];
+		$this->Tea_ID = $row['tea_id'];
 		$this->Classroom = $row['classroom'];
 		$this->Teach_time = $row['teach_time'];
 		$this->Total_time = $row['total_time'];
@@ -42,7 +42,7 @@ class courseItem {
 		if($p == false) {
 			throw new Exception('Database connect failed');
 		}
-		$db->query('insert into course (course, teacher_id, classroon, teacher_time
+		$db->query('insert into course (course, tea_id, classroon, teacher_time
 		total_time, course_year_term, property, credit, intro) values(\''.$this->Course.'\', \''
 		.$this->Tea_ID.'\', \''.$this->Classroom.'\', \''.$this->Teach_time.'\', \''.$this->Total_time.'
 		\', \''.$this->Course_year_term.'\', \''.$this->Property.'\', \''.$this->Credit.'\', \''.$this->Intro.'

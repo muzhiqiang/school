@@ -1,18 +1,4 @@
-<?php require_once('./route.php'); ?>
-<?php 
-	if(isset($result) && $result['success'] == true) {
-		switch($_SESSION['Type']) {
-			case 'student':				
-				header('location:./student/stu_info.php');
-				break;
-			case 'teacher':
-				break;
-			case 'staff':
-				break;	
-		}
-		
-	}
-?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -23,7 +9,7 @@
 	</head>
 	<body>
 		<?php require_once('./navbar.php'); ?>
-		<form class="form-horizontal" role="form" method="POST" action="login.php?controller=account&method=login">
+		<form class="form-horizontal" role="form" method="POST" action="/school/service/login.php">
 			<div class="form-group">
 				<label for="firstname" class="col-sm-4 control-label">用户名</label>
 				<div class="col-sm-4">

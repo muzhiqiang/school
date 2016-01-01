@@ -1,6 +1,9 @@
 <?php require_once($_SERVER['DOCUMENT_ROOT'].'/school'.'/student/stu_head.php'); ?>
 <body>
-	<?php require_once("../navbar.php"); ?>
+	<?php 
+		require_once("../navbar.php");
+		require_once($_SERVER['DOCUMENT_ROOT'].'/school/service/courseTable.php');
+	?>
 	<div class='container'>
 		<div class='row'>
 			<?php require_once($_SERVER['DOCUMENT_ROOT'].'/school'.'/student/stu_leftSection.php') ?>
@@ -29,109 +32,44 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>第一节课</td>
-								</tr>
-								<tr>
-									<td>第二节课</td>
-								</tr>
-								<tr>
-									<td>第三节课</td>
-								</tr>
-								<tr>
-									<td>第四节课</td>
-								</tr>
-								<tr>
-									<td>第五节课</td>
-								</tr>
-								<tr>
-									<td>第六节课</td>
-								</tr>
-								<tr>
-									<td>第七节课</td>
-								</tr>
-								<tr>
-									<td>第八节课</td>
-								</tr>
-								<tr>
-									<td>第九节课</td>
-								</tr>
-								<tr>
-									<td>第十节课</td>
-								</tr>
-								<tr>
-									<td>第十一节课</td>
-								</tr>
-								<tr>
-									<td>第十二节课</td>
-								</tr>
+							<?php
+								echo '<tr><td>第一节课<br>第二节课</td>'.$table[1].'</tr>';
+								echo '<tr><td>第三节课<br>第四节课</td>'.$table[2].'</tr>';
+								echo '<tr><td>第五节课<br>第六节课</td>'.$table[3].'</tr>';
+								echo '<tr><td>第七节课<br>第八节课</td>'.$table[4].'</tr>';
+								echo '<tr><td>第九节课<br>第十节课</td>'.$table[5].'</tr>';
+								echo '<tr><td>第十一节课<br>第十二节课</td>'.$table[6].'</tr>';
+
+							?>
 							</tbody>
 						</table>
 						<div class="panel-group hide" id="courseDetail">
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#courseDetail" href="#collapseOne">
-											C++课程设计
-										</a>
-									</h4>
-								</div>
-								<div id="collapseOne" class="panel-collapse collapse">
-									<div class="panel-body">
-										<p>授课老师：xxx</p>
-										<p>授课时间：第五周到第十六周</p>
-										<p>课程性质：xxxxxxxx</p>
+						<?php
+							$num =count($detail);
+							for($i =0; $i< $num; $i++) {
+								$collapse = 'collapse'.$i;
+								echo '<div class="panel panel-default">
+									<div class="panel-heading">
+										<h4 class="panel-title">
+											<a data-toggle="collapse" data-parent="#courseDetail" href="#'.$collapse.'>
+												'.$detail[$i]['Course'].'
+											</a>
+										</h4>
 									</div>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#courseDetail" href="#collapseTwo">
-											C++课程设计
-										</a>
-									</h4>
-								</div>
-								<div id="collapseTwo" class="panel-collapse collapse">
-									<div class="panel-body">
-										<p>授课老师：xxx</p>
-										<p>授课时间：第五周到第十六周</p>
-										<p>课程性质：xxxxxxxx</p>
+									<div id='.$collapse.' class="panel-collapse collapse">
+										<div class="panel-body">
+											<p>授课老师：'.$detail[$i]['Tea_name'].'</p>
+											<p>授课时间：'.$detail[$i]['Total_time'].'</p>
+											<p>课程性质：'.$detail[$i]['Property'].'</p>
+											<p>课程学分：'.$detail[$i]['Credit'].'</p>
+											<p>课程简介：'.$detail[$i]['intro'].'</p>
+
+										</div>
 									</div>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#courseDetail" href="#collapseThree">
-											C++课程设计
-										</a>
-									</h4>
-								</div>
-								<div id="collapseThree" class="panel-collapse collapse">
-									<div class="panel-body">
-										<p>授课老师：xxx</p>
-										<p>授课时间：第五周到第十六周</p>
-										<p>课程性质：xxxxxxxx</p>
-									</div>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#courseDetail" href="#collapseFour">
-											C++课程设计
-										</a>
-									</h4>
-								</div>
-								<div id="collapseFour" class="panel-collapse collapse">
-									<div class="panel-body">
-										<p>授课老师：xxx</p>
-										<p>授课时间：第五周到第十六周</p>
-										<p>课程性质：xxxxxxxx</p>
-									</div>
-								</div>
-							</div>
+								</div>';
+							}
+						?>
+
 						</div>
 						<div class="panel-group hide" id="courseChoose">
 							<div class="panel panel-default">
@@ -336,6 +274,7 @@
 		function courseDetail(t) {
 			chooseWhich(t);
 			hideWhich(document.getElementById("courseDetail"));
+
 		}
 		function courseChoose(t) {
 			chooseWhich(t);
