@@ -58,7 +58,6 @@
 			header('location:/school/404.php');
 		}
 		$detail[$num] = $res['data'][0];
-		print_r($detail[$num]);
 		$num++;
 	}
 

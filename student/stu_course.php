@@ -14,7 +14,27 @@
 							<button class="btn btn-success active" onclick="courseTable(this)" id="tableBtn">课程表</button>
 							<button class="btn btn-info" onclick="courseDetail(this)" id="detailBtn">课程详情</button>
 							<button class="btn btn-default" id="chooseBtn" onclick="courseChoose(this)">选课</button>
-							<button class="btn btn-danger" id="backBtn" onclick="courseBack(this)">退课</button>
+						
+							<button class="btn btn-success pull-right">查询</button>
+							
+							
+							<span class="pull-right" style="position:relative;top:5px;">学期</span>
+							<div class="form-group pull-right">
+								<select class="form-control" id="term">
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+								</select>
+							</div>
+							<span class="pull-right" style="position:relative;top:5px;">学年</span>
+							<div class="form-group pull-right">
+								<select class="form-control" id="year">
+									<option>2013</option>
+									<option>2014</option>
+									<option>2015</option>
+									<option>2016</option>
+								</select>
+							</div>
 						</div>
 					</div>
 					<div class='panel-body'>
@@ -48,25 +68,27 @@
 							$num =count($detail);
 							for($i =0; $i< $num; $i++) {
 								$collapse = 'collapse'.$i;
-								echo '<div class="panel panel-default">
-									<div class="panel-heading">
-										<h4 class="panel-title">
-											<a data-toggle="collapse" data-parent="#courseDetail" href="#'.$collapse.'>
-												'.$detail[$i]['Course'].'
-											</a>
-										</h4>
-									</div>
-									<div id='.$collapse.' class="panel-collapse collapse">
-										<div class="panel-body">
-											<p>授课老师：'.$detail[$i]['Tea_name'].'</p>
-											<p>授课时间：'.$detail[$i]['Total_time'].'</p>
-											<p>课程性质：'.$detail[$i]['Property'].'</p>
-											<p>课程学分：'.$detail[$i]['Credit'].'</p>
-											<p>课程简介：'.$detail[$i]['intro'].'</p>
+						?>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#courseDetail" href="<?php echo '#'.$collapse;?>">
+										<?php echo $detail[$i]['Course']; ?>
+									</a>
+								</h4>
+							</div>
+							<div id=<?php echo $collapse; ?> class="panel-collapse collapse">
+								<div class="panel-body">
+									<p>授课老师：<?php echo $detail[$i]['Tea_name']; ?></p>
+									<p>授课时间：<?php echo $detail[$i]['Total_time']; ?></p>
+									<p>课程性质：<?php echo $detail[$i]['Property']; ?></p>
+									<p>课程学分：<?php echo $detail[$i]['Credit']; ?></p>
+									<p>课程简介：<?php echo $detail[$i]['intro']; ?></p>
 
-										</div>
-									</div>
-								</div>';
+								</div>
+							</div>
+						</div>';
+						<?php
 							}
 						?>
 
@@ -177,72 +199,6 @@
 								</div>
 							</div>
 						</div>
-						<div class="panel-group hide" id="courseBack">
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#courseBack" href="#collapseOne">
-											C++课程设计
-										</a>
-									</h4>
-								</div>
-								<div id="collapseOne" class="panel-collapse collapse">
-									<div class="panel-body">
-										<p>授课老师：xxx</p>
-										<p>授课时间：第五周到第十六周</p>
-										<p>课程性质：xxxxxxxx</p>
-									</div>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#courseBack" href="#collapseTwo">
-											C++课程设计
-										</a>
-									</h4>
-								</div>
-								<div id="collapseTwo" class="panel-collapse collapse">
-									<div class="panel-body">
-										<p>授课老师：xxx</p>
-										<p>授课时间：第五周到第十六周</p>
-										<p>课程性质：xxxxxxxx</p>
-									</div>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#courseBack" href="#collapseThree">
-											C++课程设计
-										</a>
-									</h4>
-								</div>
-								<div id="collapseThree" class="panel-collapse collapse">
-									<div class="panel-body">
-										<p>授课老师：xxx</p>
-										<p>授课时间：第五周到第十六周</p>
-										<p>课程性质：xxxxxxxx</p>
-									</div>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#courseBack" href="#collapseFour">
-											C++课程设计
-										</a>
-									</h4>
-								</div>
-								<div id="collapseFour" class="panel-collapse collapse">
-									<div class="panel-body">
-										<p>授课老师：xxx</p>
-										<p>授课时间：第五周到第十六周</p>
-										<p>课程性质：xxxxxxxx</p>
-									</div>
-								</div>
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -279,10 +235,6 @@
 		function courseChoose(t) {
 			chooseWhich(t);
 			hideWhich(document.getElementById("courseChoose"));
-		}
-		function courseBack(t) {
-			chooseWhich(t);
-			hideWhich(document.getElementById("courseBack"));
 		}
 	</script>
 </body>

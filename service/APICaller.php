@@ -11,7 +11,9 @@ class APICaller {
 		}
 		$params['controller'] = $controller;
 		$params['method'] = $method;
-		$params['Account'] = $_SESSION['Account'];
+		if(isset($_SESSION['Account'])) {
+			$params['Account'] = $_SESSION['Account'];
+		}
 
 		$ch = curl_init();  
 		curl_setopt($ch, CURLOPT_URL, 'localhost/school/route.php');  
@@ -21,7 +23,7 @@ class APICaller {
 
 		$data = curl_exec($ch);  
 		curl_close($ch);  
-  
+
 		return (array)json_decode($data, true);
 	}
 }
