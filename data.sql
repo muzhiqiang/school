@@ -29,4 +29,7 @@ insert into res_member(member_id, res_group_id, member_type, stu_id, tea_id, pow
 insert into res_member(member_id, res_group_id, member_type, stu_id, tea_id, power) values (2, 2, '社员', 2013119, 210, '');
 
 insert into res_group_log(res_group_id, create_date, update_date, member_id, log_content) values( 1, '2015/12/1', '2015/11/1', 1, '啦啦啦啦啦啦啦啦啦啦啦啦啦');
+insert into class_leader(class_id, stu_id, is_monitor, position, power) values (1, 2013119, 0, '娱乐委员', '1');
 
+insert stu_union(group_name, intro) values('社联', '');
+insert stu_union_member(group_id, stu_id, is_leader, gro_position, power) values(1, 2013119, 0, '饮水机看守', 4);

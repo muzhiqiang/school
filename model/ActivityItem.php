@@ -1,6 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/model/pod.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/pod.php';
 
 class ActivityItem{
 	
@@ -25,9 +25,9 @@ public function __construct(){
 		if($p == false) {
 			throw new Exception('Database connect failed');
 		}
-		$db->query('insert into stu_union_act (Group_ID, Act_name, Act_time,
-		Act_position,Intro) values(\''.$this->Group_ID.'\', \''.$this->Act_name.'\', \''.$this->Act_time.
-		'\', \''.$this->Act_position.'\', \''.$this->Intro.'\');');
+		$db->query( 'insert into stu_union_act (Group_ID, Act_name, Act_time,
+		Act_position,Intro) values(\''.$this->Group_ID.'\', \''.$this->Act_name.'\', \''.$this->Act_time
+		.'\', \''.$this->Act_position.'\', \''.$this->Intro.'\');');
 		$db->close();
 	}
 	

@@ -1,6 +1,7 @@
 <?php require_once($_SERVER['DOCUMENT_ROOT'].'/school/student/stu_head.php'); ?>
 	<body>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/school/navbar.php'); ?>
+	<?php 
+		require_once($_SERVER['DOCUMENT_ROOT'].'/school/navbar.php'); ?>
 
 	<div class='container'>
 		<div class='row'>
