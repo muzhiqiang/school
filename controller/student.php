@@ -16,7 +16,7 @@ class student {
 		$arg = array('stu_id', 'stu_name', 'sex', 'class_id');
 		$req = array();
 
-		//echo $_SESSION['Account'];
+		//echo $_POST['Account'];
 		$req[0] = array('key' => 'stu_id', 'stu_id' => $_POST['Account']);
 		$info = $this->util_->searchRecord($req, $arg, 'studentInfoItem');
 
@@ -48,10 +48,10 @@ class student {
 	// argument only for identify info
 	public function updateInfoAction() {
 
-		require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/studentIdentifyItem.php';
+		require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/studentIdentityItem.php';
 		
-		$identify = new studentIdentifyItem();
-		$identify->Stu_ID = $_SESSION['Account'];
+		$identify = new studentIdentityItem();
+		$identify->Stu_ID = $_POST['Account'];
 		$arg = array();
 		foreach($_POST as $key => $value) {
 			if(!property_exists($identify, $key)) {
@@ -59,7 +59,7 @@ class student {
 			}
 			$arg[$key] = $value;
 		}
-		$identify->update($arg);
+		return $identify->update($arg);
 	}
 
 	// add student item
@@ -93,7 +93,7 @@ class student {
 		$this->util_->requireArg('NP');
 		$identify = new studentIdentifyItem();
 		$req = array();
-		$req[0] = array('key' => 'Stu_ID', 'Stu_ID' => $_SESSION['Account']);
+		$req[0] = array('key' => 'Stu_ID', 'Stu_ID' => $_POST['Account']);
 		$arg = array('Password');
 		$res = $identify->search($req, $arg);
 		
@@ -101,7 +101,7 @@ class student {
 			throw new Exception('Password wrong');
 		}
 
-		$identify->Stu_ID = $_SESSION['Account'];
+		$identify->Stu_ID = $_POST['Account'];
 		$arg1 = array('Password' => $_POST['NP']);
 		$identify->update($arg1);
 	}

@@ -1,12 +1,11 @@
-<?php require_once("head.php"); ?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'].'/school/student/stu_head.php'); ?>
 	<body>
-	<?php require_once("../navbar.php"); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/school/navbar.php'); ?>
+
 	<div class='container'>
 		<div class='row'>
-			<?php require_once("./leftSection.php") ?>
+			<?php require_once($_SERVER['DOCUMENT_ROOT'].'/school/student/stu_leftSection.php') ?>
 			<div class="col-xs-10">
-
-
 				<div id="home_page">
 				<div style="width:100%;height:50px;">
 					<span class="pull-left">计科2班</span>
@@ -99,7 +98,7 @@
 			</div>
 		</div>
 	</div>
-	<?php require_once('../footer.php'); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/school/footer.php'); ?>
 	<script type="text/javascript">
 		function init() {
 			$("#stu_manage_class").addClass("active");

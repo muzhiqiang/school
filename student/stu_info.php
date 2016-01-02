@@ -93,57 +93,57 @@
 								<p class="col-xs-7 text-left"><?php echo $result['data']['health'] ?></p>
 							</div>
 						</div>
-						<form action="stu_info.php?controller=account&method=updateInfo" method="POST" role="form" class="form-horizontal hide" id="editForm">
+						<form action="/school/student/stu_info.php?controller=student&method=updateInfo" method="POST" role="form" class="form-horizontal hide" id="editForm">
 							<div class="form-group">
 								<label for="" class="col-xs-3 col-xs-offset-2 text-center">宿舍号：</label>
 								<div class="col-xs-4">
-									<input class="form-control" type="text" name="Loc"/>
+									<input class="form-control" type="text" value = "<?php echo $result['data']['loc']; ?>" name="Loc"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="" class="col-xs-3 col-xs-offset-2 text-center">出生年月：</label>
 								<div class="col-xs-4 input-group" style="padding-left:15px;">
-									<input class="form-control" type="text" name="Birth"/>
+									<input class="form-control" type="text" value = "<?php echo $result['data']['birth']; ?>" name="Birth"/>
 									<span class="input-group-addon">年/月/日</span>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="" class="col-xs-3 col-xs-offset-2 text-center">身份证号：</label>
 								<div class="col-xs-4">
-									<input class="form-control" type="text" name="ID_no"/>
+									<input class="form-control" type="text" value = "<?php echo $result['data']['id_no']; ?>" name="ID_no"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="" class="col-xs-3 col-xs-offset-2 text-center">籍贯：</label>
 								<div class="col-xs-4">
-									<input class="form-control" type="text" name="native_place"/>
+									<input class="form-control" type="text" value = "<?php echo $result['data']['native_place']; ?>" name="native_place"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="" class="col-xs-3 col-xs-offset-2 text-center">联系电话：</label>
 								<div class="col-xs-4">
-									<input class="form-control" type="text" name="Tel"/>
+									<input class="form-control" type="text" value = "<?php echo $result['data']['tel']; ?>" name="Tel"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="" class="col-xs-3 col-xs-offset-2 text-center">政治面貌：</label>
 								<div class="col-xs-4">
-									<input class="form-control" type="text" name="Polit"/>
+									<input class="form-control" type="text" value = "<?php echo $result['data']['polit']; ?>" name="Polit"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="" class="col-xs-3 col-xs-offset-2 text-center">民族：</label>
 								<div class="col-xs-4">
-									<input class="form-control" type="text" name="Race"/>
+									<input class="form-control" type="text" value = "<?php echo $result['data']['race']; ?>" name="Race"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="" class="col-xs-3 col-xs-offset-2 text-center">健康状态：</label>
 								<div class="col-xs-4">
-									<input class="form-control" type="text" name="Health"/>
+									<input class="form-control" type="text" value = "<?php echo $result['data']['health']; ?>" name="Health"/>
 								</div>
 							</div>
-							<input type="button" class="btn btn-info" value="确定"/>
+							<input type="submit" class="btn btn-info" value="确定"/>
 						</form>
 					</div>
 				</div>

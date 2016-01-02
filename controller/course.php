@@ -45,10 +45,10 @@ class course {
 		if(!isset($_POST['Course_year_term'])) {
 			throw new Exception('Argument not set');
 		}	
-		$course = new cousrseItem();
+		$course = new courseItem();
 		$req = array();
 		$req[0] = array('key' => 'Course_year_term', 'Course_year_term' => $_POST['Course_year_term'], 'table' =>'courseItem');
-		$arg = array('Course', 'Course_ID', 'Tea_name', 'Classroom','Teach_time', 'Total_time', 'Property', 'Course_year_term', 'Credit');
+		$arg = array('Course', 'Course_ID', 'Tea_name', 'Teach_time', 'Total_time', 'Property', 'Credit', 'intro');
 		$lk = array('Tea_ID');
 		$res = $course->courseLinkTeacher($req, $lk, $arg);
 

@@ -11,7 +11,7 @@ class POD {
 	// connect to mysql
 	public function connect() {
 
-		$this->con = mysql_connect('localhost', 'root', '');
+		$this->con = mysql_connect('localhost', 'root', '283447');
 		if(!$this->con) {
 			return false;
 		}
@@ -28,7 +28,10 @@ class POD {
 		if (!$request) {
 			throw new Exception('Invalid query: ' . mysql_error());
 		}
-
+		
+		if(substr($sql, 0, 1) == 'i' || substr($sql, 0, 1) == 'u') {
+			return 'true';
+		}
 		$res = array();
 		$num = 0;
 		while($row = mysql_fetch_array($request, MYSQL_ASSOC)) {
@@ -57,7 +60,7 @@ class POD {
 		$num = count($arg);
 		$i =0 ;
 		foreach($arg as $key => $value) {
-			$sql = $sql.$key.' = '.$value.' ';
+			$sql = $sql.$key.' = \''.$value.'\' ';
 			$i++;
 			if($i != $num) {
 				$sql = $sql.',';
@@ -66,7 +69,7 @@ class POD {
 		$sql = $sql.'where ';
 		$i = 0;
 		$num = count($req);
-		foreach($req as $key => $value) {
+		foreach($req[$i] as $key => $value) {
 			$sql = $sql.$key.' = \''.$value.'\' ';
 			$i++;
 			if($i != $num) {
@@ -112,8 +115,21 @@ class POD {
 	// generate delete sql
 	// req is the qulification array[num][kv]
 	// table is the table string
-	public function genDeleteSql($req, $table) {
-
+	public function genDeleteSql($req,$table){
+		$sql = 'delete ';
+		$num = count($req);
+		$sql = $sql.'* from '.$table.' where ';
+		for($i = 0 ; $i<num ; $i++){
+			$tmp = $req[$i]['Key'];
+			$sql = $sql.$tmp.'=\''.$req[$i][$tmp];
+			if($i == $num - 1){
+				$sql = $sql.'\';';
+			}
+			else {
+				$sql = $sql.'\' and ';
+			}
+		}
+		return $sql;
 	}
 
 	// generate double table search sql

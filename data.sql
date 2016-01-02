@@ -22,3 +22,11 @@ insert into stu_course(course_id, stu_id, score, is_fail) values(2, 2013119, 0, 
 insert into stu_course(course_id, stu_id, score, is_fail) values(3, 2013119, 0, 0);
 insert into stu_course(course_id, stu_id, score, is_fail) values(4, 2013119, 0, 0);
 insert into stu_course(course_id, stu_id, score, is_fail) values(5, 2013119, 0, 0);
+
+insert into res_group(res_group_name, tea_id, project, intro) values('学创', 210, '', '');
+insert into res_group(res_group_name, tea_id, project, intro) values('街舞', 210, '', '');
+insert into res_member(member_id, res_group_id, member_type, stu_id, tea_id, power) values (1, 1, '部长', 2013119, 210, '');
+insert into res_member(member_id, res_group_id, member_type, stu_id, tea_id, power) values (2, 2, '社员', 2013119, 210, '');
+
+insert into res_group_log(res_group_id, create_date, update_date, member_id, log_content) values( 1, '2015/12/1', '2015/11/1', 1, '啦啦啦啦啦啦啦啦啦啦啦啦啦');
+

@@ -1,9 +1,9 @@
-<?php require_once("head.php"); ?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'].'/school/student/stu_head.php'); ?>
 <body>
-	<?php require_once("../navbar.php"); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/school/navbar.php'); ?>
 	<div class='container'>
 		<div class='row'>
-			<?php require_once("./leftSection.php") ?>
+			<?php require_once($_SERVER['DOCUMENT_ROOT'].'/school/student/stu_leftSection.php') ?>
 			<div class="col-xs-10">
 
 				<div id="activities_page">
@@ -194,7 +194,7 @@
 			</div>
 		</div>
 	</div>
-	<?php require_once('../footer.php'); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/school/footer.php'); ?>
 	<script type="text/javascript">
 		function init() {
 			$("#stu_orgnz").addClass("active");
