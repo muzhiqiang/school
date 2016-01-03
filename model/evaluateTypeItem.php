@@ -2,9 +2,8 @@
 require_once $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/pod.php';
 class evaluateTypeItem{
 	public $Eva_id;
-	public $Eva_name;
-	public $Eva_type;
-	public $Tar_res_group_id;
+	public $Eva_year_term;
+	public $Is_over;
 	public function __construct(){
 		
 	}
@@ -19,9 +18,8 @@ class evaluateTypeItem{
 		if($p == false) {
 			throw new Exception('Database connect failed');
 		}
-		$db->query('insert into evaluate (Eva_name, Eva_type, Tar_res_group_id) values(\''.
-		$this->Eva_name.'\', \''.$this->Eva_type.'\', \''.$this->Tar_res_group_id.
-		'\');');
+		$db->query('insert into evaluate (Eva_name, Eva_year_term) values(\''.
+		$this->Eva_year_term.'\');');
 		$db->close();
 	}
 	

@@ -7,6 +7,7 @@ class studentcourseItem{
 	public $Stu_ID;
 	public $Score;
 	public $Is_Fail;
+	public $Is_Evaluate;
 	
 	public function __construct(){
 		
@@ -22,9 +23,9 @@ class studentcourseItem{
 		if($p == false) {
 			throw new Exception('Database connect failed');
 		}
-		$db->query('insert into stu_course (Course_ID, Stu_ID, Score, Is_Fail) values(\''.$this->Course_ID.'\', \''.$this->Stu_ID.'
+		$db->query('insert into stu_course (Course_ID, Stu_ID, Score, Is_Fail, Is_Evaluate) values(\''.$this->Course_ID.'\', \''.$this->Stu_ID.'
 		\', \''.$this->Score.'\', \''.$this->Is_Fail.'
-		\');');
+		\', \''.$this->Is_Evaluate.'\');');
 		$db->close();
 	}
 	public function delete($req){

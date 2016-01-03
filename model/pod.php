@@ -29,6 +29,10 @@ class POD {
 			throw new Exception('Invalid query: ' . mysql_error());
 		}
 
+		$tmp = substr($sql, 0, 1);
+		if($tmp == 'i' || $tmp == 'u') {
+			return true;
+		}
 		$res = array();
 		$num = 0;
 		while($row = mysql_fetch_array($request, MYSQL_ASSOC)) {

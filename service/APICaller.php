@@ -4,13 +4,12 @@ class APICaller {
 
 
 	public function excute($controller, $method) {
-
 		$params = array();
-		foreach($_POST as $key => $value) {
-			$params[$key] = $value;
-		}
 		$params['controller'] = $controller;
 		$params['method'] = $method;
+		foreach ($_POST as $key => $value) {
+			$params[$key] = $value;
+		}
 		if(isset($_SESSION['Account'])) {
 			$params['Account'] = $_SESSION['Account'];
 		}
@@ -21,8 +20,9 @@ class APICaller {
         curl_setopt($ch, CURLOPT_POST, count($params));
         curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
 
-		$data = curl_exec($ch);  
-		curl_close($ch);  
+		$data = curl_exec($ch);
+
+		curl_close($ch);
 
 		return (array)json_decode($data, true);
 	}

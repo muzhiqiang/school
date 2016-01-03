@@ -2,7 +2,7 @@
 require_once $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/pod.php';
 class evaluateItem{
 	public $Eva_one_id;
-	public $Eva_id;
+	public $Eva_course_id;
 	public $Eva_stu_id;
 	public $Score;
 	public $Context;
@@ -22,9 +22,11 @@ class evaluateItem{
 		if($p == false) {
 			throw new Exception('Database connect failed');
 		}
-		$db->query('insert into evaluate_list (Eva_id, Eva_stu_id, Score,
+		
+
+		$db->query('insert into evaluate_list (Eva_course_id, Eva_stu_id, Score,
 		Context,time) values(\''.
-		$this->Eva_id.'\', \''.$this->Eva_stu_id.'\', \''.$this->Score.
+		$this->Eva_course_id.'\', \''.$this->Eva_stu_id.'\', \''.$this->Score.
 		'\', \''.$this->Context.'\', \''.$this->time.'\');');
 		$db->close();
 	}
