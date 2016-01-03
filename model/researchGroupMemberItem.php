@@ -72,15 +72,15 @@ class researchGroupMemberItem{
 		$db->close();
 	}
 	
-	public function stuLinkClass($req, $lk, $arg) {
+	public function memberLinkGroup($req, $lk, $arg) {
+
 		$db = new POD();
 		$p = $db->connect();
 		if($p == false) {
 			throw new Exception('Database connect failed');
 		}
-		$map = array('studentIdentityItem' =>'stu_identification_info', 
-		'studentInfoItem' => 'stu_basic_info');
-		$table = array('stu_identification_info', 'stu_basic_info');
+		$map = array('researchGroupItem' => 'res_group', 'researchGroupMemberItem' => 'res_member');
+		$table = array('res_group', 'res_member');
 		$sql = $db->genLinkSql($req, $lk, $arg, $table, $map);
 		$res = $db->query($sql);
 		return $res;

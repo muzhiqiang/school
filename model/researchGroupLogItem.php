@@ -78,9 +78,10 @@ class researchGroupLogItem{
 			throw new Exception('Database connect failed');
 		}
 		$map = array('researchGroupMemberItem' =>'res_member', 
-		'researchGroupLog' => 'res_group_log');
+		'researchGroupLogItem' => 'res_group_log');
 		$table = array('res_member', 'res_group_log');
 		$sql = $db->genLinkSql($req, $lk, $arg, $table, $map);
+
 		$res = $db->query($sql);
 		return $res;
 	}

@@ -69,20 +69,22 @@ public function __construct(){
 		$db->query($sql);
 		$db->close();
 	}
-	
-	public function stuLinkClass($req, $lk, $arg) {
+
+	public function memberLinkAssocation($req, $lk, $arg) {
+
 		$db = new POD();
 		$p = $db->connect();
 		if($p == false) {
 			throw new Exception('Database connect failed');
 		}
-		$map = array('studentIdentityItem' =>'stu_identification_info', 
-		'studentInfoItem' => 'stu_basic_info');
-		$table = array('stu_identification_info', 'stu_basic_info');
+		$map = array('studentAssocationMemberItem' => 'stu_union_member',
+			'studentAssocationItem' => 'stu_union');
+		$table = array('stu_union_member', 'stu_union');
 		$sql = $db->genLinkSql($req, $lk, $arg, $table, $map);
 		$res = $db->query($sql);
 		return $res;
 	}
+
 	
 	
 }

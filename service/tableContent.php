@@ -2,8 +2,9 @@
 
 	require_once $_SERVER['DOCUMENT_ROOT'].'/school/service/APICaller.php';
 
+	$year = $_GET['year'].$_GET['term'];
+	$_POST['Course_year_term'] = $year;	
 
-	$_POST['Course_year_term'] = '20151';	
 	$api = new APICaller();
 	$result = $api->excute('course', 'showStudentYearCourseTable');
 
@@ -44,24 +45,13 @@
 		}
 	}
 
-	$detail = array();
-	$num = 0;
+	$res = '<tr><td>第一节课<br>第二节课</td>'.$table[1].'</tr>'.
+	'<tr><td>第三节课<br>第四节课</td>'.$table[2].'</tr>'.
+	'<tr><td>第五节课<br>第六节课</td>'.$table[3].'</tr>'.
+	'<tr><td>第七节课<br>第八节课</td>'.$table[4].'</tr>'.
+	'<tr><td>第九节课<br>第十节课</td>'.$table[5].'</tr>'.
+	'<tr><td>第十一节课<br>第十二节课</td>'.$table[6].'</tr>';
 
-	foreach($id as $tmp) {
-		
-		$_POST['Course_ID'] = $tmp;
-		$res = $api->excute('course', 'showDetailCourse');
-		
-		if($res['success'] != 1) {
-
-			$_SESSION['errno'] = $detail[$num]['data'];
-			header('location:/school/404.php');
-		}
-		$detail[$num] = $res['data'][0];
-		$num++;
-	}
-
-
-
+	echo $res;
 
 ?>

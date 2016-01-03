@@ -1,19 +1,27 @@
-<?php require_once("head.php"); ?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'].'/school/student/stu_head.php'); ?>
 <body>
-	<?php require_once("../navbar.php"); ?>
+	<?php
+		require_once($_SERVER['DOCUMENT_ROOT'].'/school/navbar.php'); 
+		require_once($_SERVER['DOCUMENT_ROOT'].'/school/service/studentAssocation.php'); 
+
+	?>
 	<div class='container'>
 		<div class='row'>
-			<?php require_once("./leftSection.php") ?>
+			<?php require_once($_SERVER['DOCUMENT_ROOT'].'/school/student/stu_leftSection.php') ?>
 			<div class="col-xs-10">
 
 				<div id="activities_page">
 				<div style="width:100%;height:50px;">
 					<span class="pull-left">最近活动：</span>
 					<div class="form-group pull-right" style="position:relative;bottom:5px;">
-						<select class="form-control" >
+						<select class="form-control" id = "selectAssocation" onchange ="enterAssocation()">
 							<option></option>
-							<option>学生创新俱乐部</option>
-							<option>sixstep</option>						
+						<?php 
+							$num = count($res['data']);
+							for($i = 0; $i < $num; $i++) {
+						?>
+							<option value="<?php echo$res['data'][$i]['group_ID'];?>"><?php echo $res['data'][$i]['group_name']; ?></option>
+						<?php }?>
 						</select>
 					</div>
 					<span class="pull-right">进入我的组织：</span>
@@ -38,11 +46,12 @@
 
 				<div id="orgnz_page">
 				<div style="width:100%;height:50px;">
-					<span class="pull-left">学生能够创新巨鹿不</span>
+					<span class="pull-left"><?php if(isset($aso)) echo $aso['data'][0]['group_name']; ?></span>
 					<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="return_act_page()">返回</button>	
-					<span class="pull-right">我的职务：部长</span>
+					<span class="pull-right">我的职务：<?php if(isset($aso)) echo $aso['data'][0]['gro_position']; ?></span>
 				</div>
 				<div class="panel-group" >
+
 					<div class="panel panel-default" data-toggle="collapse" data-parent="#courseDetail" href="#collapseOne" style="cursor:pointer">
 						<div class="panel-heading">
 							<h4 class="panel-title" >
@@ -58,9 +67,9 @@
 						</div>
 					</div>
 				</div>
-				<button class="btn btn-info pull-left" style="position:relative;bottom:5px;" onclick="send_message()">发布消息</button>
-				<button class="btn btn-info pull-left" style="position:relative;bottom:5px;" onclick="mang_mber()">管理成员</button>
-				<button class="btn btn-info pull-left" style="position:relative;bottom:5px;" onclick="publish_act()">发布活动</button>	
+				<button class="btn btn-info pull-left" style="position:relative;bottom:5px;" onclick="send_message()" <?php if(isset($aso) && $aso['data'][0]['power']<2) echo 'disabled = "true"';?>)>发布消息</button>
+				<button class="btn btn-info pull-left" style="position:relative;bottom:5px;" onclick="mang_mber()"<?php if(isset($aso) && $aso['data'][0]['power']<4) echo 'disabled = "true"';?>>管理成员</button>
+				<button class="btn btn-info pull-left" style="position:relative;bottom:5px;" onclick="publish_act()"><?php if(isset($aso) && $aso['data'][0]['power']<2) echo 'disabled = "true"';?>发布活动</button>	
 				<button class="btn btn-info pull-left" style="position:relative;bottom:5px;" onclick="leave_orgnz()">离开组织</button>	
 				</div>
 				
@@ -147,46 +156,48 @@
 							<div class="form-group">
 								<label for="firstname" class="col-sm-2 control-label">活动时间</label>
 								<div class="col-sm-3 text-center">
-									<select class="form-control">
-										<option>2013年</option>
-										<option>2</option>
-										<option>3</option>
-										<option>4</option>
-										<option>5</option>
+									<select class="form-control" id = "act_year">
+										<option value = 2013>2013年</option>
+										<option value = 2014>2014年</option>
+										<option value = 2015>2015年</option>
+										<option value = 2016>2016年</option>
 									</select>
 								</div>
 								<div class="col-sm-3 text-center">
-									<select class="form-control">
-										<option>1月</option>
-										<option>2</option>
-										<option>3</option>
-										<option>4</option>
-										<option>5</option>
+									<select class="form-control" id ="act_month">
+									<?php
+										for($i=1; $i<=12; $i++) {
+									?>
+										<option value="<?php echo $i; ?>"><?php echo $i;?>月</option>
+									<?php }
+									?>
 									</select>
 								</div>
 								<div class="col-sm-3 text-center">
-									<select class="form-control">
-										<option>1日</option>
-										<option>2</option>
-										<option>3</option>
-										<option>4</option>
-										<option>5</option>
+									<select class="form-control" id = "act_day">
+									<?php
+										for($i=1; $i<=31; $i++) {
+									?>
+										<option value="<?php echo $i; ?>"><?php echo $i;?>日</option>
+									<?php }
+									?>
+
 									</select>
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="firstname" class="col-sm-2 control-label">活动地点：</label>
+								<label for="place" class="col-sm-2 control-label">活动地点：</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" id="firstname" placeholder="请输入活动地点">
+									<input type="text" class="form-control" id="place" placeholder="请输入活动地点">
 								</div>
 							</div>
 							<div class="form-group">
 							 	<label for="name" class="col-sm-2 control-label">活动内容：</label>
 							 	<div class="col-sm-10">
-								 	<textarea class="form-control" rows="5"></textarea>
+								 	<textarea class="form-control" rows="5" id = "content"></textarea>
 								</div>
 							</div>
-							<input type="button" class="btn btn-info text-center" value="确定">
+							<input type="button" class="btn btn-info text-center" value="确定" onclick = "AddAct(<?php echo $_GET['group_ID'];?>)">
 						</form>
 					</div>
 					</div>
@@ -194,7 +205,7 @@
 			</div>
 		</div>
 	</div>
-	<?php require_once('../footer.php'); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/school/footer.php'); ?>
 	<script type="text/javascript">
 		function init() {
 			$("#stu_orgnz").addClass("active");
@@ -205,10 +216,16 @@
 			$("#publish_act_page").addClass("hide");
 		}
 		(function () {
-			init();
+			var url = location.href;
+			var index = url.indexOf("?");
+			if(index < 0)
+				return_act_page();
+			else
+				init();
 		}) ();
 		function return_orgnz_page(){
 			$("#activities_page").addClass("hide");
+			$("#stu_orgnz").addClass("hide");
 			$("#orgnz_page").removeClass("hide");
 			$("#send_message_page").addClass("hide");
 			$("#mang_mbr_page").addClass("hide");
@@ -241,6 +258,44 @@
 			$("#send_message_page").addClass("hide");
 			$("#mang_mbr_page").addClass("hide");
 			$("#publish_act_page").removeClass("hide");
-		}		
+		}
+		function enterAssocation() {
+			var id = document.getElementById('selectAssocation').value;
+			location.replace("/school/student/stu_orgnz.php?controller=studentAssocation&method=enterAssocation&group_ID="+id);	
+		}
+		function AddAct(t) {
+			var group_id = t;
+			var act_name = document.getElementById("firstname").value;
+			var day = document.getElementById("act_day").value
+			var act_position = document.getElementById("place").value
+			var intro = document.getElementById("content").value
+			var year = document.getElementById("act_year").value
+			var month = document.getElementById("act_month").value
+			var act_time = year+"/"+month+"/"+day;
+
+			$.ajax({
+				url:"/school/route.php",
+				type:"POST",
+				contentType:"application/x-www-form-urlencoded; charset=UTF-8",
+				data : {"controller":"studentAssocation", "method":"AddActivity","Group_ID":group_id, "Act_name":act_name, "Act_position":act_position, "Intro": intro, "Act_time":act_time},
+				datatype : "text",
+				async: true,
+				success:function(data) {
+					if(data.success == true) {
+						alert("Successfully!");
+						$("#publish_act_page").addClass("hide");
+						$("#orgnz_page").removeClass("hide");
+					}
+					else {
+						alert(data.data);
+					}
+			
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					 alert(XMLHttpRequest.status);
+
+				}
+			});	
+		}
 	</script>
 </body>

@@ -11,10 +11,11 @@ class studentAward {
 	}
 
 	// show All Award of the student 
-	public function showAllAwardAction() {
-		
+	public function showYearAwardAction() {
+
 		$req = array();
-		$req[0] = array('key' => 'Stu_ID', 'Stu_ID' => $_SESSION['Account']);
+		$req[0] = array('key' => 'Stu_ID', 'Stu_ID' => $_POST['Account']);
+		$req[1] = array('key' => 'Award_time', 'Award_time' => $_POST['Award_time']);
 		$arg = array('Award_ID', 'Award_time', 'Award_name', 'Award_Rank', 'Verify_statue', 'Award_intro');
 		$res = $this->util_->searchRecord($req, $arg, 'studentAwardItem');
 
@@ -59,10 +60,10 @@ class studentAward {
 	}
 
 	// Add an Award Recode
-	public function addAward() {
+	public function addAwardAction() {
 
-		$arg = array('Award_time', 'Award_Rank', 'Award_intro');
-		$default = array('Stu_ID' => $_SESSION['Account']);
+		$arg = array('Award_time','Award_name',  'Award_intro');
+		$default = array('Stu_ID' => $_POST['Account'], 'Verify_statue' => '未通过');
 
 		$this->util_->addRecord($arg, $_POST, 'studentAwardItem', $default);
 

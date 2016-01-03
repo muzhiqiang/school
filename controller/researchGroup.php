@@ -1,6 +1,6 @@
 <?php
 
-require $_SERVER['DOCUMENT_ROOT'].'/school'.'/controller/util.php'
+require $_SERVER['DOCUMENT_ROOT'].'/school'.'/controller/util.php';
 
 class researchGroup {
 
@@ -14,12 +14,28 @@ class researchGroup {
 	// show group accoding to tea_id
 	public function showProjectAction() {
 
+
 		$arg = array('Res_group_id', 'Res_group_name', 'project');
 		$req = array();
-		$req[0] = array('key' =>'Tea_ID', 'Tea_ID' =>$_SESSION['Account']);
+		$req[0] = array('key' =>'Tea_ID', 'Tea_ID' =>$_POST['Account']);
 		$res = $this->util_->searchRecord($req, $arg, 'researchGroupItem');
 
 		return res;
+	}
+
+	// show student john research group
+	public function showStudentGroupAction() {
+		
+		$this->util_->requireArg('Account', $_POST);
+		$arg = array('Res_group_id', 'Res_group_name');
+		$req = array();
+		$req[0] = array('key' => 'Stu_ID', 'Stu_ID' =>$_POST['Account'], 'table' => 'researchGroupMemberItem');
+		$lk = array('Res_group_id');
+		require_once './model/researchGroupMemberItem.php';
+		$item = new researchGroupMemberItem();
+		$res = $item->memberLinkGroup($req, $lk, $arg);
+		
+		return $res;
 	}
 
 	// add group
@@ -27,7 +43,7 @@ class researchGroup {
 	public function addResearchGroupAction() {
 
 		$arg = array('Res_group_name', 'project', 'Intro');
-		$default = array('Tea_ID' => $_SESSION['Account']);
+		$default = array('Tea_ID' => $_POST['Account']);
 		$this->util_->addRecord($arg, $_POST, 'researchGroupItem', $default);
 	}
 
@@ -37,7 +53,7 @@ class researchGroup {
 
 		//TODO:: power
 		$arg = array('Member_ID', 'Res_group_ID', 'Member_type', 'Stu_ID');
-		$deafult = array('Tea_ID' => $_SESSION['Account'], 'power' = >'init');
+		$deafult = array('Tea_ID' => $_POST['Account'], 'power' =>'init');
 		$this->util_->addRecord($arg, $_POST, 'researchGroupMenberItem', $default);
 	}
 
@@ -109,7 +125,7 @@ class researchGroup {
 
 		$key = array('Result_ID');
 		$arg = array('Verify_statue');
-		$default = array('Tea_ID' => $_SESSION['Account']);
+		$default = array('Tea_ID' => $_POST['Account']);
 		$this->util_->updateRecord($key, $arg, $_POST, 'researchGroupProjectItem');
 
 	}
@@ -127,27 +143,22 @@ class researchGroup {
 	// argument group_id
 	public function showGroupLogAction() {
 
-		$this->util_->requireArg('Res_group_ID', $_POST);
-		$arg = array('Log_ID', 'Create_date', 'Update_date');
+		$this->util_->requireArg('Res_group_id', $_POST);
+		$arg = array('Log_ID', 'Create_date', 'Update_date', 'Stu_ID', 'Log_content');
 		$req = array();
-		$req[0] = array('key' => 'Res_group_ID', 'Res_group_ID' => $_POST['Res_group_ID']);
-
-		$res = $this->searchRecord($req, $arg, 'researchGroupLogItem');
+		$lk = array('Member_ID');
+		$req[0] = array('key' => 'Res_group_id', 'Res_group_id' => $_POST['Res_group_id'], 'table' => 'researchGroupLogItem');
+		
+		require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/researchGroupLogItem.php';
+		$item = new researchGroupLogItem();
+		$res = $item->logLinkGroupMember($req, $lk, $arg);
 		return $res;
 	}
 
 	// show detail info of the certain log accoding to the log_id
 	public function showDetailLogAction() {
 
-		$this->util_->requireArg('Log_ID', $_POST);
-		$arg = array('Log_ID', 'Create_date', 'Update_date', 'Stu_ID', 'Log_content');
-		$req = array();
-		$lk = array('Member_ID');
-		$req[0] = array('key' => 'Log_ID', 'Log_ID' => $_POST['Log_ID'], 'table' => 'reserchGroupLogItem');
-		
-		require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/researchGroupItem.php';
-		$item = new researchGroupItem();
-		$res = $item->logLinkGroupMember($req, $lk, $arg);
+
 		
 		require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/studentInfoItem.php';
 		$item = new studentInfoItem();
@@ -159,9 +170,9 @@ class researchGroup {
 
 	// update the log accoind to log_id
 	// TODO:: member_ID
-	public function updateLogItem() {
+	public function updateLogAction() {
 
-		$arg  = array('Update_time', 'Log_content');
+		$arg  = array('Update_date', 'Log_content');
 		$key = array('Log_ID');
 		$default = array();
 		$this->util_->updateRecord($key, $arg, $_POST, 'researchGroupLogItem');
