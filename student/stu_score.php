@@ -1,9 +1,9 @@
-<?php require_once("head.php"); ?>
+<?php require_once("stu_head.php"); ?>
 <body>
 	<?php require_once("../navbar.php"); ?>
 	<div class='container'>
 		<div class='row'>
-			<?php require_once("./leftSection.php") ?>
+			<?php require_once("./stu_leftSection.php") ?>
 			<div class="col-xs-10">
 				<div class='panel panel-default panel-block'>
 					<div class='panel-heading'>
@@ -87,7 +87,7 @@
 	<?php require_once('../footer.php'); ?>
 	<script type="text/javascript">
 		function init() {
-			$("#myScore").addClass("active");
+			$("#stu_message").addClass("active");
 		}
 		(function () {
 			init();

@@ -127,6 +127,7 @@
 											<input type="checkbox">发布活动</td>
 									</td>
 									<td>
+										
 										<button class="btn btn-info" style="position:relative;bottom:5px;" onclick="">删除成员</button>	
 									</td>
 								</tr>								
@@ -135,6 +136,26 @@
 						<input type="button" class="btn btn-info text-center" value="确定">
 					</div>
 				</div>
+					
+					<div class='panel panel-default panel-block'>
+						<div class='panel-heading'>
+							<div class='panel-title'>
+								添加成员
+							</div>
+						</div>
+						<div class='panel-body'>
+							<form action="/school/student/stu_info.php?controller=student&method=updateInfo" method="POST" role="form" class="form-horizontal" id="editForm">
+								<div class="form-group">
+									<label for="" class="col-xs-3 col-xs-offset-2 text-center">请输入学号：</label>
+									<div class="col-xs-4">
+										<input class="form-control" type="text" name="Polit"/>
+									</div>
+								</div>
+								<input type="submit" class="btn btn-info" value="确定"/>
+							</form>
+						</div>
+					</div>
+
 				</div>
 
 				<div id="publish_act_page">
@@ -205,10 +226,9 @@
 			</div>
 		</div>
 	</div>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/school/footer.php'); ?>
+	<?php require_once('../footer.php'); ?>
 	<script type="text/javascript">
 		function init() {
-			$("#stu_orgnz").addClass("active");
 			$("#activities_page").addClass("hide");
 			//$("#orgnz_page").addClass("hide");
 			$("#send_message_page").addClass("hide");
@@ -216,6 +236,7 @@
 			$("#publish_act_page").addClass("hide");
 		}
 		(function () {
+			$("#stu_orgnz").addClass("active");
 			var url = location.href;
 			var index = url.indexOf("?");
 			if(index < 0)
@@ -225,7 +246,6 @@
 		}) ();
 		function return_orgnz_page(){
 			$("#activities_page").addClass("hide");
-			$("#stu_orgnz").addClass("hide");
 			$("#orgnz_page").removeClass("hide");
 			$("#send_message_page").addClass("hide");
 			$("#mang_mbr_page").addClass("hide");

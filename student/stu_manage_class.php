@@ -91,10 +91,36 @@
 								</tr>								
 							</tbody>
 						</table>
-						<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="add_member()">添加班干</button>
 						<input type="button" class="btn btn-info text-center" value="确定">
 					</div>
 				</div>
+
+				<div class='panel panel-default panel-block'>
+					<div class='panel-heading'>
+						<div class='panel-title'>
+						添加成员
+						</div>
+					</div>
+					<div class='panel-body'>
+						<form  method="POST" role="form" class="form-horizontal " id="editForm">
+							<div class="form-group">
+								<label for="" class="col-xs-3 col-xs-offset-2 text-center">请输入学号：</label>
+								<div class="col-xs-4">
+									<input class="form-control" type="text"  name="native_place"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="" class="col-xs-3 col-xs-offset-2 text-center">请输入权限：</label>
+								<div class="col-xs-4">
+									<input class="form-control" type="text"  name="native_place"/>
+								</div>
+							</div>
+							<input type="submit" class="btn btn-info" value="确定"/>
+						</form>
+					</div>
+				</div>
+
+
 				</div>
 			</div>
 		</div>

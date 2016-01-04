@@ -91,7 +91,7 @@
 			</div>
 		</div>
 	</div>
-	<?php $_SERVER['DOCUMENT_ROOT'].'/school'.'/footer.php'; ?>
+	<?php require_once('../footer.php'); ?>
 	<script type="text/javascript">
 		function init() {
 			$("#stu_message").addClass("active");
