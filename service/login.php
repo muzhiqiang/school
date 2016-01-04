@@ -6,11 +6,13 @@
 	$api = new APICaller();
 	$result = $api->excute('account', 'login');
 	
-
+		print_r($_SESSION);
+		print_r($result);
 	if($result['success'] == true) {
 		
 		$_SESSION['Account'] = $_POST['ID'];
 		$_SESSION['Type'] = $_POST['Type'];
+
 		switch($_SESSION['Type']) {
 			case 'student':				
 				header('location:/school/student/stu_info.php');
