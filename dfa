@@ -1,0 +1,2642 @@
+[1mdiff --cc teacher/tea_classes.php[m
+[1mindex e170e95,78cf01f..0000000[m
+[1m--- a/teacher/tea_classes.php[m
+[1m+++ b/teacher/tea_classes.php[m
+[36m@@@ -1,75 -1,120 +1,120 @@@[m
+[31m -<?php require_once("tea_head.php"); ?>[m
+[31m -<body>[m
+[31m -	<?php require_once("../navbar.php"); ?>[m
+[31m -	<div class='container'>[m
+[31m -		<div class='row'>[m
+[31m -			<?php require_once("./tea_left_section.php") ?>[m
+[31m -			<div class="col-xs-10">[m
+[31m -				<div class='panel panel-default panel-block'>[m
+[31m -					<div class='panel_heading'>[m
+[31m -						<div class ='panel-title'>[m
+[31m -							<button class="btn btn-success pull-right" id = "searchBtn"  onclick ="search(this)">查询</button>[m
+[31m -							<span class="pull-right" style="position:relative;top:5px;">学期</span>[m
+[31m -							<div class="form-group pull-right">[m
+[31m -								<select class="form-control" id="term">[m
+[31m -									<option value = '1'>1</option>[m
+[31m -									<option value = '2'>2</option>[m
+[31m -									<option value = '3'>3</option>[m
+[31m -								</select>[m
+[31m -							</div>[m
+[31m -							<span class="pull-right" style="position:relative;top:5px;">学年</span>[m
+[31m -							<div class="form-group pull-right">[m
+[31m -								<select class="form-control" id="year">[m
+[31m -									<option value = '2013'>2013</option>[m
+[31m -									<option value = '2014'>2014</option>[m
+[31m -									<option value = '2015'>2015</option>[m
+[31m -									<option value = '2016'>2016</option>[m
+[31m -								</select>[m
+[31m -							</div>[m
+[31m -						</div>[m
+[31m -					</div>[m
+[31m -					[m
+[31m -					<div class='panel-body'>[m
+[31m -						<table class="table table-bordered text-center" id="courseTable">[m
+[31m -							<thead>[m
+[31m -								<tr>[m
+[31m -									<th></th>[m
+[31m -									<th class="text-center">星期一</th>[m
+[31m -									<th class="text-center">星期二</th>[m
+[31m -									<th class="text-center">星期三</th>[m
+[31m -									<th class="text-center">星期四</th>[m
+[31m -									<th class="text-center">星期五</th>[m
+[31m -									<th class="text-center">星期六</th>[m
+[31m -									<th class="text-center">星期日</th>[m
+[31m -								</tr>[m
+[31m -							</thead>[m
+[31m -							<tbody id ="tableContent">[m
+[31m -								<tr>[m
+[31m -									<td>第一节课</td>[m
+[31m -								</tr>[m
+[31m -								<tr>[m
+[31m -									<td>第二节课</td>[m
+[31m -								</tr>[m
+[31m -								<tr>[m
+[31m -									<td>第三节课</td>[m
+[31m -								</tr>[m
+[31m -								<tr>[m
+[31m -									<td>第四节课</td>[m
+[31m -								</tr>[m
+[31m -								<tr>[m
+[31m -									<td>第五节课</td>[m
+[31m -								</tr>[m
+[31m -								<tr>[m
+[31m -									<td>第六节课</td>[m
+[31m -								</tr>[m
+[31m -								<tr>[m
+[31m -									<td>第七节课</td>[m
+[31m -								</tr>[m
+[31m -								<tr>[m
+[31m -									<td>第八节课</td>[m
+[31m -								</tr>[m
+[31m -								<tr>[m
+[31m -									<td>第九节课</td>[m
+[31m -								</tr>[m
+[31m -								<tr>[m
+[31m -									<td>第十节课</td>[m
+[31m -								</tr>[m
+[31m -								<tr>[m
+[31m -									<td>第十一节课</td>[m
+[31m -								</tr>[m
+[31m -								<tr>[m
+[31m -									<td>第十二节课</td>[m
+[31m -								</tr>[m
+[31m -							</tbody>[m
+[31m -						</table>[m
+[31m -					</div>[m
+[31m -				</div>[m
+[31m -			</div>[m
+[31m -		</div>[m
+[31m -	</div>[m
+[31m -	<script src="../public/javascripts/jquery.min.js"></script>[m
+[31m -	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>[m
+[31m -	<script type="text/javascript">[m
+[31m -		(function () {[m
+[31m -			$("#tea_classes").addClass("active");[m
+[31m -		}) ();[m
+[31m -[m
+[31m -		function search(t) {[m
+[31m -[m
+[31m -			var term = document.getElementById('term').value;[m
+[31m -			var year = document.getElementById('year').value;[m
+[31m -			var account = <?php echo $_SESSION['Account']; ?>;[m
+[31m -[m
+[31m -			$.ajax({[m
+[31m -				url:'/school/service/teacherCourse.php?term='+term+'&year='+year,[m
+[31m -				type:"POST",[m
+[31m -				contentType:"application/x-www-form-urlencoded; charset=UTF-8",[m
+[31m -				data : {"Account":account},[m
+[31m -				datatype : "text",[m
+[31m -				async: true,[m
+[31m -				success:function(data) {[m
+[31m -					document.getElementById("tableContent").innerHTML = data;				[m
+[31m -				},[m
+[31m -				error: function(XMLHttpRequest, textStatus, errorThrown) {[m
+[31m -					 alert(XMLHttpRequest.status);[m
+[31m -[m
+[31m -				}[m
+[31m -			});[m
+[31m -		}[m
+[31m -	</script>[m
+[31m -</body>[m
+[32m +<?php require_once("tea_head.php"); ?>[m
+[32m +<body>[m
+[32m +	<?php require_once("../navbar.php"); ?>[m
+[32m +	<div class='container'>[m
+[32m +		<div class='row'>[m
+[32m +			<?php require_once("./tea_left_section.php") ?>[m
+[32m +			<div class="col-xs-10">[m
+[32m +				<div class='panel panel-default panel-block'>[m
+[32m++					<div class='panel_heading'>[m
+[32m++						<div class ='panel-title'>[m
+[32m++							<button class="btn btn-success pull-right" id = "searchBtn"  onclick ="search(this)">查询</button>[m
+[32m++							<span class="pull-right" style="position:relative;top:5px;">学期</span>[m
+[32m++							<div class="form-group pull-right">[m
+[32m++								<select class="form-control" id="term">[m
+[32m++									<option value = '1'>1</option>[m
+[32m++									<option value = '2'>2</option>[m
+[32m++									<option value = '3'>3</option>[m
+[32m++								</select>[m
+[32m++							</div>[m
+[32m++							<span class="pull-right" style="position:relative;top:5px;">学年</span>[m
+[32m++							<div class="form-group pull-right">[m
+[32m++								<select class="form-control" id="year">[m
+[32m++									<option value = '2013'>2013</option>[m
+[32m++									<option value = '2014'>2014</option>[m
+[32m++									<option value = '2015'>2015</option>[m
+[32m++									<option value = '2016'>2016</option>[m
+[32m++								</select>[m
+[32m++							</div>[m
+[32m++						</div>[m
+[32m++					</div>[m
+[32m++					[m
+[32m +					<div class='panel-body'>[m
+[32m +						<table class="table table-bordered text-center" id="courseTable">[m
+[32m +							<thead>[m
+[32m +								<tr>[m
+[32m +									<th></th>[m
+[32m +									<th class="text-center">星期一</th>[m
+[32m +									<th class="text-center">星期二</th>[m
+[32m +									<th class="text-center">星期三</th>[m
+[32m +									<th class="text-center">星期四</th>[m
+[32m +									<th class="text-center">星期五</th>[m
+[32m +									<th class="text-center">星期六</th>[m
+[32m +									<th class="text-center">星期日</th>[m
+[32m +								</tr>[m
+[32m +							</thead>[m
+[31m- 							<tbody>[m
+[32m++							<tbody id ="tableContent">[m
+[32m +								<tr>[m
+[32m +									<td>第一节课</td>[m
+[32m +								</tr>[m
+[32m +								<tr>[m
+[32m +									<td>第二节课</td>[m
+[32m +								</tr>[m
+[32m +								<tr>[m
+[32m +									<td>第三节课</td>[m
+[32m +								</tr>[m
+[32m +								<tr>[m
+[32m +									<td>第四节课</td>[m
+[32m +								</tr>[m
+[32m +								<tr>[m
+[32m +									<td>第五节课</td>[m
+[32m +								</tr>[m
+[32m +								<tr>[m
+[32m +									<td>第六节课</td>[m
+[32m +								</tr>[m
+[32m +								<tr>[m
+[32m +									<td>第七节课</td>[m
+[32m +								</tr>[m
+[32m +								<tr>[m
+[32m +									<td>第八节课</td>[m
+[32m +								</tr>[m
+[32m +								<tr>[m
+[32m +									<td>第九节课</td>[m
+[32m +								</tr>[m
+[32m +								<tr>[m
+[32m +									<td>第十节课</td>[m
+[32m +								</tr>[m
+[32m +								<tr>[m
+[32m +									<td>第十一节课</td>[m
+[32m +								</tr>[m
+[32m +								<tr>[m
+[32m +									<td>第十二节课</td>[m
+[32m +								</tr>[m
+[32m +							</tbody>[m
+[32m +						</table>[m
+[32m +					</div>[m
+[32m +				</div>[m
+[32m +			</div>[m
+[32m +		</div>[m
+[32m +	</div>[m
+[32m +	<script src="../public/javascripts/jquery.min.js"></script>[m
+[32m +	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>[m
+[32m +	<script type="text/javascript">[m
+[32m +		(function () {[m
+[32m +			$("#tea_classes").addClass("active");[m
+[32m +		}) ();[m
+[32m +[m
+[32m++		function search(t) {[m
+[32m++[m
+[32m++			var term = document.getElementById('term').value;[m
+[32m++			var year = document.getElementById('year').value;[m
+[32m++			var account = <?php echo $_SESSION['Account']; ?>;[m
+[32m++[m
+[32m++			$.ajax({[m
+[32m++				url:'/school/service/teacherCourse.php?term='+term+'&year='+year,[m
+[32m++				type:"POST",[m
+[32m++				contentType:"application/x-www-form-urlencoded; charset=UTF-8",[m
+[32m++				data : {"Account":account},[m
+[32m++				datatype : "text",[m
+[32m++				async: true,[m
+[32m++				success:function(data) {[m
+[32m++					document.getElementById("tableContent").innerHTML = data;				[m
+[32m++				},[m
+[32m++				error: function(XMLHttpRequest, textStatus, errorThrown) {[m
+[32m++					 alert(XMLHttpRequest.status);[m
+[32m++[m
+[32m++				}[m
+[32m++			});[m
+[32m++		}[m
+[32m +	</script>[m
+[31m- </body>[m
+[32m++</body>[m
+[1mdiff --cc teacher/tea_committee.php[m
+[1mindex c31ae45,ef3bbab..0000000[m
+[1m--- a/teacher/tea_committee.php[m
+[1m+++ b/teacher/tea_committee.php[m
+[36m@@@ -1,133 -1,136 +1,136 @@@[m
+[31m -<?php require_once("tea_head.php"); ?>[m
+[31m -<body>[m
+[31m -	<?php[m
+[31m -		require_once("../navbar.php");[m
+[31m -		require_once $_SERVER['DOCUMENT_ROOT'].'/school/service/committee.php';[m
+[31m -	 ?>[m
+[31m -	<div class='container'>[m
+[31m -		<div class='row'>[m
+[31m -			<?php require_once("./tea_left_section.php") ?>[m
+[31m -			<div class="col-xs-10" id="home_page">[m
+[31m -				<h3>你好 委员长</h3>[m
+[31m -				<div class='panel panel-default panel-block'>[m
+[31m -					<div class='panel-heading'>[m
+[31m -						<div class='panel-title'>[m
+[31m -							<span>最近消息</span>[m
+[31m -						</div>[m
+[31m -					</div>[m
+[31m -					<div class='panel-body'>[m
+[31m -					</div>[m
+[31m -				</div>		[m
+[31m -[m
+[31m -				<button class="btn btn-success pull-left"  onclick="manage_member()">委员管理</button>[m
+[31m -				<button class="btn btn-success pull-left"  onclick="start_evaluate()">发起评价</button>[m
+[31m -				<button class="btn btn-success pull-left"  onclick="manage_teacher()">教师管理</button>		[m
+[31m -				<button class="btn btn-success pull-left"  onclick="check_research()">科研成果审核</button>[m
+[31m -			</div>[m
+[31m -[m
+[31m -[m
+[31m -[m
+[31m -			[m
+[31m -[m
+[31m -			<div class="col-xs-10"id="m_mem">[m
+[31m -				<div>[m
+[31m -					[m
+[31m -				</div>[m
+[31m -				<div class='panel panel-default panel-block'>[m
+[31m -					<div class='panel-heading'>[m
+[31m -						<div class='panel-title'>[m
+[31m -							委员列表[m
+[31m -							<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="return_home_page()">返回</button>[m
+[31m -							<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="add_member()">添加委员</button>[m
+[31m -						</div>[m
+[31m -					</div>[m
+[31m -					<div class="panel-body">[m
+[31m -					</div>[m
+[31m -				</div>[m
+[31m -			</div>[m
+[31m -[m
+[31m -			<div class="col-xs-10"id="s_eva">[m
+[31m -				<h2 class="text-center">确定发起评价?</h2>[m
+[31m -				<div class="text-center">[m
+[31m -					<button class="btn btn-success " style="position:relative;bottom:5px;" onclick="return_home_page()">确定</button>[m
+[31m -					<button class="btn btn-success " style="position:relative;bottom:5px;" onclick="return_home_page()">返回</button>[m
+[31m -				</div>[m
+[31m -			</div>[m
+[31m -[m
+[31m -			<div class="col-xs-10"id="m_tea">[m
+[31m -				<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="return_home_page()">返回</button>[m
+[31m -			</div>[m
+[31m -[m
+[31m -			<div class="col-xs-10"id="c_res">[m
+[31m -				<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="return_home_page()">返回</button>[m
+[31m -			</div>[m
+[31m -[m
+[31m -[m
+[31m -			<div class="col-xs-10"id="add_mem">[m
+[31m -				<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="return_home_page()">返回</button>[m
+[31m -			</div>			[m
+[31m -[m
+[31m -		</div>[m
+[31m -	</div>[m
+[31m -	<script src="../public/javascripts/jquery.min.js"></script>[m
+[31m -	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>[m
+[31m -	<script type="text/javascript">[m
+[31m -		function init() {[m
+[31m -			$("#tea_committee").addClass("active");[m
+[31m -			$("#m_mem").addClass("hide");[m
+[31m -			$("#m_tea").addClass("hide");[m
+[31m -			$("#s_eva").addClass("hide");[m
+[31m -			$("#c_res").addClass("hide");[m
+[31m -			$("#add_mem").addClass("hide");[m
+[31m -		}[m
+[31m -		function return_home_page(){[m
+[31m -			$("#home_page").removeClass("hide");[m
+[31m -			$("#m_mem").addClass("hide");[m
+[31m -			$("#m_tea").addClass("hide");[m
+[31m -			$("#s_eva").addClass("hide");[m
+[31m -			$("#c_res").addClass("hide");[m
+[31m -			$("#add_mem").addClass("hide");[m
+[31m -		}[m
+[31m -		function manage_member(){[m
+[31m -			$("#home_page").addClass("hide");[m
+[31m -			$("#m_mem").removeClass("hide");[m
+[31m -			$("#m_tea").addClass("hide");[m
+[31m -			$("#s_eva").addClass("hide");[m
+[31m -			$("#c_res").addClass("hide");[m
+[31m -			$("#add_mem").addClass("hide");[m
+[31m -		}[m
+[31m -		function start_evaluate(){[m
+[31m -			$("#home_page").addClass("hide");[m
+[31m -			$("#m_mem").addClass("hide");[m
+[31m -			$("#m_tea").addClass("hide");[m
+[31m -			$("#s_eva").removeClass("hide");[m
+[31m -			$("#c_res").addClass("hide");	[m
+[31m -			$("#add_mem").addClass("hide");		[m
+[31m -		}[m
+[31m -		function manage_teacher(){[m
+[31m -			$("#home_page").addClass("hide");[m
+[31m -			$("#m_mem").addClass("hide");[m
+[31m -			$("#m_tea").removeClass("hide");[m
+[31m -			$("#s_eva").addClass("hide");[m
+[31m -			$("#c_res").addClass("hide");	[m
+[31m -			$("#add_mem").addClass("hide");		[m
+[31m -		}[m
+[31m -		function check_research(){[m
+[31m -			$("#home_page").addClass("hide");[m
+[31m -			$("#m_mem").addClass("hide");[m
+[31m -			$("#m_tea").addClass("hide");[m
+[31m -			$("#s_eva").addClass("hide");[m
+[31m -			$("#c_res").removeClass("hide");[m
+[31m -			$("#add_mem").addClass("hide");			[m
+[31m -		}[m
+[31m -		function add_member(){[m
+[31m -			$("#home_page").addClass("hide");[m
+[31m -			$("#m_mem").addClass("hide");[m
+[31m -			$("#m_tea").addClass("hide");[m
+[31m -			$("#s_eva").addClass("hide");[m
+[31m -			$("#c_res").addClass("hide");[m
+[31m -			$("#add_mem").removeClass("hide");			[m
+[31m -		}		[m
+[31m -		(function () {[m
+[31m -			init();[m
+[31m -		}) ();[m
+[31m -[m
+[31m -	</script>[m
+[31m -</body>[m
+[32m +<?php require_once("tea_head.php"); ?>[m
+[32m +<body>[m
+[31m- 	<?php require_once("../navbar.php"); ?>[m
+[32m++	<?php[m
+[32m++		require_once("../navbar.php");[m
+[32m++		require_once $_SERVER['DOCUMENT_ROOT'].'/school/service/committee.php';[m
+[32m++	 ?>[m
+[32m +	<div class='container'>[m
+[32m +		<div class='row'>[m
+[32m +			<?php require_once("./tea_left_section.php") ?>[m
+[32m +			<div class="col-xs-10" id="home_page">[m
+[32m +				<h3>你好 委员长</h3>[m
+[32m +				<div class='panel panel-default panel-block'>[m
+[32m +					<div class='panel-heading'>[m
+[32m +						<div class='panel-title'>[m
+[32m +							<span>最近消息</span>[m
+[32m +						</div>[m
+[32m +					</div>[m
+[32m +					<div class='panel-body'>[m
+[32m +					</div>[m
+[32m +				</div>		[m
+[32m +[m
+[32m +				<button class="btn btn-success pull-left"  onclick="manage_member()">委员管理</button>[m
+[32m +				<button class="btn btn-success pull-left"  onclick="start_evaluate()">发起评价</button>[m
+[32m +				<button class="btn btn-success pull-left"  onclick="manage_teacher()">教师管理</button>		[m
+[32m +				<button class="btn btn-success pull-left"  onclick="check_research()">科研成果审核</button>[m
+[32m +			</div>[m
+[32m +[m
+[32m +[m
+[32m +[m
+[32m +			[m
+[32m +[m
+[32m +			<div class="col-xs-10"id="m_mem">[m
+[32m +				<div>[m
+[32m +					[m
+[32m +				</div>[m
+[32m +				<div class='panel panel-default panel-block'>[m
+[32m +					<div class='panel-heading'>[m
+[32m +						<div class='panel-title'>[m
+[32m +							委员列表[m
+[32m +							<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="return_home_page()">返回</button>[m
+[32m +							<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="add_member()">添加委员</button>[m
+[32m +						</div>[m
+[32m +					</div>[m
+[32m +					<div class="panel-body">[m
+[32m +					</div>[m
+[32m +				</div>[m
+[32m +			</div>[m
+[32m +[m
+[32m +			<div class="col-xs-10"id="s_eva">[m
+[32m +				<h2 class="text-center">确定发起评价?</h2>[m
+[32m +				<div class="text-center">[m
+[32m +					<button class="btn btn-success " style="position:relative;bottom:5px;" onclick="return_home_page()">确定</button>[m
+[32m +					<button class="btn btn-success " style="position:relative;bottom:5px;" onclick="return_home_page()">返回</button>[m
+[32m +				</div>[m
+[32m +			</div>[m
+[32m +[m
+[32m +			<div class="col-xs-10"id="m_tea">[m
+[32m +				<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="return_home_page()">返回</button>[m
+[32m +			</div>[m
+[32m +[m
+[32m +			<div class="col-xs-10"id="c_res">[m
+[32m +				<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="return_home_page()">返回</button>[m
+[32m +			</div>[m
+[32m +[m
+[32m +[m
+[32m +			<div class="col-xs-10"id="add_mem">[m
+[32m +				<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="return_home_page()">返回</button>[m
+[32m +			</div>			[m
+[32m +[m
+[32m +		</div>[m
+[32m +	</div>[m
+[32m +	<script src="../public/javascripts/jquery.min.js"></script>[m
+[32m +	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>[m
+[32m +	<script type="text/javascript">[m
+[32m +		function init() {[m
+[32m +			$("#tea_committee").addClass("active");[m
+[32m +			$("#m_mem").addClass("hide");[m
+[32m +			$("#m_tea").addClass("hide");[m
+[32m +			$("#s_eva").addClass("hide");[m
+[32m +			$("#c_res").addClass("hide");[m
+[32m +			$("#add_mem").addClass("hide");[m
+[32m +		}[m
+[32m +		function return_home_page(){[m
+[32m +			$("#home_page").removeClass("hide");[m
+[32m +			$("#m_mem").addClass("hide");[m
+[32m +			$("#m_tea").addClass("hide");[m
+[32m +			$("#s_eva").addClass("hide");[m
+[32m +			$("#c_res").addClass("hide");[m
+[32m +			$("#add_mem").addClass("hide");[m
+[32m +		}[m
+[32m +		function manage_member(){[m
+[32m +			$("#home_page").addClass("hide");[m
+[32m +			$("#m_mem").removeClass("hide");[m
+[32m +			$("#m_tea").addClass("hide");[m
+[32m +			$("#s_eva").addClass("hide");[m
+[32m +			$("#c_res").addClass("hide");[m
+[32m +			$("#add_mem").addClass("hide");[m
+[32m +		}[m
+[32m +		function start_evaluate(){[m
+[32m +			$("#home_page").addClass("hide");[m
+[32m +			$("#m_mem").addClass("hide");[m
+[32m +			$("#m_tea").addClass("hide");[m
+[32m +			$("#s_eva").removeClass("hide");[m
+[32m +			$("#c_res").addClass("hide");	[m
+[32m +			$("#add_mem").addClass("hide");		[m
+[32m +		}[m
+[32m +		function manage_teacher(){[m
+[32m +			$("#home_page").addClass("hide");[m
+[32m +			$("#m_mem").addClass("hide");[m
+[32m +			$("#m_tea").removeClass("hide");[m
+[32m +			$("#s_eva").addClass("hide");[m
+[32m +			$("#c_res").addClass("hide");	[m
+[32m +			$("#add_mem").addClass("hide");		[m
+[32m +		}[m
+[32m +		function check_research(){[m
+[32m +			$("#home_page").addClass("hide");[m
+[32m +			$("#m_mem").addClass("hide");[m
+[32m +			$("#m_tea").addClass("hide");[m
+[32m +			$("#s_eva").addClass("hide");[m
+[32m +			$("#c_res").removeClass("hide");[m
+[32m +			$("#add_mem").addClass("hide");			[m
+[32m +		}[m
+[32m +		function add_member(){[m
+[32m +			$("#home_page").addClass("hide");[m
+[32m +			$("#m_mem").addClass("hide");[m
+[32m +			$("#m_tea").addClass("hide");[m
+[32m +			$("#s_eva").addClass("hide");[m
+[32m +			$("#c_res").addClass("hide");[m
+[32m +			$("#add_mem").removeClass("hide");			[m
+[32m +		}		[m
+[32m +		(function () {[m
+[32m +			init();[m
+[32m +		}) ();[m
+[32m +[m
+[32m +	</script>[m
+[31m- </body>[m
+[32m++</body>[m
+[1mdiff --cc teacher/tea_head.php[m
+[1mindex c309a63,992c053..0000000[m
+[1m--- a/teacher/tea_head.php[m
+[1m+++ b/teacher/tea_head.php[m
+[36m@@@ -1,8 -1,14 +1,15 @@@[m
+[31m -<?php [m
+[31m -	session_start();[m
+[31m -	if(!isset($_SESSION['Account']) || $_SESSION['Type'] != 'teacher') {[m
+[31m -		header('location:../login.php');[m
+[31m -	}[m
+[31m -?>[m
+[31m -<!DOCTYPE html>[m
+[31m -<html>[m
+[31m -<head>[m
+[31m -	<title>教师子系统</title>[m
+[31m -	<meta charset="UTF-8">[m
+[31m -	<meta name="viewport" content="width=device-width, initial-scale=1.0">[m
+[31m -	<link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">[m
+[31m -</head>[m
+[32m++<?php [m
+[32m++	session_start();[m
+[32m++	if(!isset($_SESSION['Account']) || $_SESSION['Type'] != 'teacher') {[m
+[32m++		header('location:../login.php');[m
+[32m++	}[m
+[32m++?>[m
+[32m +<!DOCTYPE html>[m
+[32m +<html>[m
+[32m +<head>[m
+[32m +	<title>教师子系统</title>[m
+[32m +	<meta charset="UTF-8">[m
+[32m +	<meta name="viewport" content="width=device-width, initial-scale=1.0">[m
+[32m +	<link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">[m
+[31m- </head>[m
+[32m++</head>[m
+[32m++[m
+[1mdiff --cc teacher/tea_home.php[m
+[1mindex 7155b55,007ad04..0000000[m
+[1m--- a/teacher/tea_home.php[m
+[1m+++ b/teacher/tea_home.php[m
+[36m@@@ -1,22 -1,22 +1,22 @@@[m
+[31m -<?php require_once("tea_head.php"); ?>[m
+[31m -<body>[m
+[31m -	<?php require_once("../navbar.php"); ?>[m
+[31m -	<div class='container'>[m
+[31m -		<div class='row'>[m
+[31m -			<?php require_once("./tea_left_section.php") ?>[m
+[31m -			<div class="col-xs-10">[m
+[31m -			</div>[m
+[31m -		</div>[m
+[31m -	</div>[m
+[31m -	<script src="../public/javascripts/jquery.min.js"></script>[m
+[31m -	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>[m
+[31m -	<script type="text/javascript">[m
+[31m -		function init() {[m
+[31m -			$("#tea_manage_grade").addClass("active");[m
+[31m -		}[m
+[31m -		(function () {[m
+[31m -			init();[m
+[31m -		}) ();[m
+[31m -[m
+[31m -	</script>[m
+[31m -</body>[m
+[32m +<?php require_once("tea_head.php"); ?>[m
+[32m +<body>[m
+[32m +	<?php require_once("../navbar.php"); ?>[m
+[32m +	<div class='container'>[m
+[32m +		<div class='row'>[m
+[32m +			<?php require_once("./tea_left_section.php") ?>[m
+[32m +			<div class="col-xs-10">[m
+[32m +			</div>[m
+[32m +		</div>[m
+[32m +	</div>[m
+[32m +	<script src="../public/javascripts/jquery.min.js"></script>[m
+[32m +	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>[m
+[32m +	<script type="text/javascript">[m
+[32m +		function init() {[m
+[32m +			$("#tea_manage_grade").addClass("active");[m
+[32m +		}[m
+[32m +		(function () {[m
+[32m +			init();[m
+[32m +		}) ();[m
+[32m +[m
+[32m +	</script>[m
+[31m- </body>[m
+[32m++</body>[m
+[1mdiff --cc teacher/tea_info.php[m
+[1mindex 727e9ae,3fa51b7..0000000[m
+[1m--- a/teacher/tea_info.php[m
+[1m+++ b/teacher/tea_info.php[m
+[36m@@@ -1,147 -1,150 +1,150 @@@[m
+[31m -<?php require_once("tea_head.php"); ?>[m
+[31m -<body>[m
+[31m -	<?php [m
+[31m -		require_once("../navbar.php"); [m
+[31m -		require_once $_SERVER['DOCUMENT_ROOT'].'/school/service/teacherInfo.php';[m
+[31m -	?>[m
+[31m -	<div class='container'>[m
+[31m -		<div class='row'>[m
+[31m -			<?php require_once("tea_left_section.php"); ?>[m
+[31m -			<div class='col-xs-10'>[m
+[31m -				<div class='panel panel-default panel-block'>[m
+[31m -					<div class='panel-heading'>[m
+[31m -						<div class='panel-title'>[m
+[31m -							<span>基本信息</span>[m
+[31m -						</div>[m
+[31m -					</div>[m
+[31m -					<div class='panel-body text-center'>[m
+[31m -						<div class="row">[m
+[31m -							<p class="col-xs-3 col-xs-offset-2">姓名：</p>[m
+[31m -							<p class="col-xs-7 text-left"><?php echo $result['data'][0]['Tea_name'];?></p>[m
+[31m -						</div>[m
+[31m -						<div class="row">[m
+[31m -							<p class="col-xs-3 col-xs-offset-2">性别：</p>[m
+[31m -							<p class="col-xs-7 text-left"><?php echo $result['data'][0]['Sex']; ?></p>[m
+[31m -						</div>[m
+[31m -						<div class="row">[m
+[31m -							<p class="col-xs-3 col-xs-offset-2">教师编号：</p>[m
+[31m -							<p class="col-xs-7 text-left"><?php echo $result['data'][0]['Tea_ID']; ?></p>[m
+[31m -						</div>[m
+[31m -						<div class="row">[m
+[31m -							<p class="col-xs-3 col-xs-offset-2">入职时间：</p>[m
+[31m -							<p class="col-xs-7 text-left"><?php echo $result['data'][0]['Entry_time']; ?></p>[m
+[31m -						</div>[m
+[31m -					</div>[m
+[31m -				</div>[m
+[31m -			</div>[m
+[31m -			<div class='col-xs-10'>[m
+[31m -				<div class='panel panel-default panel-block'>[m
+[31m -					<div class='panel-heading'>[m
+[31m -						<div class='panel-title'>[m
+[31m -							<span>身份信息</span>[m
+[31m -							<a href="#" class="pull-right" style="color:#428bca;" onclick="edit()" id="editBtn">修改</a>[m
+[31m -						</div>[m
+[31m -					</div>[m
+[31m -					<div class='panel-body text-center'>[m
+[31m -						<div id="identifyInfo">[m
+[31m -							<div class="row">[m
+[31m -								<p class="col-xs-3 col-xs-offset-2">出生年月：</p>[m
+[31m -								<p class="col-xs-7 text-left"><?php echo $result['data']['Birth']; ?></p>[m
+[31m -							</div>[m
+[31m -							<div class="row">[m
+[31m -								<p class="col-xs-3 col-xs-offset-2">身份证号：</p>[m
+[31m -								<p class="col-xs-7 text-left"><?php echo $result['data']['ID_no']; ?></p>[m
+[31m -							</div>[m
+[31m -							<div class="row">[m
+[31m -								<p class="col-xs-3 col-xs-offset-2">籍贯：</p>[m
+[31m -								<p class="col-xs-7 text-left"><?php echo $result['data']['Native_place']; ?></p>[m
+[31m -							</div>[m
+[31m -							<div class="row">[m
+[31m -								<p class="col-xs-3 col-xs-offset-2">联系电话：</p>[m
+[31m -								<p class="col-xs-7 text-left"><?php echo $result['data']['Tel']; ?></p>[m
+[31m -							</div>[m
+[31m -							<div class="row">[m
+[31m -								<p class="col-xs-3 col-xs-offset-2">政治面貌：</p>[m
+[31m -								<p class="col-xs-7 text-left"><?php echo $result['data']['Polit']; ?></p>[m
+[31m -							</div>[m
+[31m -							<div class="row">[m
+[31m -								<p class="col-xs-3 col-xs-offset-2">民族：</p>[m
+[31m -								<p class="col-xs-7 text-left"><?php echo $result['data']['Race']; ?></p>[m
+[31m -							</div>[m
+[31m -							<div class="row">[m
+[31m -								<p class="col-xs-3 col-xs-offset-2">健康状态：</p>[m
+[31m -								<p class="col-xs-7 text-left"><?php echo $result['data']['Health']; ?></p>[m
+[31m -							</div>[m
+[31m -							<div class="row">[m
+[31m -								<p class="col-xs-3 col-xs-offset-2">教育经历：</p>[m
+[31m -								<p class="col-xs-7 text-left"><?php echo $result['data']['Experience']; ?></p>[m
+[31m -							</div>[m
+[31m -						</div>[m
+[31m -						<form action="/school/teacher/tea_info.php?controller=teacher&method=updateInfo" method="POST" role="form" class="form-horizontal hide" id="editForm">[m
+[31m -							<div class="form-group">[m
+[31m -								<label for="" class="col-xs-3 col-xs-offset-2 text-center">出生年月：</label>[m
+[31m -								<div class="col-xs-4 input-group" style="padding-left:15px;">[m
+[31m -									<input class="form-control" type="text" name="Birth" value = "<?php echo $result['data']['Birth']; ?>"/>[m
+[31m -									<span class="input-group-addon">年/月/日</span>[m
+[31m -								</div>[m
+[31m -							</div>[m
+[31m -							<div class="form-group">[m
+[31m -								<label for="" class="col-xs-3 col-xs-offset-2 text-center">身份证号：</label>[m
+[31m -								<div class="col-xs-4">[m
+[31m -									<input class="form-control" type="text" name="ID_no" value = "<?php echo $result['data']['ID_no']; ?>"/>[m
+[31m -								</div>[m
+[31m -							</div>[m
+[31m -							<div class="form-group">[m
+[31m -								<label for="" class="col-xs-3 col-xs-offset-2 text-center">籍贯：</label>[m
+[31m -								<div class="col-xs-4">[m
+[31m -									<input class="form-control" type="text" name="Native_place" value = "<?php echo $result['data']['Native_place']; ?>"/>[m
+[31m -								</div>[m
+[31m -							</div>[m
+[31m -							<div class="form-group">[m
+[31m -								<label for="" class="col-xs-3 col-xs-offset-2 text-center">联系电话：</label>[m
+[31m -								<div class="col-xs-4">[m
+[31m -									<input class="form-control" type="text" name="Tel" value = "<?php echo $result['data']['Tel']; ?>"/>[m
+[31m -								</div>[m
+[31m -							</div>[m
+[31m -							<div class="form-group">[m
+[31m -								<label for="" class="col-xs-3 col-xs-offset-2 text-center">政治面貌：</label>[m
+[31m -								<div class="col-xs-4">[m
+[31m -									<input class="form-control" type="text" name="Polit" value = "<?php echo $result['data']['Polit']; ?>"/>[m
+[31m -								</div>[m
+[31m -							</div>[m
+[31m -							<div class="form-group">[m
+[31m -								<label for="" class="col-xs-3 col-xs-offset-2 text-center">民族：</label>[m
+[31m -								<div class="col-xs-4">[m
+[31m -									<input class="form-control" type="text" name="Race" value = "<?php echo $result['data']['Race']; ?>"/>[m
+[31m -								</div>[m
+[31m -							</div>[m
+[31m -							<div class="form-group">[m
+[31m -								<label for="" class="col-xs-3 col-xs-offset-2 text-center">健康状态：</label>[m
+[31m -								<div class="col-xs-4">[m
+[31m -									<input class="form-control" type="text" name="Health" value = "<?php echo $result['data']['Health']; ?>"/>[m
+[31m -								</div>[m
+[31m -							</div>[m
+[31m -							<div class="form-group">[m
+[31m -								<label for="" class="col-xs-3 col-xs-offset-2 text-center">教育经历：</label>[m
+[31m -								<div class="col-xs-4">[m
+[31m -									<input class="form-control" type="text" name="Experience" value = "<?php echo $result['data']['Experience']; ?>"/>[m
+[31m -								</div>[m
+[31m -							</div>[m
+[31m -							<input type="submit" class="btn btn-info" value="确定"/>[m
+[31m -						</form>[m
+[31m -					</div>[m
+[31m -				</div>[m
+[31m -			</div>[m
+[31m -		</div>[m
+[31m -	</div>[m
+[31m -	<script src="../public/javascripts/jquery.min.js"></script>[m
+[31m -	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>-[m
+[31m -	<script type="text/javascript">[m
+[31m -		(function (){[m
+[31m -			$("#tea_info").addClass("active");[m
+[31m -		})()[m
+[31m -		function edit() {[m
+[31m -			$("#editForm").removeClass("hide");[m
+[31m -			$("#identifyInfo").addClass("hide");[m
+[31m -			$("#editBtn").addClass("hide");[m
+[31m -		}[m
+[31m -	</script>[m
+[31m -</body>[m
+[31m -</html>[m
+[32m +<?php require_once("tea_head.php"); ?>[m
+[32m +<body>[m
+[31m- 	<?php require_once("../navbar.php"); ?>[m
+[32m++	<?php [m
+[32m++		require_once("../navbar.php"); [m
+[32m++		require_once $_SERVER['DOCUMENT_ROOT'].'/school/service/teacherInfo.php';[m
+[32m++	?>[m
+[32m +	<div class='container'>[m
+[32m +		<div class='row'>[m
+[32m +			<?php require_once("tea_left_section.php"); ?>[m
+[32m +			<div class='col-xs-10'>[m
+[32m +				<div class='panel panel-default panel-block'>[m
+[32m +					<div class='panel-heading'>[m
+[32m +						<div class='panel-title'>[m
+[32m +							<span>基本信息</span>[m
+[32m +						</div>[m
+[32m +					</div>[m
+[32m +					<div class='panel-body text-center'>[m
+[32m +						<div class="row">[m
+[32m +							<p class="col-xs-3 col-xs-offset-2">姓名：</p>[m
+[31m- 							<p class="col-xs-7 text-left">xxx</p>[m
+[32m++							<p class="col-xs-7 text-left"><?php echo $result['data'][0]['Tea_name'];?></p>[m
+[32m +						</div>[m
+[32m +						<div class="row">[m
+[32m +							<p class="col-xs-3 col-xs-offset-2">性别：</p>[m
+[31m- 							<p class="col-xs-7 text-left">男</p>[m
+[32m++							<p class="col-xs-7 text-left"><?php echo $result['data'][0]['Sex']; ?></p>[m
+[32m +						</div>[m
+[32m +						<div class="row">[m
+[32m +							<p class="col-xs-3 col-xs-offset-2">教师编号：</p>[m
+[31m- 							<p class="col-xs-7 text-left">201333333333</p>[m
+[32m++							<p class="col-xs-7 text-left"><?php echo $result['data'][0]['Tea_ID']; ?></p>[m
+[32m +						</div>[m
+[32m +						<div class="row">[m
+[32m +							<p class="col-xs-3 col-xs-offset-2">入职时间：</p>[m
+[31m- 							<p class="col-xs-7 text-left">2013</p>[m
+[32m++							<p class="col-xs-7 text-left"><?php echo $result['data'][0]['Entry_time']; ?></p>[m
+[32m +						</div>[m
+[32m +					</div>[m
+[32m +				</div>[m
+[32m +			</div>[m
+[32m +			<div class='col-xs-10'>[m
+[32m +				<div class='panel panel-default panel-block'>[m
+[32m +					<div class='panel-heading'>[m
+[32m +						<div class='panel-title'>[m
+[32m +							<span>身份信息</span>[m
+[32m +							<a href="#" class="pull-right" style="color:#428bca;" onclick="edit()" id="editBtn">修改</a>[m
+[32m +						</div>[m
+[32m +					</div>[m
+[32m +					<div class='panel-body text-center'>[m
+[32m +						<div id="identifyInfo">[m
+[32m +							<div class="row">[m
+[32m +								<p class="col-xs-3 col-xs-offset-2">出生年月：</p>[m
+[31m- 								<p class="col-xs-7 text-left">1994/01/01</p>[m
+[32m++								<p class="col-xs-7 text-left"><?php echo $result['data']['Birth']; ?></p>[m
+[32m +							</div>[m
+[32m +							<div class="row">[m
+[32m +								<p class="col-xs-3 col-xs-offset-2">身份证号：</p>[m
+[31m- 								<p class="col-xs-7 text-left">44444455555555555</p>[m
+[32m++								<p class="col-xs-7 text-left"><?php echo $result['data']['ID_no']; ?></p>[m
+[32m +							</div>[m
+[32m +							<div class="row">[m
+[32m +								<p class="col-xs-3 col-xs-offset-2">籍贯：</p>[m
+[31m- 								<p class="col-xs-7 text-left">广东</p>[m
+[32m++								<p class="col-xs-7 text-left"><?php echo $result['data']['Native_place']; ?></p>[m
+[32m +							</div>[m
+[32m +							<div class="row">[m
+[32m +								<p class="col-xs-3 col-xs-offset-2">联系电话：</p>[m
+[31m- 								<p class="col-xs-7 text-left">18888888888</p>[m
+[32m++								<p class="col-xs-7 text-left"><?php echo $result['data']['Tel']; ?></p>[m
+[32m +							</div>[m
+[32m +							<div class="row">[m
+[32m +								<p class="col-xs-3 col-xs-offset-2">政治面貌：</p>[m
+[31m- 								<p class="col-xs-7 text-left">团员</p>[m
+[32m++								<p class="col-xs-7 text-left"><?php echo $result['data']['Polit']; ?></p>[m
+[32m +							</div>[m
+[32m +							<div class="row">[m
+[32m +								<p class="col-xs-3 col-xs-offset-2">民族：</p>[m
+[31m- 								<p class="col-xs-7 text-left">汉</p>[m
+[32m++								<p class="col-xs-7 text-left"><?php echo $result['data']['Race']; ?></p>[m
+[32m +							</div>[m
+[32m +							<div class="row">[m
+[32m +								<p class="col-xs-3 col-xs-offset-2">健康状态：</p>[m
+[31m- 								<p class="col-xs-7 text-left">良好</p>[m
+[32m++								<p class="col-xs-7 text-left"><?php echo $result['data']['Health']; ?></p>[m
+[32m +							</div>[m
+[32m +							<div class="row">[m
+[32m +								<p class="col-xs-3 col-xs-offset-2">教育经历：</p>[m
+[31m- 								<p class="col-xs-7 text-left">华南理工大学本科</p>[m
+[32m++								<p class="col-xs-7 text-left"><?php echo $result['data']['Experience']; ?></p>[m
+[32m +							</div>[m
+[32m +						</div>[m
+[31m- 						<form action="" method="POST" role="form" class="form-horizontal hide" id="editForm">[m
+[32m++						<form action="/school/teacher/tea_info.php?controller=teacher&method=updateInfo" method="POST" role="form" class="form-horizontal hide" id="editForm">[m
+[32m +							<div class="form-group">[m
+[32m +								<label for="" class="col-xs-3 col-xs-offset-2 text-center">出生年月：</label>[m
+[32m +								<div class="col-xs-4 input-group" style="padding-left:15px;">[m
+[31m- 									<input class="form-control" type="text" name=""/>[m
+[32m++									<input class="form-control" type="text" name="Birth" value = "<?php echo $result['data']['Birth']; ?>"/>[m
+[32m +									<span class="input-group-addon">年/月/日</span>[m
+[32m +								</div>[m
+[32m +							</div>[m
+[32m +							<div class="form-group">[m
+[32m +								<label for="" class="col-xs-3 col-xs-offset-2 text-center">身份证号：</label>[m
+[32m +								<div class="col-xs-4">[m
+[31m- 									<input class="form-control" type="text" name=""/>[m
+[32m++									<input class="form-control" type="text" name="ID_no" value = "<?php echo $result['data']['ID_no']; ?>"/>[m
+[32m +								</div>[m
+[32m +							</div>[m
+[32m +							<div class="form-group">[m
+[32m +								<label for="" class="col-xs-3 col-xs-offset-2 text-center">籍贯：</label>[m
+[32m +								<div class="col-xs-4">[m
+[31m- 									<input class="form-control" type="text" name=""/>[m
+[32m++									<input class="form-control" type="text" name="Native_place" value = "<?php echo $result['data']['Native_place']; ?>"/>[m
+[32m +								</div>[m
+[32m +							</div>[m
+[32m +							<div class="form-group">[m
+[32m +								<label for="" class="col-xs-3 col-xs-offset-2 text-center">联系电话：</label>[m
+[32m +								<div class="col-xs-4">[m
+[31m- 									<input class="form-control" type="text" name=""/>[m
+[32m++									<input class="form-control" type="text" name="Tel" value = "<?php echo $result['data']['Tel']; ?>"/>[m
+[32m +								</div>[m
+[32m +							</div>[m
+[32m +							<div class="form-group">[m
+[32m +								<label for="" class="col-xs-3 col-xs-offset-2 text-center">政治面貌：</label>[m
+[32m +								<div class="col-xs-4">[m
+[31m- 									<input class="form-control" type="text" name=""/>[m
+[32m++									<input class="form-control" type="text" name="Polit" value = "<?php echo $result['data']['Polit']; ?>"/>[m
+[32m +								</div>[m
+[32m +							</div>[m
+[32m +							<div class="form-group">[m
+[32m +								<label for="" class="col-xs-3 col-xs-offset-2 text-center">民族：</label>[m
+[32m +								<div class="col-xs-4">[m
+[31m- 									<input class="form-control" type="text" name=""/>[m
+[32m++									<input class="form-control" type="text" name="Race" value = "<?php echo $result['data']['Race']; ?>"/>[m
+[32m +								</div>[m
+[32m +							</div>[m
+[32m +							<div class="form-group">[m
+[32m +								<label for="" class="col-xs-3 col-xs-offset-2 text-center">健康状态：</label>[m
+[32m +								<div class="col-xs-4">[m
+[31m- 									<input class="form-control" type="text" name=""/>[m
+[32m++									<input class="form-control" type="text" name="Health" value = "<?php echo $result['data']['Health']; ?>"/>[m
+[32m +								</div>[m
+[32m +							</div>[m
+[32m +							<div class="form-group">[m
+[32m +								<label for="" class="col-xs-3 col-xs-offset-2 text-center">教育经历：</label>[m
+[32m +								<div class="col-xs-4">[m
+[31m- 									<input class="form-control" type="text" name=""/>[m
+[32m++									<input class="form-control" type="text" name="Experience" value = "<?php echo $result['data']['Experience']; ?>"/>[m
+[32m +								</div>[m
+[32m +							</div>[m
+[31m- 							<input type="button" class="btn btn-info" value="确定"/>[m
+[32m++							<input type="submit" class="btn btn-info" value="确定"/>[m
+[32m +						</form>[m
+[32m +					</div>[m
+[32m +				</div>[m
+[32m +			</div>[m
+[32m +		</div>[m
+[32m +	</div>[m
+[32m +	<script src="../public/javascripts/jquery.min.js"></script>[m
+[32m +	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>-[m
+[32m +	<script type="text/javascript">[m
+[32m +		(function (){[m
+[32m +			$("#tea_info").addClass("active");[m
+[32m +		})()[m
+[32m +		function edit() {[m
+[32m +			$("#editForm").removeClass("hide");[m
+[32m +			$("#identifyInfo").addClass("hide");[m
+[32m +			$("#editBtn").addClass("hide");[m
+[32m +		}[m
+[32m +	</script>[m
+[32m +</body>[m
+[31m- </html>[m
+[32m++</html>[m
+[1mdiff --cc teacher/tea_left_section.php[m
+[1mindex f9a1d3d,e972b80..0000000[m
+[1m--- a/teacher/tea_left_section.php[m
+[1m+++ b/teacher/tea_left_section.php[m
+[36m@@@ -1,44 -1,44 +1,44 @@@[m
+[31m -<div class='col-xs-2' id="leftSection">[m
+[31m -	<ul class='nav nav-pills nav-stacked text-center'>[m
+[31m -		<li id="tea_home">[m
+[31m -			<a class='row' href="./tea_home.php">[m
+[31m -				<p class='navbar-font'>我的首页</p>[m
+[31m -			</a>[m
+[31m -		</li>		[m
+[31m -		<li id="tea_info">[m
+[31m -			<a class='row' href="./tea_info.php">[m
+[31m -				<p class='navbar-font'>我的信息</p>[m
+[31m -			</a>[m
+[31m -		</li>[m
+[31m -		<li id ="tea_message">[m
+[31m -			<a class='row' href="./tea_message.php">[m
+[31m -				<p class='navbar-font'>消息管理</p>[m
+[31m -			</a>[m
+[31m -		</li>[m
+[31m -		<li id ="tea_classes" >[m
+[31m -			<a class='row' href="./tea_classes.php">[m
+[31m -				<p class='navbar-font'>授课安排</p>[m
+[31m -			</a>[m
+[31m -		</li>[m
+[31m -		<li id ="tea_manage_grade">[m
+[31m -			<a class='row' href="./tea_manage_grade.php">[m
+[31m -				<p class='navbar-font'>学生成绩管理</p>[m
+[31m -			</a>[m
+[31m -		</li>[m
+[31m -		<li id ="tea_medal">[m
+[31m -			<a class='row' href="./tea_medal.php">[m
+[31m -				<p class='navbar-font'>我的获奖</p>[m
+[31m -			</a>[m
+[31m -		</li>[m
+[31m -		<li  id="tea_research">[m
+[31m -			<a class='row' href="./tea_research.php">[m
+[31m -				<p class='navbar-font'>科研项目</p>[m
+[31m -			</a>[m
+[31m -		</li>[m
+[31m -		<li id="tea_committee">[m
+[31m -			<a class='row' href="./tea_committee.php">[m
+[31m -				<p class='navbar-font'>教师委员会</p>[m
+[31m -			</a>[m
+[31m -		</li>[m
+[31m -	</ul>[m
+[31m -</div>[m
+[32m +<div class='col-xs-2' id="leftSection">[m
+[32m +	<ul class='nav nav-pills nav-stacked text-center'>[m
+[32m +		<li id="tea_home">[m
+[32m +			<a class='row' href="./tea_home.php">[m
+[32m +				<p class='navbar-font'>我的首页</p>[m
+[32m +			</a>[m
+[32m +		</li>		[m
+[32m +		<li id="tea_info">[m
+[32m +			<a class='row' href="./tea_info.php">[m
+[32m +				<p class='navbar-font'>我的信息</p>[m
+[32m +			</a>[m
+[32m +		</li>[m
+[32m +		<li id ="tea_message">[m
+[32m +			<a class='row' href="./tea_message.php">[m
+[32m +				<p class='navbar-font'>消息管理</p>[m
+[32m +			</a>[m
+[32m +		</li>[m
+[32m +		<li id ="tea_classes" >[m
+[32m +			<a class='row' href="./tea_classes.php">[m
+[32m +				<p class='navbar-font'>授课安排</p>[m
+[32m +			</a>[m
+[32m +		</li>[m
+[32m +		<li id ="tea_manage_grade">[m
+[32m +			<a class='row' href="./tea_manage_grade.php">[m
+[32m +				<p class='navbar-font'>学生成绩管理</p>[m
+[32m +			</a>[m
+[32m +		</li>[m
+[32m +		<li id ="tea_medal">[m
+[32m +			<a class='row' href="./tea_medal.php">[m
+[32m +				<p class='navbar-font'>我的获奖</p>[m
+[32m +			</a>[m
+[32m +		</li>[m
+[32m +		<li  id="tea_research">[m
+[32m +			<a class='row' href="./tea_research.php">[m
+[32m +				<p class='navbar-font'>科研项目</p>[m
+[32m +			</a>[m
+[32m +		</li>[m
+[32m +		<li id="tea_committee">[m
+[32m +			<a class='row' href="./tea_committee.php">[m
+[32m +				<p class='navbar-font'>教师委员会</p>[m
+[32m +			</a>[m
+[32m +		</li>[m
+[32m +	</ul>[m
+[31m- </div>[m
+[32m++</div>[m
+[1mdiff --cc teacher/tea_manage_grade.php[m
+[1mindex f1c3d4e,fab1e26..0000000[m
+[1m--- a/teacher/tea_manage_grade.php[m
+[1m+++ b/teacher/tea_manage_grade.php[m
+[36m@@@ -1,74 -1,120 +1,120 @@@[m
+[31m -<?php require_once("tea_head.php"); ?>[m
+[31m -<body>[m
+[31m -	<?php[m
+[31m -		require_once("../navbar.php");[m
+[31m -		require_once $_SERVER['DOCUMENT_ROOT'].'/school/service/grade.php';[m
+[31m -	?>[m
+[31m -	<div class='container'>[m
+[31m -		<div class='row'>[m
+[31m -			<?php require_once("./tea_left_section.php") ?>[m
+[31m -[m
+[31m -			<div class="col-xs-10" id="class_list_page">[m
+[31m -				<div style="width:100%;height:50px;">[m
+[31m -					<span class="pull-left">选择学年：</span>[m
+[31m -					<div class="form-group pull-left" style="position:relative;bottom:5px;">[m
+[31m -							<select class="form-control" id="year">[m
+[31m -								<option value = '2013'>2013</option>[m
+[31m -								<option value = '2014'>2014</option>[m
+[31m -								<option value = '2015'>2015</option>[m
+[31m -								<option value = '2016'>2016</option>[m
+[31m -							</select>[m
+[31m -					</div>[m
+[31m -					<span class="pull-right" style="position:relative;top:5px;"></span>[m
+[31m -					<div class="form-group pull-left" style="position:relative;bottom:5px;">[m
+[31m -							<select class="form-control" id="term">[m
+[31m -								<option value = '1'>1</option>[m
+[31m -								<option value = '2'>2</option>[m
+[31m -								<option value = '3'>3</option>[m
+[31m -							</select>[m
+[31m -					</div>[m
+[31m -					<button class="btn btn-info pull-left" style="position:relative;bottom:5px;" onclick="select()">选择</button>[m
+[31m -				</div>[m
+[31m -				<div class="panel-group " id="courseDetail">[m
+[31m -					<?php[m
+[31m -						$num = count($list);[m
+[31m -						for($i=0; $i <$num; $i++) {[m
+[31m -					?>[m
+[31m -					<div class="panel panel-default">[m
+[31m -						<div class="panel-heading">[m
+[31m -							<div class="panel-title">[m
+[31m -								<span><?php echo $list[$i]['Course']; ?></span>[m
+[31m -								<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="update_grade(<?php echo $list[$i]['Course_ID']; ?>)">登记分数</button>		[m
+[31m -							</div>[m
+[31m -						</div>[m
+[31m -					</div>[m
+[31m -					<?php } ?>[m
+[31m -				</div>[m
+[31m -			</div>[m
+[31m -[m
+[31m -			<div class="col-xs-10" id="student_list_page">[m
+[31m -				<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="return_home()">返回</button>	[m
+[31m -				<form method="post" role="form" action="/school/teacher/tea_manage_grade.php?<?php if(isset($_GET['Course_ID'])) echo 'Course_year_term='.$_GET['Course_year_term'].'&Course_ID='.$_GET['Course_ID'].'&count='.count($stu).'#'; ?>">[m
+[31m -				<table class="table table-bordered text-center" id="evaluate_table">[m
+[31m -					<thead>[m
+[31m -						<tr>[m
+[31m -							<th class="text-center">学生编号</th>[m
+[31m -							<th class="text-center">学生姓名</th>[m
+[31m -							<th class="text-center">考试分数</th>[m
+[31m -						</tr>[m
+[31m -					</thead>[m
+[31m -					<tbody>[m
+[31m -						<?php [m
+[31m -							$num = count($stu);[m
+[31m -							for($i =0; $i<$num; $i++) {[m
+[31m -						?>[m
+[31m -						<tr>[m
+[31m -							<td>[m
+[31m -								<input type = "text"  class="form-control" name="<?php echo 'Stu_ID'.$i; ?>" value="<?php echo $stu[$i]['Stu_ID']; ?>">	[m
+[31m -							</td>[m
+[31m -							<td name="stu_name<?php echo $i; ?>"><?php echo $stu[$i]['Stu_name'] ?></td>[m
+[31m -							<td>[m
+[31m -								<input type="text" class="form-control" name="stu_grade<?php echo $i;?>" placeholder="">[m
+[31m -							</td>[m
+[31m -						</tr>								[m
+[31m -						<?php } ?>[m
+[31m -					</tbody>[m
+[31m -				</table>[m
+[31m -				<input type="submit" class="btn btn-info text-center" value="确定">[m
+[31m -				</form>[m
+[31m -			</div>[m
+[31m -		</div>[m
+[31m -	</div>[m
+[31m -	<script src="../public/javascripts/jquery.min.js"></script>[m
+[31m -	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>[m
+[31m -	<script type="text/javascript">[m
+[31m -		function init() {[m
+[31m -			$("#tea_manage_grade").addClass("active");[m
+[31m -			//$("#class_list_page").addClass("hide");	[m
+[31m -			$("#student_list_page").addClass("hide");	[m
+[31m -[m
+[31m -		}[m
+[31m -		(function () {[m
+[31m -			init();[m
+[31m -			var url = location.href;[m
+[31m -			var index = url.indexOf("I");[m
+[31m -			var index1 = url.indexOf("#");[m
+[31m -			if(index > 0) {[m
+[31m -				$("#class_list_page").addClass("hide");	[m
+[31m -				$("#student_list_page").removeClass("hide");[m
+[31m -			}[m
+[31m -			if(index1 >0) {[m
+[31m -				return_home();[m
+[31m -			}[m
+[31m -		}) ();[m
+[31m -		function return_home(){[m
+[31m -			$("#class_list_page").removeClass("hide");	[m
+[31m -			$("#student_list_page").addClass("hide");[m
+[31m -		}[m
+[31m -		function select() {[m
+[31m -			var year = document.getElementById('year').value;[m
+[31m -			var term = document.getElementById('term').value;[m
+[31m -			var Course_year_term = year+term;[m
+[31m -			location.replace("/school/teacher/tea_manage_grade.php?Course_year_term="+Course_year_term);[m
+[31m -		}[m
+[31m -		function update_grade(id) {[m
+[31m -			var Course_year_term <?php if(isset($_GET['Course_year_term'])) echo '= "&Course_year_term='.$_GET['Course_year_term'].'"';?>;[m
+[31m -			location.replace("/school/teacher/tea_manage_grade.php?Course_ID="+id+Course_year_term);[m
+[31m -		}[m
+[31m -		[m
+[31m -	</script>[m
+[31m -</body>[m
+[32m +<?php require_once("tea_head.php"); ?>[m
+[32m +<body>[m
+[31m- 	<?php require_once("../navbar.php"); ?>[m
+[32m++	<?php[m
+[32m++		require_once("../navbar.php");[m
+[32m++		require_once $_SERVER['DOCUMENT_ROOT'].'/school/service/grade.php';[m
+[32m++	?>[m
+[32m +	<div class='container'>[m
+[32m +		<div class='row'>[m
+[32m +			<?php require_once("./tea_left_section.php") ?>[m
+[32m +[m
+[32m +			<div class="col-xs-10" id="class_list_page">[m
+[32m++				<div style="width:100%;height:50px;">[m
+[32m++					<span class="pull-left">选择学年：</span>[m
+[32m++					<div class="form-group pull-left" style="position:relative;bottom:5px;">[m
+[32m++							<select class="form-control" id="year">[m
+[32m++								<option value = '2013'>2013</option>[m
+[32m++								<option value = '2014'>2014</option>[m
+[32m++								<option value = '2015'>2015</option>[m
+[32m++								<option value = '2016'>2016</option>[m
+[32m++							</select>[m
+[32m++					</div>[m
+[32m++					<span class="pull-right" style="position:relative;top:5px;"></span>[m
+[32m++					<div class="form-group pull-left" style="position:relative;bottom:5px;">[m
+[32m++							<select class="form-control" id="term">[m
+[32m++								<option value = '1'>1</option>[m
+[32m++								<option value = '2'>2</option>[m
+[32m++								<option value = '3'>3</option>[m
+[32m++							</select>[m
+[32m++					</div>[m
+[32m++					<button class="btn btn-info pull-left" style="position:relative;bottom:5px;" onclick="select()">选择</button>[m
+[32m++				</div>[m
+[32m +				<div class="panel-group " id="courseDetail">[m
+[32m++					<?php[m
+[32m++						$num = count($list);[m
+[32m++						for($i=0; $i <$num; $i++) {[m
+[32m++					?>[m
+[32m +					<div class="panel panel-default">[m
+[31m- 						<div class="panel-heading" data-toggle="collapse" data-parent="#courseDetail" href="#collapseTwo">[m
+[32m++						<div class="panel-heading">[m
+[32m +							<div class="panel-title">[m
+[31m- 								<span>C++程序设计</span>[m
+[31m- 								<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="update_grade()">登记分数</button>		[m
+[31m- 							</div>[m
+[31m- 						</div>[m
+[31m- 						<div id="collapseTwo" class="panel-collapse collapse">[m
+[31m- 							<div class="panel-body">[m
+[31m- 								<p>申请时间：2013-01-01</p>[m
+[31m- 								<p>审核状态：进行中</p>[m
+[31m- 								<p>荣誉描述：最权威的C++设计大赛</p>[m
+[32m++								<span><?php echo $list[$i]['Course']; ?></span>[m
+[32m++								<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="update_grade(<?php echo $list[$i]['Course_ID']; ?>)">登记分数</button>		[m
+[32m +							</div>[m
+[32m +						</div>[m
+[32m +					</div>[m
+[32m++					<?php } ?>[m
+[32m +				</div>[m
+[32m +			</div>[m
+[32m +[m
+[32m +			<div class="col-xs-10" id="student_list_page">[m
+[32m +				<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="return_home()">返回</button>	[m
+[32m++				<form method="post" role="form" action="/school/teacher/tea_manage_grade.php?<?php if(isset($_GET['Course_ID'])) echo 'Course_year_term='.$_GET['Course_year_term'].'&Course_ID='.$_GET['Course_ID'].'&count='.count($stu).'#'; ?>">[m
+[32m +				<table class="table table-bordered text-center" id="evaluate_table">[m
+[32m +					<thead>[m
+[32m +						<tr>[m
+[32m++							<th class="text-center">学生编号</th>[m
+[32m +							<th class="text-center">学生姓名</th>[m
+[31m- 							<th class="text-center">平时分数</th>[m
+[32m +							<th class="text-center">考试分数</th>[m
+[32m +						</tr>[m
+[32m +					</thead>[m
+[32m +					<tbody>[m
+[32m++						<?php [m
+[32m++							$num = count($stu);[m
+[32m++							for($i =0; $i<$num; $i++) {[m
+[32m++						?>[m
+[32m +						<tr>[m
+[31m- 							<td>黄炳麟</td>[m
+[32m +							<td>[m
+[31m- 								<input type="text" class="form-control" id="firstname" placeholder="">[m
+[32m++								<input type = "text"  class="form-control" name="<?php echo 'Stu_ID'.$i; ?>" value="<?php echo $stu[$i]['Stu_ID']; ?>">	[m
+[32m +							</td>[m
+[32m++							<td name="stu_name<?php echo $i; ?>"><?php echo $stu[$i]['Stu_name'] ?></td>[m
+[32m +							<td>[m
+[31m- 								<input type="text" class="form-control" id="firstname" placeholder="">[m
+[32m++								<input type="text" class="form-control" name="stu_grade<?php echo $i;?>" placeholder="">[m
+[32m +							</td>[m
+[32m +						</tr>								[m
+[32m++						<?php } ?>[m
+[32m +					</tbody>[m
+[32m +				</table>[m
+[31m- 				<input type="button" class="btn btn-info text-center" value="确定">[m
+[32m++				<input type="submit" class="btn btn-info text-center" value="确定">[m
+[32m++				</form>[m
+[32m +			</div>[m
+[32m +		</div>[m
+[32m +	</div>[m
+[32m +	<script src="../public/javascripts/jquery.min.js"></script>[m
+[32m +	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>[m
+[32m +	<script type="text/javascript">[m
+[32m +		function init() {[m
+[32m +			$("#tea_manage_grade").addClass("active");[m
+[32m +			//$("#class_list_page").addClass("hide");	[m
+[32m +			$("#student_list_page").addClass("hide");	[m
+[32m++[m
+[32m +		}[m
+[32m +		(function () {[m
+[32m +			init();[m
+[32m++			var url = location.href;[m
+[32m++			var index = url.indexOf("I");[m
+[32m++			var index1 = url.indexOf("#");[m
+[32m++			if(index > 0) {[m
+[32m++				$("#class_list_page").addClass("hide");	[m
+[32m++				$("#student_list_page").removeClass("hide");[m
+[32m++			}[m
+[32m++			if(index1 >0) {[m
+[32m++				return_home();[m
+[32m++			}[m
+[32m +		}) ();[m
+[31m- 		function update_grade(){[m
+[31m- 			$("#class_list_page").addClass("hide");	[m
+[31m- 			$("#student_list_page").removeClass("hide");[m
+[31m- 		}[m
+[32m +		function return_home(){[m
+[32m +			$("#class_list_page").removeClass("hide");	[m
+[32m +			$("#student_list_page").addClass("hide");[m
+[32m +		}[m
+[32m++		function select() {[m
+[32m++			var year = document.getElementById('year').value;[m
+[32m++			var term = document.getElementById('term').value;[m
+[32m++			var Course_year_term = year+term;[m
+[32m++			location.replace("/school/teacher/tea_manage_grade.php?Course_year_term="+Course_year_term);[m
+[32m++		}[m
+[32m++		function update_grade(id) {[m
+[32m++			var Course_year_term <?php if(isset($_GET['Course_year_term'])) echo '= "&Course_year_term='.$_GET['Course_year_term'].'"';?>;[m
+[32m++			location.replace("/school/teacher/tea_manage_grade.php?Course_ID="+id+Course_year_term);[m
+[32m++		}[m
+[32m++		[m
+[32m +	</script>[m
+[32m +</body>[m
+[1mdiff --cc teacher/tea_medal.php[m
+[1mindex 71c2167,e2c4797..0000000[m
+[1m--- a/teacher/tea_medal.php[m
+[1m+++ b/teacher/tea_medal.php[m
+[36m@@@ -1,145 -1,120 +1,120 @@@[m
+[31m -<?php require_once("tea_head.php"); ?>[m
+[31m -<body>[m
+[31m -	<?php require_once("../navbar.php"); ?>[m
+[31m -	<div class='container'>[m
+[31m -		<div class='row'>[m
+[31m -			<?php require_once("./tea_left_section.php") ?>[m
+[31m -			<div class="col-xs-10" id="prideInfo">[m
+[31m -				<div style="width:100%;height:50px;">[m
+[31m -					<div class="form-group pull-left" style="position:relative;bottom:5px;">[m
+[31m -						<select class="form-control" id="searchYear">[m
+[31m -							<option value = "2013">2013</option>[m
+[31m -							<option value = "2014">2014</option>[m
+[31m -							<option value = "2015">2015</option>[m
+[31m -							<option value = "2016">2016</option>[m
+[31m -						</select>[m
+[31m -					</div>[m
+[31m -					<span class="pull-left">学年</span>[m
+[31m -					<div class="form-group pull-left" style="position:relative;bottom:5px;">[m
+[31m -						<select class="form-control" id="searchTerm">[m
+[31m -							<option value = "1">1</option>[m
+[31m -							<option value = "2">2</option>[m
+[31m -							<option value = "3">3</option>[m
+[31m -						</select>[m
+[31m -					</div>[m
+[31m -					<span class="pull-left">学期</span>[m
+[31m -					<button class="btn btn-success pull-left" style="position:relative;bottom:5px;" onclick = "search()">查询</button>[m
+[31m -					<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="apply()">申请</button>[m
+[31m -				</div>[m
+[31m -				<div class="panel-group" id="awardDetail">[m
+[31m -					[m
+[31m -[m
+[31m -				</div>[m
+[31m -			</div>[m
+[31m -			<div class="col-xs-10 hide" id="prideApply">[m
+[31m -				<div class='panel panel-default panel-block'>[m
+[31m -					<div class='panel-heading'>[m
+[31m -						<div class='panel-title'>[m
+[31m -							<sapn>奖项申请</span>[m
+[31m -							<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="return_home()">返回</button>							[m
+[31m -						</div>[m
+[31m -					</div>[m
+[31m -					<div class='panel-body'>[m
+[31m -						<form class="form-horizontal text-center" method = "POST" action="/school/service/AddRecord.php?type=<?php echo $_SESSION['Type']; ?>" role="form">[m
+[31m -							<div class="form-group">[m
+[31m -								<label for="firstname" class="col-sm-2 control-label">获奖名称</label>[m
+[31m -								<div class="col-sm-10">[m
+[31m -									<input type="text" class="form-control" id="firstname" placeholder="请输入获奖名称" name="Award_name">[m
+[31m -								</div>[m
+[31m -							</div>[m
+[31m -							<div class="form-group">[m
+[31m -								<label for="firstname" class="col-sm-2 control-label">获奖时间</label>[m
+[31m -								<div class="col-sm-3 text-center">[m
+[31m -									<select class="form-control" name = "applyYear">[m
+[31m -										<option value = "2013">2013年</option>[m
+[31m -										<option value = "2014">2014年</option>[m
+[31m -										<option value = "2015">2015年</option>[m
+[31m -										<option value = "2016">2016年</option>[m
+[31m -									</select>[m
+[31m -								</div>[m
+[31m -								<div class="col-sm-3 text-center">[m
+[31m -									<select class="form-control" name = "applyTerm">[m
+[31m -										<option value = "1">1学期</option>[m
+[31m -										<option value = "2">2学期</option>[m
+[31m -										<option value = "3">3学期</option>[m
+[31m -									</select>[m
+[31m -								</div>[m
+[31m -							</div>[m
+[31m -							<div class="form-group">[m
+[31m -							 	<label for="name" class="col-sm-2 control-label">荣誉描述</label>[m
+[31m -							 	<div class="col-sm-10">[m
+[31m -								 	<textarea class="form-control" rows="5" name = "Award_intro"></textarea>[m
+[31m -								</div>[m
+[31m -							</div>[m
+[31m -							<input type="submit" class="btn btn-info text-center" value="确定">[m
+[31m -						</form>[m
+[31m -					</div>[m
+[31m -				</div>[m
+[31m -			</div>[m
+[31m -		</div>[m
+[31m -	</div>[m
+[31m -	<script src="../public/javascripts/jquery.min.js"></script>[m
+[31m -	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>[m
+[31m -	<script type="text/javascript">[m
+[31m -		function init() {[m
+[31m -			$("#tea_medal").addClass("active");[m
+[31m -		}[m
+[31m -		(function () {[m
+[31m -			init();[m
+[31m -		}) ();[m
+[31m -		function apply() {[m
+[31m -			$("#prideInfo").addClass("hide");[m
+[31m -			$("#prideApply").removeClass("hide");[m
+[31m -		}[m
+[31m -		function return_home(){[m
+[31m -			$("#prideInfo").removeClass("hide");[m
+[31m -			$("#prideApply").addClass("hide");[m
+[31m -		}[m
+[31m -		function search() {[m
+[31m -			var term = document.getElementById('searchTerm').value;[m
+[31m -			var year = document.getElementById('searchYear').value;[m
+[31m -			var account = <?php echo $_SESSION['Account']; ?>;[m
+[31m -[m
+[31m -			$.ajax({[m
+[31m -				url:'/school/service/Award.php?term='+term+'&year='+year+'&type=<?php echo $_SESSION['Type']; ?>',[m
+[31m -				type:"POST",[m
+[31m -				contentType:"application/x-www-form-urlencoded; charset=UTF-8",[m
+[31m -				data : {"Account":account},[m
+[31m -				datatype : "text",[m
+[31m -				async: true,[m
+[31m -				success:function(data) {[m
+[31m -					document.getElementById("awardDetail").innerHTML = data;				[m
+[31m -				},[m
+[31m -				error: function(XMLHttpRequest, textStatus, errorThrown) {[m
+[31m -					 alert(XMLHttpRequest.status);[m
+[31m -[m
+[31m -				}[m
+[31m -			});	[m
+[31m -		}				[m
+[31m -	</script>[m
+[31m -</body>[m
+[32m +<?php require_once("tea_head.php"); ?>[m
+[32m +<body>[m
+[32m +	<?php require_once("../navbar.php"); ?>[m
+[32m +	<div class='container'>[m
+[32m +		<div class='row'>[m
+[32m +			<?php require_once("./tea_left_section.php") ?>[m
+[32m +			<div class="col-xs-10" id="prideInfo">[m
+[32m +				<div style="width:100%;height:50px;">[m
+[32m +					<div class="form-group pull-left" style="position:relative;bottom:5px;">[m
+[31m- 						<select class="form-control" id="year">[m
+[31m- 							<option>2013</option>[m
+[31m- 							<option>2014</option>[m
+[31m- 							<option>2015</option>[m
+[31m- 							<option>2016</option>[m
+[32m++						<select class="form-control" id="searchYear">[m
+[32m++							<option value = "2013">2013</option>[m
+[32m++							<option value = "2014">2014</option>[m
+[32m++							<option value = "2015">2015</option>[m
+[32m++							<option value = "2016">2016</option>[m
+[32m +						</select>[m
+[32m +					</div>[m
+[32m +					<span class="pull-left">学年</span>[m
+[32m +					<div class="form-group pull-left" style="position:relative;bottom:5px;">[m
+[31m- 						<select class="form-control" id="term">[m
+[31m- 							<option>1</option>[m
+[31m- 							<option>2</option>[m
+[31m- 							<option>3</option>[m
+[32m++						<select class="form-control" id="searchTerm">[m
+[32m++							<option value = "1">1</option>[m
+[32m++							<option value = "2">2</option>[m
+[32m++							<option value = "3">3</option>[m
+[32m +						</select>[m
+[32m +					</div>[m
+[32m +					<span class="pull-left">学期</span>[m
+[31m- 					<button class="btn btn-success pull-left" style="position:relative;bottom:5px;">查询</button>[m
+[32m++					<button class="btn btn-success pull-left" style="position:relative;bottom:5px;" onclick = "search()">查询</button>[m
+[32m +					<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="apply()">申请</button>[m
+[32m +				</div>[m
+[31m- 				<div class="panel-group" id="courseDetail">[m
+[31m- 					<div class="panel panel-default">[m
+[31m- 						<div class="panel-heading">[m
+[31m- 							<h4 class="panel-title">[m
+[31m- 								<a data-toggle="collapse" data-parent="#courseDetail" href="#collapseOne">[m
+[31m- 									C++设计大赛[m
+[31m- 								</a>[m
+[31m- 								<span style="font-size:10px;margin-left:10px;">安慰奖</span>[m
+[31m- 								<span class="badge pull-right">未通过</span>[m
+[31m- 							</h4>[m
+[31m- 						</div>[m
+[31m- 						<div id="collapseOne" class="panel-collapse collapse">[m
+[31m- 							<div class="panel-body">[m
+[31m- 								<p>申请时间：2013-01-01</p>[m
+[31m- 								<p>审核状态：进行中</p>[m
+[31m- 								<p>荣誉描述：最权威的C++设计大赛</p>[m
+[31m- 							</div>[m
+[31m- 						</div>[m
+[31m- 					</div>[m
+[31m- 					<div class="panel panel-default">[m
+[31m- 						<div class="panel-heading">[m
+[31m- 							<h4 class="panel-title">[m
+[31m- 								<a data-toggle="collapse" data-parent="#courseDetail" href="#collapseTwo">[m
+[31m- 									C++设计大赛[m
+[31m- 								</a>[m
+[31m- 								<span style="font-size:10px;margin-left:10px;">安慰奖</span>[m
+[31m- 								<span class="badge pull-right">已通过</span>[m
+[31m- 							</h4>[m
+[31m- 						</div>[m
+[31m- 						<div id="collapseTwo" class="panel-collapse collapse">[m
+[31m- 							<div class="panel-body">[m
+[31m- 								<p>申请时间：2013-01-01</p>[m
+[31m- 								<p>审核状态：进行中</p>[m
+[31m- 								<p>荣誉描述：最权威的C++设计大赛</p>[m
+[31m- 							</div>[m
+[31m- 						</div>[m
+[31m- 					</div>[m
+[32m++				<div class="panel-group" id="awardDetail">[m
+[32m++					[m
+[32m++[m
+[32m +				</div>[m
+[32m +			</div>[m
+[32m +			<div class="col-xs-10 hide" id="prideApply">[m
+[32m +				<div class='panel panel-default panel-block'>[m
+[32m +					<div class='panel-heading'>[m
+[32m +						<div class='panel-title'>[m
+[32m +							<sapn>奖项申请</span>[m
+[32m +							<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="return_home()">返回</button>							[m
+[32m +						</div>[m
+[32m +					</div>[m
+[32m +					<div class='panel-body'>[m
+[31m- 						<form class="form-horizontal text-center" role="form">[m
+[32m++						<form class="form-horizontal text-center" method = "POST" action="/school/service/AddRecord.php?type=<?php echo $_SESSION['Type']; ?>" role="form">[m
+[32m +							<div class="form-group">[m
+[32m +								<label for="firstname" class="col-sm-2 control-label">获奖名称</label>[m
+[32m +								<div class="col-sm-10">[m
+[31m- 									<input type="text" class="form-control" id="firstname" placeholder="请输入获奖名称">[m
+[32m++									<input type="text" class="form-control" id="firstname" placeholder="请输入获奖名称" name="Award_name">[m
+[32m +								</div>[m
+[32m +							</div>[m
+[32m +							<div class="form-group">[m
+[32m +								<label for="firstname" class="col-sm-2 control-label">获奖时间</label>[m
+[32m +								<div class="col-sm-3 text-center">[m
+[31m- 									<select class="form-control">[m
+[31m- 										<option>2013年</option>[m
+[31m- 										<option>2</option>[m
+[31m- 										<option>3</option>[m
+[31m- 										<option>4</option>[m
+[31m- 										<option>5</option>[m
+[31m- 									</select>[m
+[31m- 								</div>[m
+[31m- 								<div class="col-sm-3 text-center">[m
+[31m- 									<select class="form-control">[m
+[31m- 										<option>1月</option>[m
+[31m- 										<option>2</option>[m
+[31m- 										<option>3</option>[m
+[31m- 										<option>4</option>[m
+[31m- 										<option>5</option>[m
+[32m++									<select class="form-control" name = "applyYear">[m
+[32m++										<option value = "2013">2013年</option>[m
+[32m++										<option value = "2014">2014年</option>[m
+[32m++										<option value = "2015">2015年</option>[m
+[32m++										<option value = "2016">2016年</option>[m
+[32m +									</select>[m
+[32m +								</div>[m
+[32m +								<div class="col-sm-3 text-center">[m
+[31m- 									<select class="form-control">[m
+[31m- 										<option>1日</option>[m
+[31m- 										<option>2</option>[m
+[31m- 										<option>3</option>[m
+[31m- 										<option>4</option>[m
+[31m- 										<option>5</option>[m
+[32m++									<select class="form-control" name = "applyTerm">[m
+[32m++										<option value = "1">1学期</option>[m
+[32m++										<option value = "2">2学期</option>[m
+[32m++										<option value = "3">3学期</option>[m
+[32m +									</select>[m
+[32m +								</div>[m
+[32m +							</div>[m
+[32m +							<div class="form-group">[m
+[32m +							 	<label for="name" class="col-sm-2 control-label">荣誉描述</label>[m
+[32m +							 	<div class="col-sm-10">[m
+[31m- 								 	<textarea class="form-control" rows="5"></textarea>[m
+[32m++								 	<textarea class="form-control" rows="5" name = "Award_intro"></textarea>[m
+[32m +								</div>[m
+[32m +							</div>[m
+[31m- 							<input type="button" class="btn btn-info text-center" value="确定">[m
+[32m++							<input type="submit" class="btn btn-info text-center" value="确定">[m
+[32m +						</form>[m
+[32m +					</div>[m
+[32m +				</div>[m
+[32m +			</div>[m
+[32m +		</div>[m
+[32m +	</div>[m
+[32m +	<script src="../public/javascripts/jquery.min.js"></script>[m
+[32m +	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>[m
+[32m +	<script type="text/javascript">[m
+[32m +		function init() {[m
+[32m +			$("#tea_medal").addClass("active");[m
+[32m +		}[m
+[32m +		(function () {[m
+[32m +			init();[m
+[32m +		}) ();[m
+[32m +		function apply() {[m
+[32m +			$("#prideInfo").addClass("hide");[m
+[32m +			$("#prideApply").removeClass("hide");[m
+[32m +		}[m
+[32m +		function return_home(){[m
+[32m +			$("#prideInfo").removeClass("hide");[m
+[32m +			$("#prideApply").addClass("hide");[m
+[32m++		}[m
+[32m++		function search() {[m
+[32m++			var term = document.getElementById('searchTerm').value;[m
+[32m++			var year = document.getElementById('searchYear').value;[m
+[32m++			var account = <?php echo $_SESSION['Account']; ?>;[m
+[32m++[m
+[32m++			$.ajax({[m
+[32m++				url:'/school/service/Award.php?term='+term+'&year='+year+'&type=<?php echo $_SESSION['Type']; ?>',[m
+[32m++				type:"POST",[m
+[32m++				contentType:"application/x-www-form-urlencoded; charset=UTF-8",[m
+[32m++				data : {"Account":account},[m
+[32m++				datatype : "text",[m
+[32m++				async: true,[m
+[32m++				success:function(data) {[m
+[32m++					document.getElementById("awardDetail").innerHTML = data;				[m
+[32m++				},[m
+[32m++				error: function(XMLHttpRequest, textStatus, errorThrown) {[m
+[32m++					 alert(XMLHttpRequest.status);[m
+[32m++[m
+[32m++				}[m
+[32m++			});	[m
+[32m +		}				[m
+[32m +	</script>[m
+[31m- </body>[m
+[32m++</body>[m
+[1mdiff --cc teacher/tea_message.php[m
+[1mindex ea6afeb,789ed62..0000000[m
+[1m--- a/teacher/tea_message.php[m
+[1m+++ b/teacher/tea_message.php[m
+[36m@@@ -1,112 -1,112 +1,112 @@@[m
+[31m -<?php require_once("tea_head.php"); ?>[m
+[31m -<body>[m
+[31m -	<?php require_once("../navbar.php"); ?>[m
+[31m -	<div class='container'>[m
+[31m -		<div class='row'>[m
+[31m -			<?php require_once("./tea_left_section.php") ?>[m
+[31m -			<div class="col-xs-10" id="messageInfo">[m
+[31m -				<div style="width:100%;height:50px;">[m
+[31m -					<span class="pull-left">消息来源：</span>[m
+[31m -					<div class="form-group pull-left" style="position:relative;bottom:5px;">[m
+[31m -						<select class="form-control" id="year">[m
+[31m -							<option>全部</option>[m
+[31m -							<option>教务员</option>[m
+[31m -							<option>辅导员</option>[m
+[31m -							<option>班干</option>[m
+[31m -							<option>学生组织</option>[m
+[31m -							<option>科研组织</option>							[m
+[31m -						</select>[m
+[31m -					</div>[m
+[31m -					<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="send()">发送消息</button>[m
+[31m -				</div>[m
+[31m -				<div class="panel-group" id="message_detail">[m
+[31m -					<div class="panel panel-default" data-toggle="collapse" data-parent="#courseDetail" href="#collapseOne" style="cursor:pointer">[m
+[31m -						<div class="panel-heading">[m
+[31m -							<h4 class="panel-title" >[m
+[31m -								<span class="badge pull-left">学生创新俱乐部</span>[m
+[31m -								<span class="text-center">基于php的学院管理系统</span>[m
+[31m -								<span class="badge pull-right">2015.10.31</span>[m
+[31m -							</h4>[m
+[31m -						</div>[m
+[31m -						<div id="collapseOne" class="panel-collapse collapse">[m
+[31m -							<div class="panel-body">[m
+[31m -								<p>请注意请注意，这周日要开会，时间是2341823，地点南校办公室！！</p>[m
+[31m -							</div>[m
+[31m -						</div>[m
+[31m -					</div>[m
+[31m -					<div class="panel panel-default" data-toggle="collapse" data-parent="#courseDetail" href="#collapseOne" style="cursor:pointer">[m
+[31m -						<div class="panel-heading">[m
+[31m -							<h4 class="panel-title" >[m
+[31m -								<span class="badge pull-left">学生创新俱乐部</span>[m
+[31m -								<span class="text-center">基于php的学院管理系统</span>[m
+[31m -								<span class="badge pull-right">2015.10.31</span>[m
+[31m -							</h4>[m
+[31m -						</div>[m
+[31m -						<div id="collapseOne" class="panel-collapse collapse">[m
+[31m -							<div class="panel-body">[m
+[31m -								<p>请注意请注意，这周日要开会，时间是2341823，地点南校办公室！！</p>[m
+[31m -							</div>[m
+[31m -						</div>[m
+[31m -					</div>[m
+[31m -				</div>[m
+[31m -			</div>[m
+[31m -			<div class="col-xs-10 hide" id="messageSend">[m
+[31m -				<div class='panel panel-default panel-block'>[m
+[31m -					<div class='panel-heading'>[m
+[31m -						<div class='panel-title'>[m
+[31m -							<span>发送消息</span>[m
+[31m -							<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="return_home()">返回</button>[m
+[31m -						</div>[m
+[31m -					</div>[m
+[31m -					<div class='panel-body'>[m
+[31m -						<form class="form-horizontal text-center" role="form">[m
+[31m -							<div class="form-group">[m
+[31m -								<label for="firstname" class="col-sm-2 control-label">消息标题：</label>[m
+[31m -								<div class="col-sm-10">[m
+[31m -									<input type="text" class="form-control" id="firstname" placeholder="请输入消息标题">[m
+[31m -								</div>[m
+[31m -							</div>[m
+[31m -							<div class="form-group">[m
+[31m -								<label for="firstname" class="col-sm-2 control-label">选择消息范围：</label>[m
+[31m -								<div class="col-sm-3 text-center">[m
+[31m -									<select class="form-control">[m
+[31m -										<option>2013年</option>[m
+[31m -										<option>2</option>[m
+[31m -										<option>3</option>[m
+[31m -										<option>4</option>[m
+[31m -										<option>5</option>[m
+[31m -									</select>[m
+[31m -								</div>[m
+[31m -							</div>[m
+[31m -							<div class="form-group">[m
+[31m -							 	<label for="name" class="col-sm-2 control-label">填写内容：</label>[m
+[31m -							 	<div class="col-sm-10">[m
+[31m -								 	<textarea class="form-control" rows="5"></textarea>[m
+[31m -								</div>[m
+[31m -							</div>[m
+[31m -							<input type="button" class="btn btn-info text-center" value="确定">[m
+[31m -						</form>[m
+[31m -					</div>[m
+[31m -				</div>[m
+[31m -			</div>[m
+[31m -		</div>[m
+[31m -	</div>[m
+[31m -	<script src="../public/javascripts/jquery.min.js"></script>[m
+[31m -	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>[m
+[31m -	<script type="text/javascript">[m
+[31m -		function init() {[m
+[31m -			$("#tea_message").addClass("active");[m
+[31m -		}[m
+[31m -		(function () {[m
+[31m -			init();[m
+[31m -		}) ();[m
+[31m -		function send() {[m
+[31m -			$("#messageInfo").addClass("hide");[m
+[31m -			$("#messageSend").removeClass("hide");[m
+[31m -		}[m
+[31m -		function return_home(){[m
+[31m -			$("#messageInfo").removeClass("hide");[m
+[31m -			$("#messageSend").addClass("hide");[m
+[31m -		}		[m
+[31m -	</script>[m
+[31m -</body>[m
+[32m +<?php require_once("tea_head.php"); ?>[m
+[32m +<body>[m
+[32m +	<?php require_once("../navbar.php"); ?>[m
+[32m +	<div class='container'>[m
+[32m +		<div class='row'>[m
+[32m +			<?php require_once("./tea_left_section.php") ?>[m
+[32m +			<div class="col-xs-10" id="messageInfo">[m
+[32m +				<div style="width:100%;height:50px;">[m
+[32m +					<span class="pull-left">消息来源：</span>[m
+[32m +					<div class="form-group pull-left" style="position:relative;bottom:5px;">[m
+[32m +						<select class="form-control" id="year">[m
+[32m +							<option>全部</option>[m
+[32m +							<option>教务员</option>[m
+[32m +							<option>辅导员</option>[m
+[32m +							<option>班干</option>[m
+[32m +							<option>学生组织</option>[m
+[32m +							<option>科研组织</option>							[m
+[32m +						</select>[m
+[32m +					</div>[m
+[32m +					<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="send()">发送消息</button>[m
+[32m +				</div>[m
+[32m +				<div class="panel-group" id="message_detail">[m
+[32m +					<div class="panel panel-default" data-toggle="collapse" data-parent="#courseDetail" href="#collapseOne" style="cursor:pointer">[m
+[32m +						<div class="panel-heading">[m
+[32m +							<h4 class="panel-title" >[m
+[32m +								<span class="badge pull-left">学生创新俱乐部</span>[m
+[32m +								<span class="text-center">基于php的学院管理系统</span>[m
+[32m +								<span class="badge pull-right">2015.10.31</span>[m
+[32m +							</h4>[m
+[32m +						</div>[m
+[32m +						<div id="collapseOne" class="panel-collapse collapse">[m
+[32m +							<div class="panel-body">[m
+[32m +								<p>请注意请注意，这周日要开会，时间是2341823，地点南校办公室！！</p>[m
+[32m +							</div>[m
+[32m +						</div>[m
+[32m +					</div>[m
+[32m +					<div class="panel panel-default" data-toggle="collapse" data-parent="#courseDetail" href="#collapseOne" style="cursor:pointer">[m
+[32m +						<div class="panel-heading">[m
+[32m +							<h4 class="panel-title" >[m
+[32m +								<span class="badge pull-left">学生创新俱乐部</span>[m
+[32m +								<span class="text-center">基于php的学院管理系统</span>[m
+[32m +								<span class="badge pull-right">2015.10.31</span>[m
+[32m +							</h4>[m
+[32m +						</div>[m
+[32m +						<div id="collapseOne" class="panel-collapse collapse">[m
+[32m +							<div class="panel-body">[m
+[32m +								<p>请注意请注意，这周日要开会，时间是2341823，地点南校办公室！！</p>[m
+[32m +							</div>[m
+[32m +						</div>[m
+[32m +					</div>[m
+[32m +				</div>[m
+[32m +			</div>[m
+[32m +			<div class="col-xs-10 hide" id="messageSend">[m
+[32m +				<div class='panel panel-default panel-block'>[m
+[32m +					<div class='panel-heading'>[m
+[32m +						<div class='panel-title'>[m
+[32m +							<span>发送消息</span>[m
+[32m +							<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="return_home()">返回</button>[m
+[32m +						</div>[m
+[32m +					</div>[m
+[32m +					<div class='panel-body'>[m
+[32m +						<form class="form-horizontal text-center" role="form">[m
+[32m +							<div class="form-group">[m
+[32m +								<label for="firstname" class="col-sm-2 control-label">消息标题：</label>[m
+[32m +								<div class="col-sm-10">[m
+[32m +									<input type="text" class="form-control" id="firstname" placeholder="请输入消息标题">[m
+[32m +								</div>[m
+[32m +							</div>[m
+[32m +							<div class="form-group">[m
+[32m +								<label for="firstname" class="col-sm-2 control-label">选择消息范围：</label>[m
+[32m +								<div class="col-sm-3 text-center">[m
+[32m +									<select class="form-control">[m
+[32m +										<option>2013年</option>[m
+[32m +										<option>2</option>[m
+[32m +										<option>3</option>[m
+[32m +										<option>4</option>[m
+[32m +										<option>5</option>[m
+[32m +									</select>[m
+[32m +								</div>[m
+[32m +							</div>[m
+[32m +							<div class="form-group">[m
+[32m +							 	<label for="name" class="col-sm-2 control-label">填写内容：</label>[m
+[32m +							 	<div class="col-sm-10">[m
+[32m +								 	<textarea class="form-control" rows="5"></textarea>[m
+[32m +								</div>[m
+[32m +							</div>[m
+[32m +							<input type="button" class="btn btn-info text-center" value="确定">[m
+[32m +						</form>[m
+[32m +					</div>[m
+[32m +				</div>[m
+[32m +			</div>[m
+[32m +		</div>[m
+[32m +	</div>[m
+[32m +	<script src="../public/javascripts/jquery.min.js"></script>[m
+[32m +	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>[m
+[32m +	<script type="text/javascript">[m
+[32m +		function init() {[m
+[32m +			$("#tea_message").addClass("active");[m
+[32m +		}[m
+[32m +		(function () {[m
+[32m +			init();[m
+[32m +		}) ();[m
+[32m +		function send() {[m
+[32m +			$("#messageInfo").addClass("hide");[m
+[32m +			$("#messageSend").removeClass("hide");[m
+[32m +		}[m
+[32m +		function return_home(){[m
+[32m +			$("#messageInfo").removeClass("hide");[m
+[32m +			$("#messageSend").addClass("hide");[m
+[32m +		}		[m
+[32m +	</script>[m
+[31m- </body>[m
+[32m++</body>[m
+[1mdiff --cc teacher/tea_research.php[m
+[1mindex ada3458,d101fb4..0000000[m
+[1m--- a/teacher/tea_research.php[m
+[1m+++ b/teacher/tea_research.php[m
+[36m@@@ -1,274 -1,380 +1,380 @@@[m
+[31m -<?php require_once("tea_head.php"); ?>[m
+[31m -<body>[m
+[31m -	<?php[m
+[31m -		require_once("../navbar.php"); [m
+[31m -		require_once($_SERVER['DOCUMENT_ROOT'].'/school/service/researchGroup.php');	[m
+[31m -	?>[m
+[31m -	<div class='container'>[m
+[31m -		<div class='row'>[m
+[31m -			<?php require_once("./tea_left_section.php") ?>[m
+[31m -			<div class="col-xs-10" id="home_page">[m
+[31m -[m
+[31m -				<div style="width:100%;height:50px;">[m
+[31m -					<span class="pull-left">选择科研小组</span>[m
+[31m -					<div class="form-group pull-left" style="position:relative;bottom:5px;">[m
+[31m -						<select class="form-control" id="searchGroup" onchange = "select()">[m
+[31m -						</select>[m
+[31m -					</div>[m
+[31m -				</div>[m
+[31m -[m
+[31m -				<div class='panel panel-default panel-block'>[m
+[31m -					<div class='panel-heading'>[m
+[31m -						<div class='panel-title'>[m
+[31m -							<span>最近消息</span>[m
+[31m -						</div>[m
+[31m -					</div>[m
+[31m -					<div class='panel-body'>[m
+[31m -						<div class="panel-group" id="message_detail">[m
+[31m -							<?php [m
+[31m -								$num = count($message);[m
+[31m -								for($i =0; $i<$num; $i++) {[m
+[31m -							?>[m
+[31m -							<div class="panel panel-default" data-toggle="collapse" data-parent="#courseDetail" href="#collapse<?php echo $i ?>" style="cursor:pointer">[m
+[31m -								<div class="panel-heading">[m
+[31m -								<h4 class="panel-title" >[m
+[31m -									<span>这周上交工作日志</span>[m
+[31m -								</h4>[m
+[31m -								</div>[m
+[31m -								<div id="collapse<?php echo $i ?>" class="panel-collapse collapse">[m
+[31m -									<div class="panel-body">[m
+[31m -										<p>请这周上交工作日志</p>[m
+[31m -									</div>[m
+[31m -								</div>[m
+[31m -							</div>[m
+[31m -							<?php } ?> [m
+[31m -						</div> [m
+[31m -					</div>[m
+[31m -				</div>[m
+[31m -[m
+[31m -				<div class='panel panel-default panel-block'>[m
+[31m -					<div class='panel-heading'>[m
+[31m -						<div class='panel-title'>[m
+[31m -							<span>工作日志</span>[m
+[31m -							<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="my_log()">我的日志</button>[m
+[31m -						</div>[m
+[31m -					</div>[m
+[31m -					<div class='panel-body'>[m
+[31m -						<div class="panel-group" id="message_detail">[m
+[31m -							<?php[m
+[31m -								$num = count($log);[m
+[31m -								for($i =0 ; $i<$num; $i++) {[m
+[31m -							?>[m
+[31m -							<div class="panel panel-default" data-toggle="collapse"  data-parent="#courseDetail" href="#collapse<?php echo $i?>" style="cursor:pointer">[m
+[31m -								<div class="panel-heading">[m
+[31m -									<h4 class="panel-title" >[m
+[31m -										<span><?php $title = substr($log[$i]['Log_content'], 0, 9); echo $title ?></span>[m
+[31m -										<span class="badge pull-right"><?php echo $log[$i]['Update_date']; ?></span>[m
+[31m -									</h4>[m
+[31m -								</div>[m
+[31m -								<div id="collapseOne" class="panel-collapse collapse">[m
+[31m -									<div class="panel-body">[m
+[31m -										<p><?php echo $log[$i]['Log_content'] ?></p>[m
+[31m -									</div>[m
+[31m -								</div>[m
+[31m -							</div>[m
+[31m -							<?php } ?> [m
+[31m -						</div>[m
+[31m -					</div>[m
+[31m -				</div>[m
+[31m -				<button class="btn btn-success pull-left" style="position:relative;bottom:5px;" onclick="manage_member()">管理成员</button>[m
+[31m -				<button class="btn btn-success pull-left" style="position:relative;bottom:5px;" onclick="ask_money()">申报资金</button>[m
+[31m -				<button class="btn btn-success pull-left" style="position:relative;bottom:5px;" onclick="ask_medal()">申报项目成果</button>			[m
+[31m -			</div>[m
+[31m -[m
+[31m -			<div class="col-xs-10" id="my_log_page">[m
+[31m -				<div style="width:100%;height:50px;">[m
+[31m -					<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="return_home_page()">返回</button>[m
+[31m -				</div>[m
+[31m -				<div class="panel-group" id="message_detail">[m
+[31m -					<?php [m
+[31m -							$num = count($mylog);[m
+[31m -							for($i =0; $i < $num; $i++) {[m
+[31m -					?>[m
+[31m -					<div class="panel panel-default" data-toggle="collapse" data-parent="#courseDetail" href="#collapse<?php echo $i?>" style="cursor:pointer">[m
+[31m -						<div class="panel-heading">[m
+[31m -							<h4 class="panel-title" >[m
+[31m -								<span id = "<?php echo $mylog[$i]['Log_ID'].'title';?>"><?php $title = substr($mylog[$i]['Log_content'], 0, 9); echo $title ?></span>[m
+[31m -								<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="remove_log(<?php echo $mylog[$i]['Log_ID'] ?>)">删除日志</button>[m
+[31m -								<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="edit_log(<?php echo $mylog[$i]['Log_ID'] ?>)">编辑日志</button>[m
+[31m -								<span class="badge pull-right"><?php echo $mylog[$i]['Update_date']; ?></span>[m
+[31m -							</h4>[m
+[31m -						</div>[m
+[31m -						<div id="collapse<?php echo $i; ?>" class="panel-collapse collapse">[m
+[31m -							<div class="panel-body">[m
+[31m -								<p id = "<?php echo $mylog[$i]['Log_ID'].'content';?>"><?php echo $mylog[$i]['Log_content']; ?></p>[m
+[31m -							</div>[m
+[31m -						</div>[m
+[31m -					</div>[m
+[31m -					<?php } ?> [m
+[31m -				</div>[m
+[31m -			</div>[m
+[31m -[m
+[31m -			<div class="col-xs-10" id="edit_log_page">[m
+[31m -				<div style="width:100%;height:50px;">[m
+[31m -					<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="my_log()">取消编辑</button>[m
+[31m -					<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="update_log()">确定</button>[m
+[31m -				</div>[m
+[31m -				<form class="form-horizontal text-center" role="form" >[m
+[31m -					<div class="form-group">[m
+[31m -						<label for="firstname" class="col-sm-2 control-label" >日志标题：</label>[m
+[31m -						<div class="col-sm-10">[m
+[31m -							<input type="text" class="form-control" id="firstname" placeholder="请输入日志标题">[m
+[31m -						</div>[m
+[31m -					</div>[m
+[31m -					<div class="form-group">[m
+[31m -						<label for="name" class="col-sm-2 control-label">日志内容：</label>[m
+[31m -						<div class="col-sm-10">[m
+[31m -							<textarea class="form-control" rows="5" id = "name", data-type =""></textarea>[m
+[31m -						</div>[m
+[31m -					</div>[m
+[31m -				</form>[m
+[31m -			</div>[m
+[31m -[m
+[31m -			<div class="col-xs-10" id="manage_member_page">[m
+[31m -				<div class='panel panel-default panel-block'>[m
+[31m -					<div class='panel-heading'>[m
+[31m -						<div class='panel-title'>[m
+[31m -							<span>管理成员</span>[m
+[31m -							<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="return_home_page()">返回</button>[m
+[31m -						</div>[m
+[31m -					</div>[m
+[31m -					<div class='panel-body'>[m
+[31m -						<table class="table table-bordered text-center" id="evaluate_table">[m
+[31m -							<thead>[m
+[31m -								<tr>[m
+[31m -									<th class="text-center">成员名称</th>[m
+[31m -									<th class="text-center">职位</th>[m
+[31m -									<th class="text-center">权限</th>[m
+[31m -									<th class="text-center">删除成员</th>[m
+[31m -								</tr>[m
+[31m -							</thead>[m
+[31m -							<tbody>[m
+[31m -								<tr>[m
+[31m -									<td>黄炳麟</td>[m
+[31m -									<td>荣誉主席</td>[m
+[31m -									<td>[m
+[31m -											<input type="checkbox">发布活动</td>[m
+[31m -									</td>[m
+[31m -									<td>[m
+[31m -										<button class="btn btn-info" style="position:relative;bottom:5px;" onclick="">删除成员</button>	[m
+[31m -									</td>[m
+[31m -								</tr>								[m
+[31m -							</tbody>[m
+[31m -						</table>[m
+[31m -						<input type="button" class="btn btn-info text-center" value="确定">[m
+[31m -					</div>[m
+[31m -				</div>[m
+[31m -			</div>[m
+[31m -[m
+[31m -			<div class="col-xs-10" id="ask_money_page">[m
+[31m -				<div class='panel panel-default panel-block'>[m
+[31m -					<div class='panel-heading'>[m
+[31m -						<div class='panel-title'>[m
+[31m -							<span>申报资金</span>[m
+[31m -							<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="return_home_page()">返回</button>[m
+[31m -						</div>[m
+[31m -					</div>[m
+[31m -					<div class='panel-body'>[m
+[31m -						<form class="form-horizontal text-center" role="form">[m
+[31m -							<div class="form-group">[m
+[31m -								<label for="firstname" class="col-sm-2 control-label">申报金额：</label>[m
+[31m -								<div class="col-sm-10">[m
+[31m -									<input type="text" class="form-control" id="fundCount" placeholder="请输入金额">[m
+[31m -								</div>[m
+[31m -							</div>[m
+[31m -							<div class="form-group">[m
+[31m -							 	<label for="name" class="col-sm-2 control-label">陈述：</label>[m
+[31m -							 	<div class="col-sm-10">[m
+[31m -								 	<textarea class="form-control" rows="5" id="fundIntro"></textarea>[m
+[31m -								</div>[m
+[31m -							</div>[m
+[31m -							<input type="button" class="btn btn-info text-center" value="确定" onclick = "applyFund(<?php if(isset($_GET['Res_group_id'])) echo $_GET['Res_group_id'];?>)">[m
+[31m -						</form>[m
+[31m -					</div>[m
+[31m -				</div>[m
+[31m -			</div>[m
+[31m -[m
+[31m -			<div class="col-xs-10" id="ask_medal_page">[m
+[31m -[m
+[31m -				<div class='panel panel-default panel-block'>[m
+[31m -					<div class='panel-heading'>[m
+[31m -						<div class='panel-title'>[m
+[31m -							<sapn>成果申请</span>[m
+[31m -							<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="return_home_page()">返回</button>[m
+[31m -						</div>[m
+[31m -					</div>[m
+[31m -					<div class='panel-body'>[m
+[31m -						<form class="form-horizontal text-center" role="form">[m
+[31m -							<div class="form-group">[m
+[31m -								<label for="firstname" class="col-sm-2 control-label">成果名称</label>[m
+[31m -								<div class="col-sm-10">[m
+[31m -									<input type="text" class="form-control" id="firstname" placeholder="请输入成果名称">[m
+[31m -								</div>[m
+[31m -							</div>[m
+[31m -							<div class="form-group">[m
+[31m -							 	<label for="name" class="col-sm-2 control-label">成果描述</label>[m
+[31m -							 	<div class="col-sm-10">[m
+[31m -								 	<textarea class="form-control" rows="5" id = "name"></textarea>[m
+[31m -								</div>[m
+[31m -							</div>[m
+[31m -							<input type="button" class="btn btn-info text-center" value="确定" onclick = "applyProject(<?php if(isset($_GET['Res_group_id'])) echo $_GET['Res_group_id'];?>)">[m
+[31m -						</form>[m
+[31m -					</div>[m
+[31m -				</div>	[m
+[31m -			</div>[m
+[31m -		</div>[m
+[31m -	</div>[m
+[31m -	<script src="../public/javascripts/jquery.min.js"></script>[m
+[31m -	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>[m
+[31m -	<script type="text/javascript">[m
+[31m -		function init() {[m
+[31m -			$("#tea_research").addClass("active");[m
+[31m -			$("#my_log_page").addClass("hide");[m
+[31m -			$("#edit_log_page").addClass("hide");[m
+[31m -			$("#manage_member_page").addClass("hide");[m
+[31m -			$("#ask_money_page").addClass("hide");[m
+[31m -			$("#ask_medal_page").addClass("hide");									[m
+[31m -		}[m
+[31m -		(function () {[m
+[31m -			init();[m
+[31m -			var account = <?php echo $_SESSION['Account']; ?>;[m
+[31m -			$.ajax({[m
+[31m -				url:'/school/route.php',[m
+[31m -				type:"POST",[m
+[31m -				contentType:"application/x-www-form-urlencoded; charset=UTF-8",[m
+[31m -				data : {"Account":account, "controller":"researchGroup", "method":"showTeacherGroup"},[m
+[31m -				datatype : "json",[m
+[31m -				async: true,[m
+[31m -				success:function(data) {[m
+[31m -					if(data.success != true) {[m
+[31m -						alert(data.success);[m
+[31m -					}[m
+[31m -					else {[m
+[31m -						var tmp = "<option>请选择</option>";[m
+[31m -						for(var p in data.data) {[m
+[31m -[m
+[31m -							tmp = tmp+'<option value="'+data.data[p].Res_group_id+'" >'+ data.data[p].Res_group_name+'</option>';[m
+[31m -						}[m
+[31m -						document.getElementById('searchGroup').innerHTML = tmp;[m
+[31m -					}[m
+[31m -[m
+[31m -				},[m
+[31m -				error: function(XMLHttpRequest, textStatus, errorThrown) {[m
+[31m -					 alert(XMLHttpRequest.status);[m
+[31m -[m
+[31m -				}[m
+[31m -			});[m
+[31m -		}) ();[m
+[31m -		function my_log() {[m
+[31m -			$("#my_log_page").removeClass("hide");[m
+[31m -			$("#home_page").addClass("hide");[m
+[31m -			$("#edit_log_page").addClass("hide");[m
+[31m -			$("#manage_member_page").addClass("hide");[m
+[31m -			$("#ask_money_page").addClass("hide");[m
+[31m -			$("#ask_medal_page").addClass("hide");			[m
+[31m -		}[m
+[31m -		function return_home_page(){[m
+[31m -			$("#my_log_page").addClass("hide");[m
+[31m -			$("#home_page").removeClass("hide");[m
+[31m -			$("#edit_log_page").addClass("hide");[m
+[31m -			$("#manage_member_page").addClass("hide");[m
+[31m -			$("#ask_money_page").addClass("hide");[m
+[31m -			$("#ask_medal_page").addClass("hide");			[m
+[31m -		}[m
+[31m -		function edit_log(){[m
+[31m -			$("#my_log_page").addClass("hide");[m
+[31m -			$("#home_page").addClass("hide");[m
+[31m -			$("#edit_log_page").removeClass("hide");[m
+[31m -			$("#manage_member_page").addClass("hide");[m
+[31m -			$("#ask_money_page").addClass("hide");[m
+[31m -			$("#ask_medal_page").addClass("hide");						[m
+[31m -		}[m
+[31m -		function manage_member(){[m
+[31m -			$("#my_log_page").addClass("hide");[m
+[31m -			$("#home_page").addClass("hide");[m
+[31m -			$("#edit_log_page").addClass("hide");[m
+[31m -			$("#manage_member_page").removeClass("hide");[m
+[31m -			$("#ask_money_page").addClass("hide");[m
+[31m -			$("#ask_medal_page").addClass("hide");						[m
+[31m -		}[m
+[31m -		function ask_money(){[m
+[31m -			$("#my_log_page").addClass("hide");[m
+[31m -			$("#home_page").addClass("hide");[m
+[31m -			$("#edit_log_page").addClass("hide");[m
+[31m -			$("#manage_member_page").addClass("hide");[m
+[31m -			$("#ask_money_page").removeClass("hide");[m
+[31m -			$("#ask_medal_page").addClass("hide");						[m
+[31m -		}[m
+[31m -		function ask_medal(){[m
+[31m -			$("#my_log_page").addClass("hide");[m
+[31m -			$("#home_page").addClass("hide");[m
+[31m -			$("#edit_log_page").addClass("hide");[m
+[31m -			$("#manage_member_page").addClass("hide");[m
+[31m -			$("#ask_money_page").addClass("hide");[m
+[31m -			$("#ask_medal_page").removeClass("hide");						[m
+[31m -		}	[m
+[31m -		function select() {[m
+[31m -			var id = document.getElementById('searchGroup').value;[m
+[31m -			var type = "<?php echo $_SESSION['Type']; ?>";[m
+[31m -			location.replace("/school/teacher/tea_research.php?controller=researchGroup&method=showGrouplog&Res_group_id="+id+"&type="+type);[m
+[31m -[m
+[31m -		}	[m
+[31m -		function applyProject(t) {[m
+[31m -			var id = t;[m
+[31m -			var intro = document.getElementById('firstname').value+document.getElementById('name').value;[m
+[31m -			var date = new Date();[m
+[31m -			var update_date = date.getFullYear()+"/"+date.getMonth()+"/"+date.getDate();	[m
+[31m -			$.ajax({[m
+[31m -				url:'/school/route.php',[m
+[31m -				type:"POST",[m
+[31m -				contentType:"application/x-www-form-urlencoded; charset=UTF-8",[m
+[31m -				data : {"controller":"researchGroup", "method":"addProject", "Res_group_ID": id, "Result_time": date, "Result_Intro":intro},[m
+[31m -				datatype : "json",[m
+[31m -				async: true,[m
+[31m -				success:function(data) {[m
+[31m -					if(data.success != true) {[m
+[31m -						alert(data.data);[m
+[31m -					}[m
+[31m -					else {[m
+[31m -						alert("Add Project Successfully!");[m
+[31m -						return_home_page();[m
+[31m -					}[m
+[31m -[m
+[31m -				},[m
+[31m -				error: function(XMLHttpRequest, textStatus, errorThrown) {[m
+[31m -					 alert(XMLHttpRequest.status);[m
+[31m -[m
+[31m -				}[m
+[31m -			});[m
+[31m -		}	[m
+[31m -		function applyFund(t) {[m
+[31m -			var id = "<?php echo $_SESSION['Account']; ?>";[m
+[31m -			var count = document.getElementById('fundCount').value;[m
+[31m -			var intro = document.getElementById('fundIntro').value;[m
+[31m -			var date = new Date();[m
+[31m -			var update_date = date.getFullYear()+"/"+date.getMonth()+"/"+date.getDate();	[m
+[31m -			$.ajax({[m
+[31m -				url:'/school/route.php',[m
+[31m -				type:"POST",[m
+[31m -				contentType:"application/x-www-form-urlencoded; charset=UTF-8",[m
+[31m -				data : {"controller":"fund", "method":"addFund", "Req_res_group_id": id, "Req_time": date, "Req_intro":intro, "Req_money":count},[m
+[31m -				datatype : "json",[m
+[31m -				async: true,[m
+[31m -				success:function(data) {[m
+[31m -					if(data.success != true) {[m
+[31m -						alert(data.data);[m
+[31m -					}[m
+[31m -					else {[m
+[31m -						alert("Add Project Successfully!");[m
+[31m -						return_home_page();[m
+[31m -					}[m
+[31m -[m
+[31m -				},[m
+[31m -				error: function(XMLHttpRequest, textStatus, errorThrown) {[m
+[31m -					 alert(XMLHttpRequest.status);[m
+[31m -[m
+[31m -				}[m
+[31m -			});[m
+[31m -		}					[m
+[31m -	</script>[m
+[31m -</body>[m
+[32m +<?php require_once("tea_head.php"); ?>[m
+[32m +<body>[m
+[31m- 	<?php require_once("../navbar.php"); ?>[m
+[32m++	<?php[m
+[32m++		require_once("../navbar.php"); [m
+[32m++		require_once($_SERVER['DOCUMENT_ROOT'].'/school/service/researchGroup.php');	[m
+[32m++	?>[m
+[32m +	<div class='container'>[m
+[32m +		<div class='row'>[m
+[32m +			<?php require_once("./tea_left_section.php") ?>[m
+[32m +			<div class="col-xs-10" id="home_page">[m
+[32m++[m
+[32m +				<div style="width:100%;height:50px;">[m
+[32m +					<span class="pull-left">选择科研小组</span>[m
+[32m +					<div class="form-group pull-left" style="position:relative;bottom:5px;">[m
+[31m- 						<select class="form-control" id="term">[m
+[31m- 							<option>1</option>[m
+[31m- 							<option>2</option>[m
+[31m- 							<option>3</option>[m
+[32m++						<select class="form-control" id="searchGroup" onchange = "select()">[m
+[32m +						</select>[m
+[32m +					</div>[m
+[32m +				</div>[m
+[32m +[m
+[32m +				<div class='panel panel-default panel-block'>[m
+[32m +					<div class='panel-heading'>[m
+[32m +						<div class='panel-title'>[m
+[32m +							<span>最近消息</span>[m
+[32m +						</div>[m
+[32m +					</div>[m
+[32m +					<div class='panel-body'>[m
+[32m +						<div class="panel-group" id="message_detail">[m
+[31m- 							<div class="panel panel-default" data-toggle="collapse" data-parent="#courseDetail" href="#collapseOne" style="cursor:pointer">[m
+[32m++							<?php [m
+[32m++								$num = count($message);[m
+[32m++								for($i =0; $i<$num; $i++) {[m
+[32m++							?>[m
+[32m++							<div class="panel panel-default" data-toggle="collapse" data-parent="#courseDetail" href="#collapse<?php echo $i ?>" style="cursor:pointer">[m
+[32m +								<div class="panel-heading">[m
+[32m +								<h4 class="panel-title" >[m
+[32m +									<span>这周上交工作日志</span>[m
+[32m +								</h4>[m
+[32m +								</div>[m
+[31m- 								<div id="collapseOne" class="panel-collapse collapse">[m
+[32m++								<div id="collapse<?php echo $i ?>" class="panel-collapse collapse">[m
+[32m +									<div class="panel-body">[m
+[32m +										<p>请这周上交工作日志</p>[m
+[32m +									</div>[m
+[32m +								</div>[m
+[32m +							</div>[m
+[31m- 						</div>[m
+[32m++							<?php } ?> [m
+[32m++						</div> [m
+[32m +					</div>[m
+[32m +				</div>[m
+[32m +[m
+[32m +				<div class='panel panel-default panel-block'>[m
+[32m +					<div class='panel-heading'>[m
+[32m +						<div class='panel-title'>[m
+[32m +							<span>工作日志</span>[m
+[32m +							<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="my_log()">我的日志</button>[m
+[32m +						</div>[m
+[32m +					</div>[m
+[32m +					<div class='panel-body'>[m
+[32m +						<div class="panel-group" id="message_detail">[m
+[31m- 							<div class="panel panel-default" data-toggle="collapse" data-parent="#courseDetail" href="#collapseOne" style="cursor:pointer">[m
+[32m++							<?php[m
+[32m++								$num = count($log);[m
+[32m++								for($i =0 ; $i<$num; $i++) {[m
+[32m++							?>[m
+[32m++							<div class="panel panel-default" data-toggle="collapse"  data-parent="#courseDetail" href="#collapse<?php echo $i?>" style="cursor:pointer">[m
+[32m +								<div class="panel-heading">[m
+[32m +									<h4 class="panel-title" >[m
+[31m- 										<span >黄炳麟的工作日志</span>[m
+[31m- 										<span class="badge pull-right">2015.10.31</span>[m
+[32m++										<span><?php $title = substr($log[$i]['Log_content'], 0, 9); echo $title ?></span>[m
+[32m++										<span class="badge pull-right"><?php echo $log[$i]['Update_date']; ?></span>[m
+[32m +									</h4>[m
+[32m +								</div>[m
+[32m +								<div id="collapseOne" class="panel-collapse collapse">[m
+[32m +									<div class="panel-body">[m
+[31m- 										<p>请注意请注意，这周日要开会，时间是2341823，地点南校办公室！！</p>[m
+[32m++										<p><?php echo $log[$i]['Log_content'] ?></p>[m
+[32m +									</div>[m
+[32m +								</div>[m
+[32m +							</div>[m
+[32m++							<?php } ?> [m
+[32m +						</div>[m
+[32m +					</div>[m
+[32m +				</div>[m
+[32m +				<button class="btn btn-success pull-left" style="position:relative;bottom:5px;" onclick="manage_member()">管理成员</button>[m
+[32m +				<button class="btn btn-success pull-left" style="position:relative;bottom:5px;" onclick="ask_money()">申报资金</button>[m
+[32m +				<button class="btn btn-success pull-left" style="position:relative;bottom:5px;" onclick="ask_medal()">申报项目成果</button>			[m
+[32m +			</div>[m
+[32m +[m
+[32m +			<div class="col-xs-10" id="my_log_page">[m
+[32m +				<div style="width:100%;height:50px;">[m
+[32m +					<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="return_home_page()">返回</button>[m
+[32m +				</div>[m
+[32m +				<div class="panel-group" id="message_detail">[m
+[31m- 					<div class="panel panel-default" data-toggle="collapse" data-parent="#courseDetail" href="#collapseOne" style="cursor:pointer">[m
+[32m++					<?php [m
+[32m++							$num = count($mylog);[m
+[32m++							for($i =0; $i < $num; $i++) {[m
+[32m++					?>[m
+[32m++					<div class="panel panel-default" data-toggle="collapse" data-parent="#courseDetail" href="#collapse<?php echo $i?>" style="cursor:pointer">[m
+[32m +						<div class="panel-heading">[m
+[32m +							<h4 class="panel-title" >[m
+[31m- 								<span >黄炳麟的工作日志</span>[m
+[31m- 								<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="">删除日志</button>[m
+[31m- 								<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="edit_log()">编辑日志</button>[m
+[31m- 								<span class="badge pull-right">2015.10.31</span>[m
+[32m++								<span id = "<?php echo $mylog[$i]['Log_ID'].'title';?>"><?php $title = substr($mylog[$i]['Log_content'], 0, 9); echo $title ?></span>[m
+[32m++								<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="remove_log(<?php echo $mylog[$i]['Log_ID'] ?>)">删除日志</button>[m
+[32m++								<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="edit_log(<?php echo $mylog[$i]['Log_ID'] ?>)">编辑日志</button>[m
+[32m++								<span class="badge pull-right"><?php echo $mylog[$i]['Update_date']; ?></span>[m
+[32m +							</h4>[m
+[32m +						</div>[m
+[31m- 						<div id="collapseOne" class="panel-collapse collapse">[m
+[32m++						<div id="collapse<?php echo $i; ?>" class="panel-collapse collapse">[m
+[32m +							<div class="panel-body">[m
+[31m- 								<p>第一个子系统已经完成</p>[m
+[32m++								<p id = "<?php echo $mylog[$i]['Log_ID'].'content';?>"><?php echo $mylog[$i]['Log_content']; ?></p>[m
+[32m +							</div>[m
+[32m +						</div>[m
+[32m +					</div>[m
+[32m++					<?php } ?> [m
+[32m +				</div>[m
+[32m +			</div>[m
+[32m +[m
+[32m +			<div class="col-xs-10" id="edit_log_page">[m
+[32m +				<div style="width:100%;height:50px;">[m
+[32m +					<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="my_log()">取消编辑</button>[m
+[31m- 					<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="">确定</button>[m
+[32m++					<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="update_log()">确定</button>[m
+[32m +				</div>[m
+[31m- 				<form class="form-horizontal text-center" role="form">[m
+[32m++				<form class="form-horizontal text-center" role="form" >[m
+[32m +					<div class="form-group">[m
+[31m- 						<label for="firstname" class="col-sm-2 control-label">日志标题：</label>[m
+[32m++						<label for="firstname" class="col-sm-2 control-label" >日志标题：</label>[m
+[32m +						<div class="col-sm-10">[m
+[32m +							<input type="text" class="form-control" id="firstname" placeholder="请输入日志标题">[m
+[32m +						</div>[m
+[32m +					</div>[m
+[32m +					<div class="form-group">[m
+[32m +						<label for="name" class="col-sm-2 control-label">日志内容：</label>[m
+[32m +						<div class="col-sm-10">[m
+[31m- 							<textarea class="form-control" rows="5"></textarea>[m
+[32m++							<textarea class="form-control" rows="5" id = "name", data-type =""></textarea>[m
+[32m +						</div>[m
+[32m +					</div>[m
+[32m +				</form>[m
+[32m +			</div>[m
+[32m +[m
+[32m +			<div class="col-xs-10" id="manage_member_page">[m
+[32m +				<div class='panel panel-default panel-block'>[m
+[32m +					<div class='panel-heading'>[m
+[32m +						<div class='panel-title'>[m
+[32m +							<span>管理成员</span>[m
+[32m +							<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="return_home_page()">返回</button>[m
+[32m +						</div>[m
+[32m +					</div>[m
+[32m +					<div class='panel-body'>[m
+[32m +						<table class="table table-bordered text-center" id="evaluate_table">[m
+[32m +							<thead>[m
+[32m +								<tr>[m
+[32m +									<th class="text-center">成员名称</th>[m
+[32m +									<th class="text-center">职位</th>[m
+[32m +									<th class="text-center">权限</th>[m
+[32m +									<th class="text-center">删除成员</th>[m
+[32m +								</tr>[m
+[32m +							</thead>[m
+[32m +							<tbody>[m
+[32m +								<tr>[m
+[32m +									<td>黄炳麟</td>[m
+[32m +									<td>荣誉主席</td>[m
+[32m +									<td>[m
+[32m +											<input type="checkbox">发布活动</td>[m
+[32m +									</td>[m
+[32m +									<td>[m
+[32m +										<button class="btn btn-info" style="position:relative;bottom:5px;" onclick="">删除成员</button>	[m
+[32m +									</td>[m
+[32m +								</tr>								[m
+[32m +							</tbody>[m
+[32m +						</table>[m
+[32m +						<input type="button" class="btn btn-info text-center" value="确定">[m
+[32m +					</div>[m
+[32m +				</div>[m
+[32m +			</div>[m
+[32m +[m
+[32m +			<div class="col-xs-10" id="ask_money_page">[m
+[32m +				<div class='panel panel-default panel-block'>[m
+[32m +					<div class='panel-heading'>[m
+[32m +						<div class='panel-title'>[m
+[32m +							<span>申报资金</span>[m
+[32m +							<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="return_home_page()">返回</button>[m
+[32m +						</div>[m
+[32m +					</div>[m
+[32m +					<div class='panel-body'>[m
+[32m +						<form class="form-horizontal text-center" role="form">[m
+[32m +							<div class="form-group">[m
+[32m +								<label for="firstname" class="col-sm-2 control-label">申报金额：</label>[m
+[32m +								<div class="col-sm-10">[m
+[31m- 									<input type="text" class="form-control" id="firstname" placeholder="请输入金额">[m
+[32m++									<input type="text" class="form-control" id="fundCount" placeholder="请输入金额">[m
+[32m +								</div>[m
+[32m +							</div>[m
+[32m +							<div class="form-group">[m
+[32m +							 	<label for="name" class="col-sm-2 control-label">陈述：</label>[m
+[32m +							 	<div class="col-sm-10">[m
+[31m- 								 	<textarea class="form-control" rows="5"></textarea>[m
+[32m++								 	<textarea class="form-control" rows="5" id="fundIntro"></textarea>[m
+[32m +								</div>[m
+[32m +							</div>[m
+[31m- 							<input type="button" class="btn btn-info text-center" value="确定">[m
+[32m++							<input type="button" class="btn btn-info text-center" value="确定" onclick = "applyFund(<?php if(isset($_GET['Res_group_id'])) echo $_GET['Res_group_id'];?>)">[m
+[32m +						</form>[m
+[32m +					</div>[m
+[32m +				</div>[m
+[32m +			</div>[m
+[32m +[m
+[32m +			<div class="col-xs-10" id="ask_medal_page">[m
+[32m +[m
+[32m +				<div class='panel panel-default panel-block'>[m
+[32m +					<div class='panel-heading'>[m
+[32m +						<div class='panel-title'>[m
+[32m +							<sapn>成果申请</span>[m
+[32m +							<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="return_home_page()">返回</button>[m
+[32m +						</div>[m
+[32m +					</div>[m
+[32m +					<div class='panel-body'>[m
+[32m +						<form class="form-horizontal text-center" role="form">[m
+[32m +							<div class="form-group">[m
+[32m +								<label for="firstname" class="col-sm-2 control-label">成果名称</label>[m
+[32m +								<div class="col-sm-10">[m
+[32m +									<input type="text" class="form-control" id="firstname" placeholder="请输入成果名称">[m
+[32m +								</div>[m
+[32m +							</div>[m
+[32m +							<div class="form-group">[m
+[32m +							 	<label for="name" class="col-sm-2 control-label">成果描述</label>[m
+[32m +							 	<div class="col-sm-10">[m
+[31m- 								 	<textarea class="form-control" rows="5"></textarea>[m
+[32m++								 	<textarea class="form-control" rows="5" id = "name"></textarea>[m
+[32m +								</div>[m
+[32m +							</div>[m
+[31m- 							<input type="button" class="btn btn-info text-center" value="确定">[m
+[32m++							<input type="button" class="btn btn-info text-center" value="确定" onclick = "applyProject(<?php if(isset($_GET['Res_group_id'])) echo $_GET['Res_group_id'];?>)">[m
+[32m +						</form>[m
+[32m +					</div>[m
+[32m +				</div>	[m
+[32m +			</div>[m
+[32m +		</div>[m
+[32m +	</div>[m
+[32m +	<script src="../public/javascripts/jquery.min.js"></script>[m
+[32m +	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>[m
+[32m +	<script type="text/javascript">[m
+[32m +		function init() {[m
+[32m +			$("#tea_research").addClass("active");[m
+[32m +			$("#my_log_page").addClass("hide");[m
+[32m +			$("#edit_log_page").addClass("hide");[m
+[32m +			$("#manage_member_page").addClass("hide");[m
+[32m +			$("#ask_money_page").addClass("hide");[m
+[32m +			$("#ask_medal_page").addClass("hide");									[m
+[32m +		}[m
+[32m +		(function () {[m
+[32m +			init();[m
+[32m++			var account = <?php echo $_SESSION['Account']; ?>;[m
+[32m++			$.ajax({[m
+[32m++				url:'/school/route.php',[m
+[32m++				type:"POST",[m
+[32m++				contentType:"application/x-www-form-urlencoded; charset=UTF-8",[m
+[32m++				data : {"Account":account, "controller":"researchGroup", "method":"showTeacherGroup"},[m
+[32m++				datatype : "json",[m
+[32m++				async: true,[m
+[32m++				success:function(data) {[m
+[32m++					if(data.success != true) {[m
+[32m++						alert(data.success);[m
+[32m++					}[m
+[32m++					else {[m
+[32m++						var tmp = "<option>请选择</option>";[m
+[32m++						for(var p in data.data) {[m
+[32m++[m
+[32m++							tmp = tmp+'<option value="'+data.data[p].Res_group_id+'" >'+ data.data[p].Res_group_name+'</option>';[m
+[32m++						}[m
+[32m++						document.getElementById('searchGroup').innerHTML = tmp;[m
+[32m++					}[m
+[32m++[m
+[32m++				},[m
+[32m++				error: function(XMLHttpRequest, textStatus, errorThrown) {[m
+[32m++					 alert(XMLHttpRequest.status);[m
+[32m++[m
+[32m++				}[m
+[32m++			});[m
+[32m +		}) ();[m
+[32m +		function my_log() {[m
+[32m +			$("#my_log_page").removeClass("hide");[m
+[32m +			$("#home_page").addClass("hide");[m
+[32m +			$("#edit_log_page").addClass("hide");[m
+[32m +			$("#manage_member_page").addClass("hide");[m
+[32m +			$("#ask_money_page").addClass("hide");[m
+[32m +			$("#ask_medal_page").addClass("hide");			[m
+[32m +		}[m
+[32m +		function return_home_page(){[m
+[32m +			$("#my_log_page").addClass("hide");[m
+[32m +			$("#home_page").removeClass("hide");[m
+[32m +			$("#edit_log_page").addClass("hide");[m
+[32m +			$("#manage_member_page").addClass("hide");[m
+[32m +			$("#ask_money_page").addClass("hide");[m
+[32m +			$("#ask_medal_page").addClass("hide");			[m
+[32m +		}[m
+[32m +		function edit_log(){[m
+[32m +			$("#my_log_page").addClass("hide");[m
+[32m +			$("#home_page").addClass("hide");[m
+[32m +			$("#edit_log_page").removeClass("hide");[m
+[32m +			$("#manage_member_page").addClass("hide");[m
+[32m +			$("#ask_money_page").addClass("hide");[m
+[32m +			$("#ask_medal_page").addClass("hide");						[m
+[32m +		}[m
+[32m +		function manage_member(){[m
+[32m +			$("#my_log_page").addClass("hide");[m
+[32m +			$("#home_page").addClass("hide");[m
+[32m +			$("#edit_log_page").addClass("hide");[m
+[32m +			$("#manage_member_page").removeClass("hide");[m
+[32m +			$("#ask_money_page").addClass("hide");[m
+[32m +			$("#ask_medal_page").addClass("hide");						[m
+[32m +		}[m
+[32m +		function ask_money(){[m
+[32m +			$("#my_log_page").addClass("hide");[m
+[32m +			$("#home_page").addClass("hide");[m
+[32m +			$("#edit_log_page").addClass("hide");[m
+[32m +			$("#manage_member_page").addClass("hide");[m
+[32m +			$("#ask_money_page").removeClass("hide");[m
+[32m +			$("#ask_medal_page").addClass("hide");						[m
+[32m +		}[m
+[32m +		function ask_medal(){[m
+[32m +			$("#my_log_page").addClass("hide");[m
+[32m +			$("#home_page").addClass("hide");[m
+[32m +			$("#edit_log_page").addClass("hide");[m
+[32m +			$("#manage_member_page").addClass("hide");[m
+[32m +			$("#ask_money_page").addClass("hide");[m
+[32m +			$("#ask_medal_page").removeClass("hide");						[m
+[31m- 		}								[m
+[32m++		}	[m
+[32m++		function select() {[m
+[32m++			var id = document.getElementById('searchGroup').value;[m
+[32m++			var type = "<?php echo $_SESSION['Type']; ?>";[m
+[32m++			location.replace("/school/teacher/tea_research.php?controller=researchGroup&method=showGrouplog&Res_group_id="+id+"&type="+type);[m
+[32m++[m
+[32m++		}	[m
+[32m++		function applyProject(t) {[m
+[32m++			var id = t;[m
+[32m++			var intro = document.getElementById('firstname').value+document.getElementById('name').value;[m
+[32m++			var date = new Date();[m
+[32m++			var update_date = date.getFullYear()+"/"+date.getMonth()+"/"+date.getDate();	[m
+[32m++			$.ajax({[m
+[32m++				url:'/school/route.php',[m
+[32m++				type:"POST",[m
+[32m++				contentType:"application/x-www-form-urlencoded; charset=UTF-8",[m
+[32m++				data : {"controller":"researchGroup", "method":"addProject", "Res_group_ID": id, "Result_time": date, "Result_Intro":intro},[m
+[32m++				datatype : "json",[m
+[32m++				async: true,[m
+[32m++				success:function(data) {[m
+[32m++					if(data.success != true) {[m
+[32m++						alert(data.data);[m
+[32m++					}[m
+[32m++					else {[m
+[32m++						alert("Add Project Successfully!");[m
+[32m++						return_home_page();[m
+[32m++					}[m
+[32m++[m
+[32m++				},[m
+[32m++				error: function(XMLHttpRequest, textStatus, errorThrown) {[m
+[32m++					 alert(XMLHttpRequest.status);[m
+[32m++[m
+[32m++				}[m
+[32m++			});[m
+[32m++		}	[m
+[32m++		function applyFund(t) {[m
+[32m++			var id = "<?php echo $_SESSION['Account']; ?>";[m
+[32m++			var count = document.getElementById('fundCount').value;[m
+[32m++			var intro = document.getElementById('fundIntro').value;[m
+[32m++			var date = new Date();[m
+[32m++			var update_date = date.getFullYear()+"/"+date.getMonth()+"/"+date.getDate();	[m
+[32m++			$.ajax({[m
+[32m++				url:'/school/route.php',[m
+[32m++				type:"POST",[m
+[32m++				contentType:"application/x-www-form-urlencoded; charset=UTF-8",[m
+[32m++				data : {"controller":"fund", "method":"addFund", "Req_res_group_id": id, "Req_time": date, "Req_intro":intro, "Req_money":count},[m
+[32m++				datatype : "json",[m
+[32m++				async: true,[m
+[32m++				success:function(data) {[m
+[32m++					if(data.success != true) {[m
+[32m++						alert(data.data);[m
+[32m++					}[m
+[32m++					else {[m
+[32m++						alert("Add Project Successfully!");[m
+[32m++						return_home_page();[m
+[32m++					}[m
+[32m++[m
+[32m++				},[m
+[32m++				error: function(XMLHttpRequest, textStatus, errorThrown) {[m
+[32m++					 alert(XMLHttpRequest.status);[m
+[32m++[m
+[32m++				}[m
+[32m++			});[m
+[32m++		}					[m
+[32m +	</script>[m
+[31m- </body>[m
+[32m++</body>[m

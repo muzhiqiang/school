@@ -24,10 +24,13 @@ class researchGroupProjectItem{
 		if($p == false) {
 			throw new Exception('Database connect failed');
 		}
-		$db->query('insert into res_group_achievement (Res_group_ID, Result_time, Result_Intro,
-		Verify_statue,Tea_ID) values(\''.
+
+		$sql = 'insert into res_group_achievement (Res_group_ID, Result_time, Result_Intro,
+		Verify_statue) values(\''.
 		$this->Res_group_ID.'\', \''.$this->Result_time.'\', \''.$this->Result_Intro.
-		'\', \''.$this->Verify_statue.'\', \''.$this->Tea_ID.'\');');
+		'\', \''.$this->Verify_statue.'\');';
+
+		$db->query($sql);
 		$db->close();
 	}
 	

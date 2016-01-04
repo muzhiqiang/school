@@ -1,7 +1,8 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/pod.php';
+require 'pod.php';
 class messageContentItem{
-	public $message_ID;
+	public $message_id;
+	public $Message_title;
 	public $Message_text;
 	
 	public function __construct(){
@@ -18,8 +19,8 @@ class messageContentItem{
 		if($p == false) {
 			throw new Exception('Database connect failed');
 		}
-		$db->query('insert into message (Message_text) values(\''.
-		$this->Message_text.'\');');
+		$db->query('insert into message (message_id, Message_title, Message_text) values(\''.
+		$this->message_id.'\', \''.$this->Message_title.'\',\''.$this->Message_text.'\');');
 		$db->close();
 	}
 	
@@ -57,8 +58,7 @@ class messageContentItem{
 		}
 		$table = 'message';
 		//#########################
-		$req = array();
-		$req[0] = array('message_ID'=>$this->message_ID);
+		$req = array('message_id'=>$this->message_id);
 		$sql = $db->genUpdateSql($req,$arg,$table);
 		$db->query($sql);
 		$db->close();

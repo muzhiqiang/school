@@ -40,7 +40,7 @@ class Util {
 
 		$this->argCheck($list, $arg);
 		$file = $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/'.$model.'.php';
-		require $file;
+		require_once $file;
 
 		$item = new $model();
 		foreach($list as $tmp) {
@@ -61,7 +61,7 @@ class Util {
 	public function searchRecord($req, $arg, $model) {
 		
 		$file = $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/'.$model.'.php';
-		require $file;
+		require_once $file;
 
 		$item = new $model();
 		return $item->search($req, $arg);
@@ -78,7 +78,7 @@ class Util {
 		$this->argCheck($arg, $src);
 
 		$file = $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/'.$model.'.php';
-		require $file;
+		require_once $file;
 
 		$item = new $model();
 		foreach($key as $tmp) {

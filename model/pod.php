@@ -69,8 +69,8 @@ class POD {
 		}
 		$sql = $sql.'where ';
 		$i = 0;
-		$num = count($req);
-		foreach($req[$i] as $key => $value) {
+		$num = count($req[0]);
+		foreach($req[0] as $key => $value) {
 			$sql = $sql.$key.' = \''.$value.'\' ';
 			$i++;
 			if($i != $num) {

@@ -26,10 +26,10 @@ class fundItem{
 			throw new Exception('Database connect failed');
 		}
 		$db->query('insert into financial_report (Req_type, Req_res_group_id, Req_time,
-		Req_money,Req_intro,Verify_statue,Verify_time,Sta_ID) values(\''.
+		Req_money,Req_intro,Verify_statue,Verify_time) values(\''.
 		$this->Req_type.'\', \''.$this->Req_res_group_id.'\', \''.$this->Req_time.
 		'\', \''.$this->Req_money.'\', \''.$this->Req_intro.'\', \''.$this->Verify_statue.'\', \''.
-		$this->Verify_time.'\', \''.$this->Sta_ID.'\');');
+		$this->Verify_time.'\');');
 		$db->close();
 	}
 	

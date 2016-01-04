@@ -1,6 +1,6 @@
 <?php 
 	session_start();
-	if(!isset($_SESSION['Account'])) {
+	if(!isset($_SESSION['Account']) || $_SESSION['Type'] != 'student') {
 		header('location:../login.php');
 	}
 ?>

@@ -41,7 +41,7 @@
 						</div>
 					</div>
 					<div class='panel-body'>
-						<form class="form-horizontal text-center" role="form" action="/school/service/AddRecord.php" method = "POST" id ="editform">
+						<form class="form-horizontal text-center" role="form" action="/school/service/AddRecord.php?type=<?php echo $_SESSION['Type']; ?>" method = "POST" id ="editform">
 							<div class="form-group">
 								<label for="firstname" class="col-sm-2 control-label">获奖名称</label>
 								<div class="col-sm-10">
@@ -101,7 +101,7 @@
 			var account = <?php echo $_SESSION['Account']; ?>;
 
 			$.ajax({
-				url:'/school/service/studentAward.php?term='+term+'&year='+year,
+				url:'/school/service/Award.php?term='+term+'&year='+year+'&type=<?php echo $_SESSION['Type']; ?>',
 				type:"POST",
 				contentType:"application/x-www-form-urlencoded; charset=UTF-8",
 				data : {"Account":account},

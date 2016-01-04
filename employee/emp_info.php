@@ -1,12 +1,9 @@
-<?php require_once("tea_head.php"); ?>
+<?php require_once("emp_head.php"); ?>
 <body>
-	<?php 
-		require_once("../navbar.php"); 
-		require_once $_SERVER['DOCUMENT_ROOT'].'/school/service/teacherInfo.php';
-	?>
+	<?php require_once("../navbar.php"); ?>
 	<div class='container'>
 		<div class='row'>
-			<?php require_once("tea_left_section.php"); ?>
+			<?php require_once("emp_leftSection.php"); ?>
 			<div class='col-xs-10'>
 				<div class='panel panel-default panel-block'>
 					<div class='panel-heading'>
@@ -16,20 +13,20 @@
 					</div>
 					<div class='panel-body text-center'>
 						<div class="row">
+							<p class="col-xs-3 col-xs-offset-2">职工编号：</p>
+							<p class="col-xs-7 text-left">283817239</p>
+						</div>
+						<div class="row">
 							<p class="col-xs-3 col-xs-offset-2">姓名：</p>
-							<p class="col-xs-7 text-left"><?php echo $result['data'][0]['Tea_name'];?></p>
+							<p class="col-xs-7 text-left">xxx</p>
 						</div>
 						<div class="row">
 							<p class="col-xs-3 col-xs-offset-2">性别：</p>
-							<p class="col-xs-7 text-left"><?php echo $result['data'][0]['Sex']; ?></p>
-						</div>
-						<div class="row">
-							<p class="col-xs-3 col-xs-offset-2">教师编号：</p>
-							<p class="col-xs-7 text-left"><?php echo $result['data'][0]['Tea_ID']; ?></p>
+							<p class="col-xs-7 text-left">男</p>
 						</div>
 						<div class="row">
 							<p class="col-xs-3 col-xs-offset-2">入职时间：</p>
-							<p class="col-xs-7 text-left"><?php echo $result['data'][0]['Entry_time']; ?></p>
+							<p class="col-xs-7 text-left">2013</p>
 						</div>
 					</div>
 				</div>
@@ -46,88 +43,98 @@
 						<div id="identifyInfo">
 							<div class="row">
 								<p class="col-xs-3 col-xs-offset-2">出生年月：</p>
-								<p class="col-xs-7 text-left"><?php echo $result['data']['Birth']; ?></p>
+								<p class="col-xs-7 text-left">1994/01/01</p>
 							</div>
 							<div class="row">
 								<p class="col-xs-3 col-xs-offset-2">身份证号：</p>
-								<p class="col-xs-7 text-left"><?php echo $result['data']['ID_no']; ?></p>
+								<p class="col-xs-7 text-left">44444455555555555</p>
 							</div>
 							<div class="row">
 								<p class="col-xs-3 col-xs-offset-2">籍贯：</p>
-								<p class="col-xs-7 text-left"><?php echo $result['data']['Native_place']; ?></p>
+								<p class="col-xs-7 text-left">广东</p>
 							</div>
 							<div class="row">
+								<p class="col-xs-3 col-xs-offset-2">居住地：</p>
+								<p class="col-xs-7 text-left">广东</p>
+							</div>							
+							<div class="row">
 								<p class="col-xs-3 col-xs-offset-2">联系电话：</p>
-								<p class="col-xs-7 text-left"><?php echo $result['data']['Tel']; ?></p>
+								<p class="col-xs-7 text-left">18888888888</p>
 							</div>
 							<div class="row">
 								<p class="col-xs-3 col-xs-offset-2">政治面貌：</p>
-								<p class="col-xs-7 text-left"><?php echo $result['data']['Polit']; ?></p>
+								<p class="col-xs-7 text-left">团员</p>
 							</div>
 							<div class="row">
 								<p class="col-xs-3 col-xs-offset-2">民族：</p>
-								<p class="col-xs-7 text-left"><?php echo $result['data']['Race']; ?></p>
+								<p class="col-xs-7 text-left">汉</p>
 							</div>
 							<div class="row">
 								<p class="col-xs-3 col-xs-offset-2">健康状态：</p>
-								<p class="col-xs-7 text-left"><?php echo $result['data']['Health']; ?></p>
+								<p class="col-xs-7 text-left">良好</p>
 							</div>
 							<div class="row">
 								<p class="col-xs-3 col-xs-offset-2">教育经历：</p>
-								<p class="col-xs-7 text-left"><?php echo $result['data']['Experience']; ?></p>
+								<p class="col-xs-7 text-left">华南理工大学本科</p>
 							</div>
 						</div>
-						<form action="/school/teacher/tea_info.php?controller=teacher&method=updateInfo" method="POST" role="form" class="form-horizontal hide" id="editForm">
+						<form action="" method="POST" role="form" class="form-horizontal hide" id="editForm">
 							<div class="form-group">
 								<label for="" class="col-xs-3 col-xs-offset-2 text-center">出生年月：</label>
 								<div class="col-xs-4 input-group" style="padding-left:15px;">
-									<input class="form-control" type="text" name="Birth" value = "<?php echo $result['data']['Birth']; ?>"/>
+									<input class="form-control" type="text" name=""/>
 									<span class="input-group-addon">年/月/日</span>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="" class="col-xs-3 col-xs-offset-2 text-center">身份证号：</label>
 								<div class="col-xs-4">
-									<input class="form-control" type="text" name="ID_no" value = "<?php echo $result['data']['ID_no']; ?>"/>
+									<input class="form-control" type="text" name=""/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="" class="col-xs-3 col-xs-offset-2 text-center">籍贯：</label>
 								<div class="col-xs-4">
-									<input class="form-control" type="text" name="Native_place" value = "<?php echo $result['data']['Native_place']; ?>"/>
+									<input class="form-control" type="text" name=""/>
 								</div>
 							</div>
 							<div class="form-group">
+								<label for="" class="col-xs-3 col-xs-offset-2 text-center">居住地：</label>
+								<div class="col-xs-4">
+									<input class="form-control" type="text" name=""/>
+								</div>
+							</div>							
+							<div class="form-group">
 								<label for="" class="col-xs-3 col-xs-offset-2 text-center">联系电话：</label>
 								<div class="col-xs-4">
-									<input class="form-control" type="text" name="Tel" value = "<?php echo $result['data']['Tel']; ?>"/>
+									<input class="form-control" type="text" name=""/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="" class="col-xs-3 col-xs-offset-2 text-center">政治面貌：</label>
 								<div class="col-xs-4">
-									<input class="form-control" type="text" name="Polit" value = "<?php echo $result['data']['Polit']; ?>"/>
+									<input class="form-control" type="text" name=""/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="" class="col-xs-3 col-xs-offset-2 text-center">民族：</label>
 								<div class="col-xs-4">
-									<input class="form-control" type="text" name="Race" value = "<?php echo $result['data']['Race']; ?>"/>
+									<input class="form-control" type="text" name=""/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="" class="col-xs-3 col-xs-offset-2 text-center">健康状态：</label>
 								<div class="col-xs-4">
-									<input class="form-control" type="text" name="Health" value = "<?php echo $result['data']['Health']; ?>"/>
+									<input class="form-control" type="text" name=""/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="" class="col-xs-3 col-xs-offset-2 text-center">教育经历：</label>
 								<div class="col-xs-4">
-									<input class="form-control" type="text" name="Experience" value = "<?php echo $result['data']['Experience']; ?>"/>
+									<input class="form-control" type="text" name=""/>
 								</div>
 							</div>
-							<input type="submit" class="btn btn-info" value="确定"/>
+							<input type="button" class="btn btn-info" value="确定"/>
 						</form>
 					</div>
 				</div>
@@ -138,7 +145,7 @@
 	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>-
 	<script type="text/javascript">
 		(function (){
-			$("#tea_info").addClass("active");
+			$("#emp_info").addClass("active");
 		})()
 		function edit() {
 			$("#editForm").removeClass("hide");

@@ -5,6 +5,7 @@ class teacherAwardItem{
 	public $Award_ID;
 	public $Tea_ID;
 	public $Award_time;
+	public $Award_intro;
 	public $Award_name;
 	public $Verify_statue;
 	
@@ -22,10 +23,10 @@ class teacherAwardItem{
 		if($p == false) {
 			throw new Exception('Database connect failed');
 		}
-		$db->query('insert into teacher_award (Award_ID, Tea_ID, Award_time, Award_name,
+		$db->query('insert into teacher_award (Award_ID, Tea_ID, Award_time, Award_name,Award_intro,
 		Verify_statue) values(\''.
 		$this->Award_ID.'\', \''.$this->Tea_ID.'\', \''.$this->Award_time.'\', \''.$this->Award_name.
-		'\', \''.$this->Verify_statue.'\');');
+		'\',  \''.$this->Award_intro.'\',\''.$this->Verify_statue.'\');');
 		$db->close();
 	}
 	

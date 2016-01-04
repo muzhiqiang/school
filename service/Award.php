@@ -4,7 +4,9 @@
 	
 	$api = new APICaller();
 	$_POST['Award_time'] = $_GET['year'].$_GET['term'];
-	$result = $api->excute('studentAward', 'showYearAward');
+
+	$controller = $_GET['type'].'Award';
+	$result = $api->excute($controller, 'showYearAward');
 
 
 	if($result['success'] != 1) {
@@ -21,7 +23,6 @@
 					<a data-toggle="collapse" data-parent="#courseDetail" href=#'.$collapse.'>
 						'.$result['data'][$i]['Award_name'].'
 					</a>
-				<span style="font-size:10px;margin-left:10px;">'.$result['data'][$i]['Award_Rank'].'</span>
 				<span class="badge pull-right">'.$result['data'][$i]['Verify_statue'].'</span>
 				</h4>
 			</div>

@@ -56,19 +56,19 @@
 					<div class='panel-body'>
 						<div class="panel-group" id="message_detail">
 							<?php
-								$num = count($log['data']);
+								$num = count($log);
 								for($i =0 ; $i<$num; $i++) {
 							?>
 							<div class="panel panel-default" data-toggle="collapse"  data-parent="#courseDetail" href="#collapse<?php echo $i?>" style="cursor:pointer">
 								<div class="panel-heading">
 									<h4 class="panel-title" >
-										<span><?php $title = substr($log['data'][$i]['Log_content'], 0, 9); echo $title ?></span>
-										<span class="badge pull-right"><?php echo $log['data'][$i]['Update_date']; ?></span>
+										<span><?php $title = substr($log[$i]['Log_content'], 0, 9); echo $title ?></span>
+										<span class="badge pull-right"><?php echo $log[$i]['Update_date']; ?></span>
 									</h4>
 								</div>
 								<div id="collapseOne" class="panel-collapse collapse">
 									<div class="panel-body">
-										<p><?php echo $log['data'][$i]['Log_content'] ?></p>
+										<p><?php echo $log[$i]['Log_content'] ?></p>
 									</div>
 								</div>
 							</div>
@@ -80,6 +80,8 @@
 
 			<div class="col-xs-10" id="my_log_page">
 				<div style="width:100%;height:50px;">
+					<span >我的日志</span>
+					<button class="btn btn-success" style="position:relative;bottom:5px;" onclick="new_log()">添加日志</button>
 					<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="return_home_page()">返回</button>
 				</div>
 				<div class="panel-group" id="message_detail">
@@ -126,6 +128,28 @@
 					</div>
 				</form>
 			</div>
+
+			<div class="col-xs-10" id="new_log_page">
+				<div style="width:100%;height:50px;">
+					<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="my_log()">取消添加</button>
+					<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="add_log()">确定</button>
+				</div>
+				<form class="form-horizontal text-center" role="form" >
+					<div class="form-group">
+						<label for="firstname" class="col-sm-2 control-label" >日志标题：</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="firstname" placeholder="请输入日志标题">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="name" class="col-sm-2 control-label">日志内容：</label>
+						<div class="col-sm-10">
+							<textarea class="form-control" rows="5" id = "name", data-type =""></textarea>
+						</div>
+					</div>
+				</form>
+			</div>
+
 		</div>
 	</div>
 	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/school/footer.php'); ?>
@@ -133,7 +157,8 @@
 		function init() {
 			$("#stu_research").addClass("active");
 			$("#my_log_page").addClass("hide");
-			$("#edit_log_page").addClass("hide");			
+			$("#edit_log_page").addClass("hide");	
+			$("#new_log_page").addClass("hide");		
 		}
 		(function () {
 			init();
@@ -165,27 +190,37 @@
 				}
 			});
 		}) ();
+		function new_log(){
+			$("#my_log_page").addClass("hide");
+			$("#home_page").addClass("hide");
+			$("#edit_log_page").addClass("hide");
+			$("#new_log_page").removeClass("hide");
+		}
 		function my_log() {
 			$("#my_log_page").removeClass("hide");
 			$("#home_page").addClass("hide");
 			$("#edit_log_page").addClass("hide");
+			$("#new_log_page").addClass("hide");
 		}
 		function return_home_page(){
 			$("#my_log_page").addClass("hide");
 			$("#home_page").removeClass("hide");
 			$("#edit_log_page").addClass("hide");
+			$("#new_log_page").addClass("hide");
 		}
 		function edit_log(t){
 			$("#my_log_page").addClass("hide");
 			$("#home_page").addClass("hide");
 			$("#edit_log_page").removeClass("hide");
+			$("#new_log_page").addClass("hide");
 			document.getElementById("name").value =	document.getElementById(t+"content").innerHTML;
 			document.getElementById("firstname").value = document.getElementById(t+"title").innerHTML;
 			$(document.getElementById("name")).attr('data-type',t);					
 		}
 		function select() {
 			var id = document.getElementById('searchGroup').value;
-			location.replace("/school/student/stu_research.php?controller=researchGroup&method=showGrouplog&Res_group_id="+id);
+			var type = "<?php echo $_SESSION['Type']; ?>";
+			location.replace("/school/student/stu_research.php?controller=researchGroup&method=showGrouplog&Res_group_id="+id+"&type="+type);
 
 		}
 		function removeLog(t) {

@@ -45,16 +45,16 @@
 							<div class="form-group">
 								<label for="firstname" class="col-sm-2 control-label">通知标题：</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" id="firstname" placeholder="请输入消息标题">
+									<input type="text" class="form-control" id="message_title" placeholder="请输入消息标题">
 								</div>
 							</div>
 							<div class="form-group">
 							 	<label for="name" class="col-sm-2 control-label">填写内容：</label>
 							 	<div class="col-sm-10">
-								 	<textarea class="form-control" rows="5"></textarea>
+								 	<textarea class="form-control" rows="5" id ="message_intro"></textarea>
 								</div>
 							</div>
-							<input type="button" class="btn btn-info text-center" value="确定">
+							<input type="button" class="btn btn-info text-center" value="确定" onclick = "send()">
 						</form>
 					</div>
 				</div>
@@ -91,10 +91,36 @@
 								</tr>								
 							</tbody>
 						</table>
-						<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="add_member()">添加班干</button>
 						<input type="button" class="btn btn-info text-center" value="确定">
 					</div>
 				</div>
+
+				<div class='panel panel-default panel-block'>
+					<div class='panel-heading'>
+						<div class='panel-title'>
+						添加成员
+						</div>
+					</div>
+					<div class='panel-body'>
+						<form  method="POST" role="form" class="form-horizontal " id="editForm">
+							<div class="form-group">
+								<label for="" class="col-xs-3 col-xs-offset-2 text-center">请输入学号：</label>
+								<div class="col-xs-4">
+									<input class="form-control" type="text"  name="native_place"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="" class="col-xs-3 col-xs-offset-2 text-center">请输入权限：</label>
+								<div class="col-xs-4">
+									<input class="form-control" type="text"  name="native_place"/>
+								</div>
+							</div>
+							<input type="submit" class="btn btn-info" value="确定"/>
+						</form>
+					</div>
+				</div>
+
+
 				</div>
 			</div>
 		</div>
@@ -116,7 +142,7 @@
 			$("#mang_mbr_page").addClass("hide");
 		}
 		function send_message(){
-			$("#home_page").addClass("hide");
+				$("#home_page").addClass("hide");
 			$("#send_message_page").removeClass("hide");
 			$("#mang_mbr_page").addClass("hide");
 		}
@@ -125,5 +151,36 @@
 			$("#send_message_page").addClass("hide");
 			$("#mang_mbr_page").removeClass("hide");
 		}
+		function send() {
+			var message_title = document.getElementById("message_title").value;
+			var message_text = document.getElementById("message_intro").value;
+			var id = new Date().getTime();
+			var account = "<?php echo $_SESSION['Account']; ?>";
+			$.ajax({
+				url:'/school/route.php',
+				type:"POST",
+				contentType:"application/x-www-form-urlencoded; charset=UTF-8",
+				data : {"Account":account, "controller":"message", "method":"sendClassMessage", "Message_text":message_text, "Message_title":message_text, "message_id": id},
+				datatype : "text",
+				async: true,
+				success:function(data) {
+					if(data.success = "true") {
+						alert("Send successfully!");
+
+					}
+					else {
+						alert(data.data);
+					}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					 alert(XMLHttpRequest.status);
+
+				}
+			});
+			document.getElementById("message_title").value = "";
+			document.getElementById("message_intro").value = "";
+			return_home();
+		}
+
 	</script>
 </body>
