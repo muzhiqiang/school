@@ -87,7 +87,7 @@
 	<?php require_once('../footer.php'); ?>
 	<script type="text/javascript">
 		function init() {
-			$("#stu_message").addClass("active");
+			$("#myScore").addClass("active");
 		}
 		(function () {
 			init();
