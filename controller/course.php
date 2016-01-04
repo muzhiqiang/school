@@ -1,8 +1,8 @@
 <?php
 
-require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/courseItem.php';
-require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/studentcourseItem.php';
-require $_SERVER['DOCUMENT_ROOT'].'/school'.'/controller/util.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/courseItem.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/studentcourseItem.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/school'.'/controller/util.php';
 
 class course {
 
@@ -158,6 +158,42 @@ class course {
 		return $res;
 	}
 
+	public function showTeacherYearCourseAction() {
+
+		$this->util_->requireArg('Course_year_term', $_POST);
+		$arg = array('Course', 'Teach_time', 'Classroom', 'Course_ID');
+		$req = array();
+		$req[0] = array('key' => 'Course_year_term', 'Course_year_term' => $_POST['Course_year_term']);
+		$req[1] = array('key' => 'Tea_ID', 'Tea_ID' => $_POST['Account']);
+		$res = $this->util_->searchRecord($req, $arg, 'courseItem');
+		
+		return $res;
+	}
+
+	public function studentListAction() {
+
+		$this->util_->requireArg('Course_ID', $_POST);
+		$arg = array('Stu_ID', 'Stu_name');
+		$req = array();
+		$req[0] = array('key' => 'Course_ID', 'Course_ID' => $_POST['Course_ID'], 'table' => 'studentcourseItem');
+		$lk = array('Stu_ID');
+		
+		require_once './model/studentcourseItem.php';
+		$item = new studentCourseItem();
+		$res = $item->studentcourseLinkStudent($req, $lk, $arg);
+		
+		return $res;	
+	}
+
+	public function updateStudentScoreAction() {
+
+		$key = array('Course_ID', 'Stu_ID');
+		$arg = array('Score');
+		$default = array();
+		$this->util_->updateRecord($key, $arg, $_POST, 'studentcourseItem', $default);
+
+
+	}
 }
 
 

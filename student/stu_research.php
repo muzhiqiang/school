@@ -56,19 +56,19 @@
 					<div class='panel-body'>
 						<div class="panel-group" id="message_detail">
 							<?php
-								$num = count($log['data']);
+								$num = count($log);
 								for($i =0 ; $i<$num; $i++) {
 							?>
 							<div class="panel panel-default" data-toggle="collapse"  data-parent="#courseDetail" href="#collapse<?php echo $i?>" style="cursor:pointer">
 								<div class="panel-heading">
 									<h4 class="panel-title" >
-										<span><?php $title = substr($log['data'][$i]['Log_content'], 0, 9); echo $title ?></span>
-										<span class="badge pull-right"><?php echo $log['data'][$i]['Update_date']; ?></span>
+										<span><?php $title = substr($log[$i]['Log_content'], 0, 9); echo $title ?></span>
+										<span class="badge pull-right"><?php echo $log[$i]['Update_date']; ?></span>
 									</h4>
 								</div>
 								<div id="collapseOne" class="panel-collapse collapse">
 									<div class="panel-body">
-										<p><?php echo $log['data'][$i]['Log_content'] ?></p>
+										<p><?php echo $log[$i]['Log_content'] ?></p>
 									</div>
 								</div>
 							</div>
@@ -185,7 +185,8 @@
 		}
 		function select() {
 			var id = document.getElementById('searchGroup').value;
-			location.replace("/school/student/stu_research.php?controller=researchGroup&method=showGrouplog&Res_group_id="+id);
+			var type = "<?php echo $_SESSION['Type']; ?>";
+			location.replace("/school/student/stu_research.php?controller=researchGroup&method=showGrouplog&Res_group_id="+id+"&type="+type);
 
 		}
 		function removeLog(t) {

@@ -1,6 +1,9 @@
 <?php require_once("tea_head.php"); ?>
 <body>
-	<?php require_once("../navbar.php"); ?>
+	<?php
+		require_once("../navbar.php");
+		require_once $_SERVER['DOCUMENT_ROOT'].'/school/service/committee.php';
+	 ?>
 	<div class='container'>
 		<div class='row'>
 			<?php require_once("./tea_left_section.php") ?>

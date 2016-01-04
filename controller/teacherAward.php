@@ -11,14 +11,15 @@ class teacherAward {
 	}
 
 	// show All Award of the teacher except detail intro;
-	public function showAllAwardAction() {
+	public function showYearAwardAction() {
 		
 		$req = array();
-		$req[0] = array('key' => 'Tea_ID', 'Tea_ID' => $_SESSION['Account']);
-		$arg = array('Award_ID', 'Award_time', 'Award_name', 'Verify_staue');
+		$req[0] = array('key' => 'Tea_ID', 'Tea_ID' => $_POST['Account']);
+		$req[1] = array('key' => 'Award_time', 'Award_time' => $_POST['Award_time']);
+		$arg = array('Award_ID', 'Award_time', 'Award_name', 'Award_intro', 'Verify_statue');
 		$res = $this->util_->searchRecord($req, $arg, 'teacherAwardItem');
 
-		return res;
+		return $res;
 	}
 
 
@@ -30,7 +31,7 @@ class teacherAward {
 		$arg = array('Award_ID', 'Award_time', 'Award_name', 'Verify_statue');
 		$res = $this->util_->search($req, $arg, 'teacherAwardItem');
 
-		return res;
+		return $res;
 	}
 
 	// verify the award recode
@@ -48,10 +49,10 @@ class teacherAward {
 	}
 
 	// Add an Award Recode
-	public function addAward() {
+	public function addAwardAction() {
 
-		$arg = array('Award_time', 'Award_name');
-		$default = array('Tea_ID' => $_SESSION['Account'], 'Verify_statue' => 'non-verify');
+		$arg = array('Award_time', 'Award_name', 'Award_intro');
+		$default = array('Tea_ID' => $_POST['Account'], 'Verify_statue' => '未通过');
 
 		$this->util_->addRecord($arg, $_POST, 'teacherAwardItem', $default);
 

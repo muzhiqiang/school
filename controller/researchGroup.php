@@ -38,6 +38,17 @@ class researchGroup {
 		return $res;
 	}
 
+	public function showTeacherGroupAction() {
+
+		$this->util_->requireArg('Account', $_POST);
+		$arg = array('Res_group_id', 'Res_group_name');
+		$req = array();
+		$req[0] = array('key' => 'Tea_ID', 'Tea_ID' => $_POST['Account']);
+		$res = $this->util_->searchRecord($req, $arg, 'researchGroupItem');
+
+		return $res;
+	}
+
 	// add group
 	// in teacher port
 	public function addResearchGroupAction() {
@@ -77,7 +88,7 @@ class researchGroup {
 
 		$arg = array('Res_group_ID', 'Result_time', 'Result_Intro');
 		//TODO:: verify teacher_id
-		$default = array('Verify_statue' => 'non-verify', 'Tea_ID' => '');
+		$default = array('Verify_statue' => '未审核', 'Tea_ID' => 'null');
 		$this->util_->addRecord($arg, $_POST, 'researchGroupProjectItem', $default);
 	}
 
@@ -175,7 +186,7 @@ class researchGroup {
 		$arg  = array('Update_date', 'Log_content');
 		$key = array('Log_ID');
 		$default = array();
-		$this->util_->updateRecord($key, $arg, $_POST, 'researchGroupLogItem');
+		$this->util_->updateRecord($key, $arg, $_POST, 'researchGroupLogItem', $default);
 	}
 
 }

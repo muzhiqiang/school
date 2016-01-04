@@ -8,7 +8,6 @@ class studentAwardItem{
 	public $Award_time;
 	public $Award_name;
 	public $Award_intro;
-	public $Award_Rank;
 	public $Verify_statue;
 	
 	public function __construct(){
@@ -26,9 +25,9 @@ class studentAwardItem{
 			throw new Exception('Database connect failed');
 		}
 		$db->query('insert into stu_award (Stu_ID, Award_time, Award_name,
-		Award_intro,Award_Rank,Verify_statue) values(\''.
+		Award_intro,Verify_statue) values(\''.
 		$this->Stu_ID.'\', \''.$this->Award_time.'\', \''.$this->Award_name.
-		'\', \''.$this->Award_intro.'\', \''.$this->Award_Rank.'\', \''.$this->Verify_statue.'\');');
+		'\', \''.$this->Award_intro.'\', \''.$this->Verify_statue.'\');');
 		$db->close();
 	}
 	

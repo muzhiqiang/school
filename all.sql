@@ -9,7 +9,7 @@ create table teacher_basic_info(
 	tea_name varchar(20),
 	sex char(1) default 'm',
 	rank varchar(20),
-	enrty_time varchar(20),
+	entry_time varchar(20),
 	authority varchar(20),
 	primary key(tea_id)
 )DEFAULT CHARSET=utf8; 
@@ -26,7 +26,8 @@ create table emp_basic_info(
 )DEFAULT CHARSET=utf8;
 
 create table message(
-	message_id int auto_increment,
+	message_id varchar(20),
+	message_title varchar(30),
 	message_text varchar(300),
 	primary key (message_id)
 )DEFAULT CHARSET=utf8;
@@ -37,6 +38,7 @@ create table teacher_award(
 	award_time varchar(20),
 	award_name varchar(20),
 	verify_statue varchar(20),
+	award_intro varchar(300),
 	primary key(award_id),
 	constraint teacher_award_fk foreign key(tea_id) references teacher_basic_info(tea_id)
 )DEFAULT CHARSET=utf8;
@@ -152,7 +154,6 @@ create table stu_award(
 	award_time varchar(20),
 	award_name varchar(20),
 	award_intro varchar(300),
-	award_rank varchar(10),
 	verify_statue varchar(20),
 	award_id int auto_increment,
 	primary key(award_id),
@@ -179,6 +180,7 @@ create table stu_course(
 	stu_id int,
 	score varchar(10),
 	is_fail char(1) default 0,
+	is_evalute tinyint(1) NOT NULL default 0,	
 	primary key(course_id,stu_id),
 	constraint stu_course_fk1 foreign key(course_id) references course(course_id),
 	constraint stu_course_fk2 foreign key(stu_id) references stu_basic_info(stu_id)
@@ -247,14 +249,9 @@ create table res_group_achievement(
 
 
 
-
-
-
-
-
 create table message_interconnect(
 	trans_id int auto_increment,
-	message_id int,
+	message_id varchar(20),
 	src_type varchar(10),
 	src_stu_id int,
 	tar_type varchar(10),
@@ -267,7 +264,7 @@ create table message_interconnect(
 	constraint message_interconnect_fk4 foreign key(src_stu_id) references stu_union(group_id),
 	constraint message_interconnect_fk5 foreign key(src_stu_id) references res_group(res_group_id),
 	constraint message_interconnect_fk6 foreign key(src_stu_id) references emp_basic_info(sta_id),
-	constraint message_interconnect_fk7 foreign key(tar_stu_id) references stu_basic_info(stu_id)
+	constraint message_interconnect_fk7 foreign key(src_stu_id) references class(class_id)
 )DEFAULT CHARSET=utf8;
 
 
@@ -290,11 +287,9 @@ create table emp_identification_info(
 
 create table evaluate(
 	eva_id int auto_increment,
-	eva_name varchar(20),
-	eva_type varchar(10),
-	tar_res_group_id int,
-	primary key(eva_id),
-	constraint evaluate_fk1 foreign key(tar_res_group_id) references res_group(res_group_id)
+  	eva_year_term varchar(10) DEFAULT NULL,
+  	is_over tinyint(1) NOT NULL DEFAULT '0',
+	primary key(eva_id)
 )DEFAULT CHARSET=utf8;
 
 create table evaluate_list(
@@ -304,6 +299,7 @@ create table evaluate_list(
 	score int(4),
 	context varchar(300),
 	time varchar(20),
+	eva_course_id int(11),
 	primary key (eva_one_id),
 	constraint evaluate_list_fk1 foreign key (eva_id) references evaluate (eva_id),
 	constraint evaluate_list_fk2 foreign key (eva_stu_id) references stu_basic_info (stu_id)

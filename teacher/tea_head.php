@@ -1,3 +1,9 @@
+<?php 
+	session_start();
+	if(!isset($_SESSION['Account']) || $_SESSION['Type'] != 'teacher') {
+		header('location:../login.php');
+	}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,3 +12,4 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
+

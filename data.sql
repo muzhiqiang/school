@@ -13,9 +13,9 @@ insert into course (course, tea_id, classroom, teach_time, total_time, course_ye
 insert into course (course, tea_id, classroom, teach_time, total_time, course_year_term, property, credit, intro) values('php', 210, 'A1-101', '256', '第1周-第20周', '20151', '必修', '4', '');
 insert into course (course, tea_id, classroom, teach_time, total_time, course_year_term, property, credit, intro) values('数据库', 210, 'A1-101', '378', '第1周-第15周', '20151', '必修', '4', '');
 insert into course (course, tea_id, classroom, teach_time, total_time, course_year_term, property, credit, intro) values('软件工程', 210, 'A1-101', '434', '第1周-第9周', '20151', '必修', '4', '');
-insert into stu_award (stu_id, award_time, award_name, award_intro, award_rank, verify_statue) values(2013119, '20141', 'C++设计大赛', '', '安慰奖', '未通过');
-insert into stu_award (stu_id, award_time, award_name, award_intro, award_rank, verify_statue) values(2013119, '20141', 'java设计大赛', '', '安慰奖', '未通过');
-insert into stu_award (stu_id, award_time, award_name, award_intro, award_rank, verify_statue) values(2013119, '20151', 'php设计大赛', '', '安慰奖', '未通过');
+insert into stu_award (stu_id, award_time, award_name, award_intro, verify_statue) values(2013119, '20141', 'C++设计大赛', '', '未通过');
+insert into stu_award (stu_id, award_time, award_name, award_intro, verify_statue) values(2013119, '20141', 'java设计大赛', '', '未通过');
+insert into stu_award (stu_id, award_time, award_name, award_intro, verify_statue) values(2013119, '20151', 'php设计大赛', '', '未通过');
 
 insert into stu_course(course_id, stu_id, score, is_fail) values(1, 2013119, 0, 0);
 insert into stu_course(course_id, stu_id, score, is_fail) values(2, 2013119, 0, 0);

@@ -4,10 +4,10 @@
 	session_start();
 	$api = new APICaller();
 
-
+	$controller = $_GET['type'].'Award';
 	$_POST['Award_time'] = $_POST['applyYear'].$_POST['applyTerm'];
 
-	$result = $api->excute('studentAward', 'addAward');
+	$result = $api->excute($controller, 'addAward');
 
 	if($result['success'] != 1) {
 		echo $result['data'];

@@ -1,9 +1,9 @@
-<?php require_once("head.php"); ?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'].'/school'.'/student/stu_head.php'); ?>
 <body>
-	<?php require_once("../navbar.php"); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/school'.'/navbar.php'); ?>
 	<div class='container'>
 		<div class='row'>
-			<?php require_once("./leftSection.php") ?>
+			<?php require_once($_SERVER['DOCUMENT_ROOT'].'/school'.'/student/stu_leftSection.php'); ?>
 			<div class="col-xs-10" id="messageInfo">
 				<div style="width:100%;height:50px;">
 					<span class="pull-left">消息来源：</span>
@@ -91,7 +91,7 @@
 			</div>
 		</div>
 	</div>
-	<?php require_once('../footer.php'); ?>
+	<?php $_SERVER['DOCUMENT_ROOT'].'/school'.'/footer.php'; ?>
 	<script type="text/javascript">
 		function init() {
 			$("#stu_message").addClass("active");

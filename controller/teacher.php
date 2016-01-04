@@ -1,7 +1,7 @@
 <?php
 
 
-require $_SERVER['DOCUMENT_ROOT'].'/school'.'/controller/util.php'
+require $_SERVER['DOCUMENT_ROOT'].'/school'.'/controller/util.php';
 
 class teacher {
 
@@ -17,30 +17,42 @@ class teacher {
 		
 		$arg = array('Tea_ID', 'Tea_name', 'Sex', 'Rank', 'Entry_time');
 		$req = array();
-		$req[0] = array('key' => 'Tea_ID', 'Tea_ID' => $_SESSION['Account']);
+		$req[0] = array('key' => 'Tea_ID', 'Tea_ID' => $_POST['Account']);
 		$res = $this->util_->searchRecord($req, $arg, 'teacherInfoItem');	
 		
 		$arg = array('Address', 'Birth', 'ID_no', 'Race', 'Polit', 'Native_place',
 		'Tel', 'Health', 'Experience', 'Intro');
-		$identify = $this->util_->serchRecord($req, $arg, 'teacherIdentifyItem');
+		$identify = $this->util_->searchRecord($req, $arg, 'teacherIdentityItem');
 		foreach($arg as $tmp) {
-			$res[$tmp] = $identify[$tmp];
+			$res[$tmp] = $identify[0][$tmp];
 		}
 		return $res;
 	
+	}
+
+	public function getAuthorityAction() {
+
+		$arg =array('Authority');
+		$req = array();
+		$req[0] = array('key' => 'Tea_ID', 'Tea_ID' => $_POST['Account']);
+		$res = $this->util_->searchRecord($req, $arg, 'teacherInfoItem');
+		return $res;
 	}
 
 	// update identify info of teacher
 	// Argument: only for the identify info
 	public function updateInfoAction() {
 
-		require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/teacherIdentifyItem.php';	
+		require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/teacherIdentityItem.php';	
 
-		$identify = new teacherIdentifyItem();
-		$identify->Tea_ID = $_SESSION['Account'];
+		$identify = new teacherIdentityItem();
+		$identify->Tea_ID = $_POST['Account'];
 		$arg = array();
 		foreach($_POST as $key => $value) {
-			array[$key] = $value;
+			if(!property_exists($identify, $key)) {
+				continue;
+			}
+			$arg[$key] = $value;
 		}
 		$identify->update($arg);
 	}
@@ -75,7 +87,7 @@ class teacher {
 		$this->util_->requireArg('NP');
 		$identify = new teacherIdentifyItem();
 		$req = array();
-		$req[0] = array('key' => 'Tea_ID', 'Tea_ID' => $_SESSION['Account']);
+		$req[0] = array('key' => 'Tea_ID', 'Tea_ID' => $_POST['Account']);
 		$arg = array('Password');
 		$res = $identify->search($req, $arg);
 		
@@ -83,7 +95,7 @@ class teacher {
 			throw new Exception('Password wrong');
 		}
 
-		$identify->Tea_ID = $_SESSION['Account'];
+		$identify->Tea_ID = $_POST['Account'];
 		$arg1 = array('Password' => $_PSOT['NP']);
 		$identify->update($arg1);
 

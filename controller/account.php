@@ -10,8 +10,6 @@ class account {
 	// Aegument ID, Password, Type
 	public function loginAction() {
 
-		session_start();
-
 		if(!isset($_POST['ID'])) {
 			throw new Exception('ID is not set');
 		}
@@ -25,23 +23,24 @@ class account {
 		$info;
 		$id;
 		if($_POST['Type'] == 'student') {
-			require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/studentIdentityItem.php';
+			require_once $_SERVER['DOCUMENT_ROOT'].'/school/model/studentIdentityItem.php';
 			$info = new studentIdentityItem();
 			$id = 'Stu_ID';
 		}
-		else if($_PSOT['Type'] == 'teacher') {
-			require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/teacherIdentityItem.php';
+		else if($_POST['Type'] == 'teacher') {
+			require_once $_SERVER['DOCUMENT_ROOT'].'/school/model/teacherIdentityItem.php';
 			$info = new teacherIdentityItem();
 			$id = 'Tea_ID';
 		}
-		else if($_PSOT['Type'] == 'staff') {
-			require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/staffIdentityItem.php';
+		else if($_POST['Type'] == 'staff') {
+			require_once $_SERVER['DOCUMENT_ROOT'].'/school/model/staffIdentityItem.php';
 			$info = new staffIdentityItem();
 			$id = 'Sta_ID';
 		}
 		else {
-			throw new Exception('Type us invalid');
+			throw new Exception('Type is invalid');
 		}
+
 		$req = array();
 		$req[0] = array('key' => $id, $id =>$_POST['ID']);
 		$arg = array('Password');
@@ -56,8 +55,6 @@ class account {
 			}
 		}
 
-		$_SESSION['Account'] = $_POST['ID'];
-		$_SESSION['Type'] = $_POST['Type'];
 		return true;
 
 	}

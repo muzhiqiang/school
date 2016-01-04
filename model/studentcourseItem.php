@@ -49,7 +49,7 @@ class studentcourseItem{
 		$req = array();
 		$req[0] = array('Course_ID'=>$this->Course_ID,'Stu_ID'=>$this->Stu_ID);
 		$table = 'stu_course';
-		$sql = $db->genUpdateSql($req, $arg, $table);
+		$sql = $db->genUpdateSql($req, $arg, $table);		
 		$db->query($sql);
 		$db->close();
 	}
@@ -77,6 +77,19 @@ class studentcourseItem{
 		$res = $db->query($sql);
 		return $res;
 	}
+
+	public function studentcourseLinkStudent($req, $lk, $arg) {
+		$db = new POD();
+		$p = $db->connect();
+		if($p == false) {
+			throw new Exception('Database connect failed');
+		}
+		$map = array('studentcourseItem' =>'stu_course', 'studentInfoItem' => 'stu_basic_info');
+		$table = array('stu_course', 'stu_basic_info');
+		$sql = $db->genLinkSql($req, $lk, $arg, $table, $map);		
+		$res = $db->query($sql);
+		return $res;
+	}	
 	
 	
 	

@@ -23,10 +23,13 @@ class researchGroupItem{
 		if($p == false) {
 			throw new Exception('Database connect failed');
 		}
-		$db->query('insert into res_group (Res_group_name, Tea_id, project,
-		Intro) values(\''.
-		$this->Res_group_name.'\', \''.$this->Tea_ID.'\', \''.$this->project.
-		'\', \''.$this->Intro.'\');');
+
+		$sql = 'insert into res_group (Res_group_name, Tea_id, project,
+			Intro) values(\''.
+			$this->Res_group_name.'\', \''.$this->Tea_ID.'\', \''.$this->project.
+			'\', \''.$this->Intro.'\');';
+
+		$db->query($sql);
 		$db->close();
 	}
 	

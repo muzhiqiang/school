@@ -86,16 +86,16 @@
 							<div class="form-group">
 								<label for="firstname" class="col-sm-2 control-label">消息标题：</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" id="firstname" placeholder="请输入消息标题">
+									<input type="text" class="form-control" id="message_title" placeholder="请输入消息标题">
 								</div>
 							</div>
 							<div class="form-group">
 							 	<label for="name" class="col-sm-2 control-label">填写内容：</label>
 							 	<div class="col-sm-10">
-								 	<textarea class="form-control" rows="5"></textarea>
+								 	<textarea class="form-control" rows="5" id="message_intro"></textarea>
 								</div>
 							</div>
-							<input type="button" class="btn btn-info text-center" value="确定">
+							<input type="button" class="btn btn-info text-center" value="确定" onclick ="send()">
 						</form>
 					</div>
 				</div>
@@ -197,7 +197,7 @@
 								 	<textarea class="form-control" rows="5" id = "content"></textarea>
 								</div>
 							</div>
-							<input type="button" class="btn btn-info text-center" value="确定" onclick = "AddAct(<?php echo $_GET['group_ID'];?>)">
+							<input type="button" class="btn btn-info text-center" value="确定" onclick = "AddAct(<?php if(isset($_GET['group_ID'])) echo $_GET['group_ID'];?>)">
 						</form>
 					</div>
 					</div>
@@ -296,6 +296,36 @@
 
 				}
 			});	
+		}
+		function send() {
+			var message_title = document.getElementById("message_title").value;
+			var message_text = document.getElementById("message_intro").value;
+			var id = new Date().getTime();
+			var account <?php if(isset($_GET['group_ID'])) echo '="'.$_GET['group_ID'].'"';?>;
+			$.ajax({
+				url:'/school/route.php',
+				type:"POST",
+				contentType:"application/x-www-form-urlencoded; charset=UTF-8",
+				data : {"group_id":account, "controller":"message", "method":"sendStuGroupMessage", "Message_text":message_text, "Message_title":message_text, "message_id": id},
+				datatype : "text",
+				async: true,
+				success:function(data) {
+					if(data.success = "true") {
+						alert("Send successfully!");
+						$("#send_message_page").addClass("hide");
+						$("#orgnz_page").removeClass("hide");
+					}
+					else {
+						alert(data.data);
+					}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					 alert(XMLHttpRequest.status);
+
+				}
+			});
+			document.getElementById("message_title").value = "";
+			document.getElementById("message_intro").value = "";
 		}
 	</script>
 </body>
