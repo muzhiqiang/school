@@ -51,6 +51,65 @@ class studentAssocation {
 
 	}
 
+	public function showMemberAction() {
+
+		$this->util_->requireArg('Account', $_POST);
+		$this->util_->requireArg('group_ID', $_POST);
+		$arg = array('Stu_name', 'Stu_ID', 'power', 'gro_position');
+		$req = array();
+		$req[1] = array('key' =>'group_ID', 'group_ID' => $_POST['group_ID'], 'table' => 'studentAssocationMemberItem');
+		$lk = array('Stu_ID');
+
+		require_once './model/studentAssocationMemberItem.php';
+		$item = new studentAssocationMemberItem();
+		$res = $item->memberLinkInfo($req, $lk, $arg);
+		
+		return $res;
+
+	}
+
+	public function addMemberAction() {
+
+	
+		$arg = array('Group_ID', 'Stu_ID', 'power', 'gro_power');
+		$default = array();
+		$this->util_->addRecord($arg, $_POST, 'ActivityItem', $default);	
+	}
+
+	public function removeMemberAction() {
+
+		$req = array();
+		$req[0] =array('key' => 'Stu_ID', 'Stu_ID' => $_POST['Stu_ID']);
+		$req[1] = array('key' => 'Group_ID', 'Group_ID' => $_POST['Group_ID']);
+		return $this->util_->removeRecord($req, 'studentAssocationMemberItem');
+	}
+
+	public function addAssocationAction() {
+
+		$arg = array('group_name', 'Intro');
+		$default = array();
+		$this->util_->addRecord($arg, $_POST, 'studentAssocationItem', $default);
+
+		$this->util_->requireArg('Stu_ID', $_POST);
+		$req = array();
+		$req[0] =array('key' => 'group_name', 'group_name' => $_POST['group_name']);
+		$arg = array('group_ID');
+		$tmp = $this->util_->searchRecord($req, $_POST, $arg, 'studentAssocationItem');
+
+		
+		$arg =array('Stu_ID');
+		$default = array('Group_ID' => $res[0]['group_ID'], 'is_leader' => '1', 'Gro_Position' => '创设人', 'Power' => '4');
+		$this->util_->addRecord($arg, $_POST, 'studentAssocationMemberItem', $default);
+
+	}
+
+	public function studentAssocationListAction() {
+
+		$req = array();
+		$arg = array('group_ID', 'group_name', 'Intro');
+		return $this->util_->searchRecord($req, $arg, 'studentAssocationItem');
+	}
+
 
 }
 

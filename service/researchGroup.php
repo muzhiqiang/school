@@ -27,7 +27,7 @@
 		}
 		foreach($tmp['data'] as $t) {
 
-			if($t['Stu_ID'] == $_SESSION['Account']) {
+			if($t[$id] == $_SESSION['Account']) {
 				array_push($mylog, $t);
 			}
 		}

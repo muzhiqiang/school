@@ -26,11 +26,13 @@ class classItem{
 		if($p == false) {
 			throw new Exception('Database connect failed');
 		}
-		$db->query('insert into class (Dept, Grade, Year,
+		$sql = 'insert into class (Dept, Grade, Year,
 		Class_name,Major,Sta_id,Intro) values(\''.
 		$this->Dept.'\', \''.$this->Grade.'\', \''.$this->Year.
 		'\', \''.$this->Class_name.'\', \''.$this->Major.'\', \''.$this->Sta_id.'\', \''.
-		$this->Intro.'\');');
+		$this->Intro.'\');';
+
+		$db->query($sql);
 		$db->close();
 	}
 	
@@ -75,15 +77,15 @@ class classItem{
 		$db->close();
 	}
 	
-	public function stuLinkClass($req, $lk, $arg) {
+	public function classLinkStaff($req, $lk, $arg) {
 		$db = new POD();
 		$p = $db->connect();
 		if($p == false) {
 			throw new Exception('Database connect failed');
 		}
-		$map = array('studentIdentityItem' =>'stu_identification_info', 
-		'studentInfoItem' => 'stu_basic_info');
-		$table = array('stu_identification_info', 'stu_basic_info');
+		$map = array('classItem' =>'class', 
+		'staffInfoItem' => 'emp_basic_info');
+		$table = array('class', 'emp_basic_info');
 		$sql = $db->genLinkSql($req, $lk, $arg, $table, $map);
 		$res = $db->query($sql);
 		return $res;

@@ -139,7 +139,7 @@
 				datatype : "text",
 				async: true,
 				success:function(data) {
-					if(data.success = "true") {
+					if(data.success == true) {
 						alert("Select successfully!");
 						document.getElementById("tableContent").innerHTML = "";
 						document.getElementById("courseDetail").innerHTML = "";

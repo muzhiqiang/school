@@ -1,6 +1,9 @@
 <?php require_once("emp_head.php"); ?>
 <body>
-	<?php require_once("../navbar.php"); ?>
+	<?php
+		require_once("../navbar.php");
+		require_once($_SERVER['DOCUMENT_ROOT'].'/school/service/empManager.php');
+	?>
 	<div class='container'>
 		<div class='row'>
 			<?php require_once("emp_leftSection.php"); ?>
@@ -14,8 +17,7 @@
 				<div class='panel panel-default panel-block'>
 					<div class='panel-heading'>
 						<div class='panel-title'>
-								<span class="">办公室成员</span>
-								<button class="btn btn-success" style="" onclick="addOfficer()">增添成员</button>
+								<button class="btn btn-success" style="" onclick="addOfficer()">增添职员</button>
 						</div>
 					</div>
 					<div class='panel-body'>
@@ -24,17 +26,37 @@
 								<tr>
 									<th class="text-center">姓名</th>
 									<th class="text-center">职位</th>
-									<th class="text-center">详细信息</th>
+									<th class="text-center">权限</th>
+									<th class="text-center">删除职员</th>
 								</tr>
 							</thead>
 							<tbody>
+							<?php 
+								$num = count($result['data']);
+								for($i =0; $i < $num; $i++) {
+							?>
 								<tr>
-									<td>黄炳麟</td>
-									<td>校长</td>
+									<td><?php echo $result['data'][$i]['Sta_name']; ?></td>
+									<td><?php echo $result['data'][$i]['Position']; ?></td>
 									<td>
-										<button class="btn btn-success" style=""onclick="Detail()">详细信息</button>
+									<?php 
+										$power = $result['data'][$i]['Position'];
+										if($power == '辅导员') {
+											echo '辅导员';
+										}
+										if($power == '教务员') {
+											echo '教务员';
+										}
+										if($power == '办公室') {
+											echo '办公事';
+										}
+									?>
 									</td>
-								</tr>								
+									<td>
+										<button class="btn btn-success" style=""onclick="remove_staff(<?php echo $result['data'][$i]['Sta_ID']; ?>)">删除成员</button>
+									</td>
+								</tr>
+								<?php }?>								
 							</tbody>
 						</table>
 					</div>
@@ -43,11 +65,10 @@
 				<div class='panel panel-default panel-block'>
 					<div class='panel-heading'>
 						<div class='panel-title'>
-								<span class="">教师评价委员会委员长</span>
 								<button class="btn btn-success" style="" onclick="addCommitMem()">增添委员长</button>
 						</div>
 					</div>
-					<div class='panel-body'>
+				<!--	<div class='panel-body'>
 						<table class="table table-bordered text-center" id="evaluate_table">
 							<thead>
 								<tr>
@@ -66,7 +87,7 @@
 								</tr>								
 							</tbody>
 						</table>
-					</div>
+					</div> -->
 				</div>
 
 			</div>
@@ -87,38 +108,42 @@
 						</div>
 					</div>
 					<div class='panel-body'>
-						<form action="" method="POST" role="form" class="form-horizontal " id="editForm">
+						<form action="/school/employee/emp_manageEmp.php?controller=staff&method=addStaff" method="POST" role="form" class="form-horizontal " id="editForm">
 							<div class="form-group">
 								<label for="" class="col-xs-3 col-xs-offset-2 text-center">职工编号：</label>
 								<div class="col-xs-4">
-									<input class="form-control" type="text" name=""/>
+									<input class="form-control" type="text" name="Sta_id"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="" class="col-xs-3 col-xs-offset-2 text-center">姓名：</label>
 								<div class="col-xs-4">
-									<input class="form-control" type="text" name=""/>
+									<input class="form-control" type="text" name="Sta_name"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="" class="col-xs-3 col-xs-offset-2 text-center">性别：</label>
 								<div class="col-xs-4">
-									<input class="form-control" type="text" name=""/>
+									<input class="form-control" type="text" name="sex"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="" class="col-xs-3 col-xs-offset-2 text-center">入职时间：</label>
 								<div class="col-xs-4">
-									<input class="form-control" type="text" name=""/>
+									<input class="form-control" type="text" name="Entry_time"/>
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="" class="col-xs-3 col-xs-offset-2 text-center">权限：</label>
+								<label for="" class="col-xs-3 col-xs-offset-2 text-center">职位：</label>
 								<div class="col-xs-4">
-									<input class="form-control" type="text" name=""/>
-								</div>
+									<select class="form-control" name="Position">
+										<option value = '教务员'>教务员</option>
+										<option value = '辅导员'>辅导员</option>
+										<option value = '办公室'>办公室</option>
+									</select>
+								</div>						
 							</div>
-							<input type="button" class="btn btn-info" value="确定"/>
+							<input type="submit" class="btn btn-info" value="确定"/>
 						</form>
 					</div>
 				</div>
@@ -129,7 +154,7 @@
 
 
 			<div class='col-xs-10' id="addCommitPage">
-				<div class='col-xs-10' id="addNewCommitPage">
+			<!--	<div class='col-xs-10' id="addNewCommitPage">
 					<div class='panel panel-default panel-block'>
 						<div class='panel-heading'>
 							<div class='panel-title'>
@@ -176,7 +201,7 @@
 						</div>
 					</div>
 				</div>
-
+-->
 				<div class='col-xs-10' id="addExistCommitPage">
 					<div class='panel panel-default panel-block'>
 						<div class='panel-heading'>
@@ -192,10 +217,10 @@
 								<div class="form-group">
 									<label for="" class="col-xs-3 col-xs-offset-2 text-center">请输入教师编号：</label>
 									<div class="col-xs-4">
-										<input class="form-control" type="text" name=""/>
+										<input class="form-control" type="text"  id="Tea_ID"/>
 									</div>
 								</div>
-								<input type="button" class="btn btn-info" value="确定"/>
+								<input type="button" class="btn btn-info" value="确定" onclick ="committee()"/>
 							</form>
 						</div>
 					</div>
@@ -388,7 +413,34 @@
 			$("#addOfficerPage").addClass("hide");
 			$("#addCommitPage").addClass("hide");
 			$("#detailPage").addClass("hide");
-		}		
+		}	
+		function remove_staff(t) {
+			location.replace("/school/employee/emp_manageEmp.php?controller=staff&method=removeStaff&id="+t);		
+		}
+		function committee() {
+			var id = document.getElementById('Tea_ID').value;
+			$.ajax({
+				url:'/school/route.php',
+				type:"POST",
+				contentType:"application/x-www-form-urlencoded; charset=UTF-8",
+				data : {"Tea_ID":id, "controller":"teacher", "method":"addLeader", "Authority":"4"},
+				datatype : "text",
+				async: true,
+				success:function(data) {
+					if(data.success == true) {
+						alert("Successfully!");
+						returnHomePage();
+					}
+					else {
+						alert(data.data);
+					}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					 alert(XMLHttpRequest.status);
+
+				}
+			});
+		}	
 	</script>
 </body>
 </html>

@@ -1,3 +1,9 @@
+<?php 
+	session_start();
+	if(!isset($_SESSION['Account']) || $_SESSION['Type'] != 'staff') {
+		header('location:../login.php');
+	}
+?>
 <!DOCTYPE html>
 <html>
 <head>

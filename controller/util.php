@@ -94,6 +94,15 @@ class Util {
 
 		$item->update($argList);
 	}	
+
+	public function removeRecord($req, $model) {
+
+		$file = $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/'.$model.'.php';
+		require_once $file;
+
+		$item = new $model();
+		return $item->delete($req);
+	}
 		
 
 

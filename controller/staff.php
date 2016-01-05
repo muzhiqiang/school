@@ -1,6 +1,6 @@
 <?php
 
-require $_SERVER['DOCUMENT_ROOT'].'/school'.'/controller/util.php'
+require $_SERVER['DOCUMENT_ROOT'].'/school'.'/controller/util.php';
 
 class staff {
 
@@ -16,33 +16,42 @@ class staff {
 		
 		$arg = array('Sta_ID', 'Sta_name', 'Sex', 'Position', 'Entry_time');
 		$req = array();
-		$req[0] = array('key' => 'Sta_ID', 'Sta_ID' => $_SESSION['Account'];
+		$req[0] = array('key' => 'Sta_ID', 'Sta_ID' => $_POST['Account']);
 		$res = $this->util_->searchRecord($req, $arg, 'staffInfoItem');
 
-		$arg = array('Address', 'Birth', 'ID_no', 'Race', 'Polit', 'Native_place'
+		$arg = array('Address', 'Birth', 'ID_no', 'Race', 'Polit', 'Native_place',
 		'Tel', 'Health', 'Experience', 'Intro');
-		$identify = $this->util_->searchRecord($req, $arg, 'staffIdentifyItem');
+		$identify = $this->util_->searchRecord($req, $arg, 'staffIdentityItem');
 		foreach($arg as $tmp) {
-			$res[$tmp] = $identify[$tmp];
+			$res[0][$tmp] = $identify[0][$tmp];
 		}
 		return $res;
 	
 	}
 
+	function positionAction() {
+
+		$arg = array('Position');
+		$req = array();
+		$req[0] = array('key' => 'Sta_ID', 'Sta_ID' => $_POST['Account']);
+		return $this->util_->searchRecord($req, $arg, 'staffInfoItem');
+	}
+
+
 	// update the identify info
 	// Argument: only the identify info
 	public function updateInfoAction() {
 
-		require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/staffIdentifyItem.php';
+		require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/staffIdentityItem.php';
 
-		$identify = new staffIdentifyItem();
-		$identify->Sta_ID = $_SESSION['Account'];
+		$identify = new staffIdentityItem();
+		$identify->Sta_ID = $_POST['Account'];
 		$arg = array();
 		foreach($_POST as $key => $value) {
 			if(!property_exists($identify, $key)) {
 				continue;
 			}
-			array[$key] = $value;
+			$arg[$key] = $value;
 		}
 		$identify->update($arg);
 	}
@@ -52,19 +61,40 @@ class staff {
 	// init password '000000'
 	public function addStaffAction() {
 
-		// TODO:: Authority
-		$infoArg = array('Sta_ID', 'Sta_name', 'Sex', 'Position', 'Entry_time');
-		$default = array('Authority' => 'default');
+		$infoArg = array('Sta_id', 'Sta_name', 'sex', 'Position', 'Entry_time');
+		$default = array();
 		$this->util_->addRecord($infoArg, $_POST, 'staffInfoItem', $default);
+		$infoArg = array();
+		$default = array('Sta_ID' => $_POST['Sta_id'], 'Password' => '000000');
+		$this->util_->addRecord($infoArg, $_POST, 'staffIdentityItem', $default);
 	
-		$infoArg = array('Sta_ID', 'Address', 'Birth', 'ID_no', 'Race', 'Polit', 'Native_place', 'Tel', 'Health', 'Experience', 'Intro');
-		$default = array('Password' => '000000');
-		$this->util_->addRecord($infoArg, $_POST, 'staffIdentifyItem', $default);
-	
+	}
+
+	public function staffListAction() {
+
+		$arg = array('Sta_ID', 'Sta_name', 'Position');
+		$req = array();
+		$req[0] = array('key' => 'Sex', 'Sex' => '男');
+		$res = $this->util_->searchRecord($req, $arg, 'staffInfoItem');
+
+		$req[0] = array('key' => 'Sex', 'Sex' => '女');
+		$tmp = $this->util_->searchRecord($req, $arg, 'staffInfoItem');
+
+		foreach($tmp as $t) {
+			array_push($res, $t);
+		}
+		return $res;
 	}
 
 	//
 	public function removeStaffAction() {
+
+		$this->util_->requireArg('Sta_ID', $_POST);
+		$req = array();
+		$req[0] = array('key' => 'Sta_ID', 'Sta_ID' => $_POST['Sta_ID']);
+
+		$this->util_->removeRecord($req, 'staffIdentityItem');
+		$this->util_->removeRecord($req, 'staffInfoItem');
 
 	}
 
@@ -72,14 +102,14 @@ class staff {
 	// Argument old passeword, new password
 	public function changePasswordAction() {
 
-		require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/staffIdentifyItem.php';
+		require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/staffIdentityItem.php';
 
-		$identify = new staffIdentifyItem();
+		$identify = new staffIdentityItem();
 		$this->util_->requireArg('OP', $_POST);
 		$this->util_->requireArg('NP', $_POST);
 		$req = array();
-		$req[0] = array('key' => 'Sta_ID', 'Sta_ID' => $_SESSION['Account'])
-		$identify->Sta_ID = $_SESSION['Account'];
+		$req[0] = array('key' => 'Sta_ID', 'Sta_ID' => $_POST['Account']);
+		$identify->Sta_ID = $_POST['Account'];
 		$arg = array('Password');
 		$res = $identify->search($req, $arg);
 		

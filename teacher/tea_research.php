@@ -375,6 +375,101 @@
 
 				}
 			});
-		}					
+		}	
+		function add_log() {
+			var content = document.getElementById("logcontent").value;
+			var date = new Date();
+			var create_date = date.getFullYear()+"/"+date.getMonth()+"/"+date.getDate();
+			var res_id <?php if(isset($_GET['Res_group_id'])) echo '= "'.$_GET['Res_group_id'].'"';?>;
+			var type <?php
+				if($_SESSION['type'] == 'student') {
+					echo '= "Stu_ID"';
+				}
+				else {
+					echo '= "Tea_ID"';
+				}
+				?>;
+			var id <?php
+					echo '= "'.$_SESSION['Account'].'"';
+				?>;
+			$.ajax({
+				url:'/school/route.php',
+				type:"POST",
+				contentType:"application/x-www-form-urlencoded; charset=UTF-8",
+				data : {"Create_date":create_date, type:id, "Log_content":content, "controller":"researchGroup", "method":"updateLog"},
+				datatype : "json",
+				async: true,
+				success:function(data) {
+					if(data.success != true) {
+						alert(data.date);
+					}
+					else {
+						alert("Update successfully!");
+						location.reload();
+					}
+
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					 alert(XMLHttpRequest.status);
+
+				}
+			});
+
+		}
+		function removeLog(t) {
+
+			$.ajax({
+				url:'/school/route.php',
+				type:"POST",
+				contentType:"application/x-www-form-urlencoded; charset=UTF-8",
+				data : {"Log_ID":t, "controller":"researchGroup", "method":"removeLog"},
+				datatype : "json",
+				async: true,
+				success:function(data) {
+					if(data.success != true) {
+						alert(data.date);
+					}
+					else {
+						alert("delete successfully!");
+						location.reload();
+					}
+
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					 alert(XMLHttpRequest.status);
+
+				}
+			});
+
+		}
+
+		function update_log(id) {
+			var content = document.getElementById("name").value;
+			var date = new Date();
+			var update_date = date.getFullYear()+"/"+date.getMonth()+"/"+date.getDate();
+			$.ajax({
+				url:'/school/route.php',
+				type:"POST",
+				contentType:"application/x-www-form-urlencoded; charset=UTF-8",
+				data : {"Log_ID":id, "Update_date":update_date, "Log_content":content, "controller":"researchGroup", "method":"updateLog"},
+				datatype : "json",
+				async: true,
+				success:function(data) {
+					if(data.success != true) {
+						alert(data.date);
+					}
+					else {
+						alert("Update successfully!");
+						location.reload();
+					}
+
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					 alert(XMLHttpRequest.status);
+
+				}
+			});
+
+		}				
 	</script>
 </body>

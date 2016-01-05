@@ -19,7 +19,7 @@ create table emp_basic_info(
 	sta_id int not null,
 	sta_name varchar(20),
 	sex char(1) default 'm',
-	enrty_time varchar(20),
+	entry_time varchar(20),
 	position varchar(20),
 	power varchar(10),
 	primary key(sta_id)

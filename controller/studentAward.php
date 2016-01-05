@@ -16,7 +16,7 @@ class studentAward {
 		$req = array();
 		$req[0] = array('key' => 'Stu_ID', 'Stu_ID' => $_POST['Account']);
 		$req[1] = array('key' => 'Award_time', 'Award_time' => $_POST['Award_time']);
-		$arg = array('Award_ID', 'Award_time', 'Award_name', 'Award_Rank', 'Verify_statue', 'Award_intro');
+		$arg = array('Award_ID', 'Award_time', 'Award_name', 'Verify_statue', 'Award_intro');
 		$res = $this->util_->searchRecord($req, $arg, 'studentAwardItem');
 
 		return $res;
@@ -54,7 +54,7 @@ class studentAward {
 
 		require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/studentAwardItem.php';
 		$item = new studentAwardItem();
-		$item->Award_ID = $_POST['Awarid_ID'];
+		$item->Award_ID = $_POST['Award_ID'];
 		$arg = array('Verify_statue' => $_POST['Verify_statue']);
 		$item->update($arg);
 	}
@@ -63,10 +63,21 @@ class studentAward {
 	public function addAwardAction() {
 
 		$arg = array('Award_time','Award_name',  'Award_intro');
-		$default = array('Stu_ID' => $_POST['Account'], 'Verify_statue' => '未通过');
+		$default = array('Stu_ID' => $_POST['Account'], 'Verify_statue' => '未审核');
 
 		$this->util_->addRecord($arg, $_POST, 'studentAwardItem', $default);
 
+	}
+
+	public function studentAwardListAction() {
+		
+		$req = array();
+		$req[0] = array('key' => 'Verify_statue', 'Verify_statue' => '未审核', 'table' => 'studentAwardItem');
+		$arg = array('Stu_ID', 'Stu_name', 'Award_ID', 'Award_name', 'Award_intro', 'Award_time');
+		$lk = array('Stu_ID');
+		require_once './model/studentAwardItem.php';
+		$item = new studentAwardItem();
+		return $item->awardLinkStudent($req, $lk, $arg);
 	}
 
 

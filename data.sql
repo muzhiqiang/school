@@ -1,6 +1,6 @@
 use sms;
 
-insert into emp_basic_info values(110, '琪琪', 'f', '1', '2010/1/1', '1');
+insert into emp_basic_info values(110, '琪琪', 'f', '2010/1/1', '办公室', '');
 insert into emp_identification_info values(110, '华工', '1989/1/1', '445121','汉族', '党员', '揭阳', '18819451370', '癌症晚期', '研究生', '', '000000');
 insert into class(dept, grade, year, class_name, major, sta_id, intro) values('妓院', '大三', '2013', '饥渴2', '饥渴', 110, '');
 insert into stu_basic_info values(2013119, '吴某', '女', '1');
@@ -32,4 +32,6 @@ insert into res_group_log(res_group_id, create_date, update_date, member_id, log
 insert into class_leader(class_id, stu_id, is_monitor, position, power) values (1, 2013119, 0, '娱乐委员', '1');
 
 insert stu_union(group_name, intro) values('社联', '');
-insert stu_union_member(group_id, stu_id, is_leader, gro_position, power) values(1, 2013119, 0, '饮水机看守', 4);
+insert stu_union_member(group_id, stu_id, is_leader, gro_position, power) values(1, 2013119, 0, '饮水机看守', 3);
+
+insert staff

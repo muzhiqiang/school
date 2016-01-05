@@ -42,11 +42,12 @@ class courseItem {
 		if($p == false) {
 			throw new Exception('Database connect failed');
 		}
-		$db->query('insert into course (course, tea_id, classroon, teacher_time
+		$sql = 'insert into course (course, tea_id, classroom, teach_time,
 		total_time, course_year_term, property, credit, intro) values(\''.$this->Course.'\', \''
 		.$this->Tea_ID.'\', \''.$this->Classroom.'\', \''.$this->Teach_time.'\', \''.$this->Total_time.'
 		\', \''.$this->Course_year_term.'\', \''.$this->Property.'\', \''.$this->Credit.'\', \''.$this->Intro.'
-		\');');
+		\');';		
+		$db->query($sql);
 		$db->close();
 	}
 	public function delete($req){

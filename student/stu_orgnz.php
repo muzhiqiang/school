@@ -26,7 +26,7 @@
 					</div>
 					<span class="pull-right">进入我的组织：</span>
 				</div>
-				<div class="panel-group" id="">
+				<!--<div class="panel-group" id="">
 					<div class="panel panel-default" data-toggle="collapse" data-parent="#courseDetail" href="#collapseOne" style="cursor:pointer">
 						<div class="panel-heading">
 							<h4 class="panel-title" >
@@ -41,7 +41,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 				</div>
 
 				<div id="orgnz_page">
@@ -67,9 +67,9 @@
 						</div>
 					</div>
 				</div>
-				<button class="btn btn-info pull-left" style="position:relative;bottom:5px;" onclick="send_message()" <?php if(isset($aso) && $aso['data'][0]['power']<2) echo 'disabled = "true"';?>)>发布消息</button>
-				<button class="btn btn-info pull-left" style="position:relative;bottom:5px;" onclick="mang_mber()"<?php if(isset($aso) && $aso['data'][0]['power']<4) echo 'disabled = "true"';?>>管理成员</button>
-				<button class="btn btn-info pull-left" style="position:relative;bottom:5px;" onclick="publish_act()"><?php if(isset($aso) && $aso['data'][0]['power']<2) echo 'disabled = "true"';?>发布活动</button>	
+				<button class="btn btn-info pull-left" style="position:relative;bottom:5px;" onclick="send_message()" <?php if(isset($aso) && $aso['data'][0]['power']<1) echo 'disabled = "true"';?>>发布消息</button>
+				<button class="btn btn-info pull-left" style="position:relative;bottom:5px;" onclick="mang_mber()"<?php if(isset($aso) && $aso['data'][0]['power']<3) echo 'disabled = "true"';?>>管理成员</button>
+				<button class="btn btn-info pull-left" style="position:relative;bottom:5px;" onclick="publish_act()"<?php if(isset($aso) && $aso['data'][0]['power']<2) echo 'disabled = "true"';?>>发布活动</button>	
 				<button class="btn btn-info pull-left" style="position:relative;bottom:5px;" onclick="leave_orgnz()">离开组织</button>	
 				</div>
 				
@@ -120,17 +120,36 @@
 								</tr>
 							</thead>
 							<tbody>
+							<?php
+								$num = count($list['data']);
+								for($i = 0; $i<$num; $i++) {
+							?>
 								<tr>
-									<td>黄炳麟</td>
-									<td>荣誉主席</td>
+									<td><?php echo $list['data'][$i]['Stu_name']; ?></td>
+									<td><?php echo $list['data'][$i]['gro_position']; ?></td>
 									<td>
-											<input type="checkbox">发布活动</td>
+										<?php 
+											$power = $list['data'][$i]['power'];
+											if($power == 0) {
+												echo "";
+											}
+											if($power == 1) {
+												echo '发布消息';
+											}
+											if($power == 2) {
+												echo '发布消息 发布活动';
+											}
+											if($power == 3) {
+												echo '发布消息 发布活动 管理成员';
+											}
+										?>
 									</td>
 									<td>
 										
-										<button class="btn btn-info" style="position:relative;bottom:5px;" onclick="">删除成员</button>	
+										<button class="btn btn-info" style="position:relative;bottom:5px;" onclick="remove_member(<?php echo $list['data'][$i]['Stu_ID']; ?>)">删除成员</button>	
 									</td>
 								</tr>								
+								<?php } ?>
 							</tbody>
 						</table>
 						<input type="button" class="btn btn-info text-center" value="确定">
@@ -144,14 +163,30 @@
 							</div>
 						</div>
 						<div class='panel-body'>
-							<form action="/school/student/stu_info.php?controller=student&method=updateInfo" method="POST" role="form" class="form-horizontal" id="editForm">
+							<form  method="POST" role="form" class="form-horizontal" id="editForm">
 								<div class="form-group">
 									<label for="" class="col-xs-3 col-xs-offset-2 text-center">请输入学号：</label>
 									<div class="col-xs-4">
-										<input class="form-control" type="text" name="Polit"/>
+										<input class="form-control" type="text" id = "Stu_ID" name="Polit"/>
 									</div>
 								</div>
-								<input type="submit" class="btn btn-info" value="确定"/>
+								<div class="form-group">
+									<label for="" class="col-xs-3 col-xs-offset-2 text-center">请输入职位：</label>
+									<div class="col-xs-4">
+										<input class="form-control" type="text"  id = "Position", name="native_place"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="" class="col-xs-3 col-xs-offset-2 text-center">请选择权限：</label>
+									<div class="col-xs-4">
+										<select class="form-control" id="Power">
+											<option value = '1'>发布消息</option>
+											<option value = '2'>发布消息 发布活动</option>
+											<option value = '3'>发布消息 发布活动 管理成员</option>
+										</select>
+									</div>
+								</div>
+								<input type="button" class="btn btn-info" onclick = "add_member()" value="确定"/>
 							</form>
 						</div>
 					</div>
@@ -347,5 +382,59 @@
 			document.getElementById("message_title").value = "";
 			document.getElementById("message_intro").value = "";
 		}
+	function remove_member(t) {
+			var gid <?php if(isset($_GET['group_ID'])) echo '= "'.$_GET['group_ID'].'"';?>;
+			$.ajax({
+				url:'/school/route.php',
+				type:"POST",
+				contentType:"application/x-www-form-urlencoded; charset=UTF-8",
+				data : {"Group_ID": gid, "Stu_ID":t, "controller":"studentAssocation", "method":"removeMember"},
+				datatype : "text",
+				async: true,
+				success:function(data) {
+					if(data.success == true) {
+						alert("Remove successfully!");
+						location.reload();
+
+					}
+					else {
+						alert(data.data);
+					}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					 alert(XMLHttpRequest.status);
+
+				}
+			});
+		}
+		function add_member() {
+			var gid <?php if(isset($_GET['group_ID'])) echo '= "'.$_GET['group_ID'].'"';?>;
+			var power = document.getElementById("Power").value;
+			var position = document.getElementById("Position").value;
+			var stu_id = document.getElementById("Stu_ID").value;
+			$.ajax({
+				url:'/school/route.php',
+				type:"POST",
+				contentType:"application/x-www-form-urlencoded; charset=UTF-8",
+				data : {"Class_ID": class_id, "Stu_ID":stu_id, "gro_position":position, "Power":power, "controller":"studentAssocation", "method":"addMember"},
+				datatype : "text",
+				async: true,
+				success:function(data) {
+					if(data.success == true) {
+						alert("Add successfully!");
+						location.reload();
+
+					}
+					else {
+						alert(data.data);
+					}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					 alert(XMLHttpRequest.status);
+
+				}
+			});
+		}
+		
 	</script>
 </body>

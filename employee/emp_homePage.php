@@ -1,9 +1,9 @@
-<?php require_once("emp_head.php"); ?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'].'/school/employee/emp_head.php'); ?>
 <body>
-	<?php require_once("../navbar.php"); ?>
+	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/school/navbar.php'); ?>
 	<div class='container'>
 		<div class='row'>
-			<?php require_once("emp_leftSection.php"); ?>
+			<?php require_once($_SERVER['DOCUMENT_ROOT'].'/school/employee/emp_leftSection.php'); ?>
 			<div class='col-xs-10'>
 			</div>
 		</div>

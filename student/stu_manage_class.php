@@ -1,7 +1,9 @@
 <?php require_once($_SERVER['DOCUMENT_ROOT'].'/school/student/stu_head.php'); ?>
 	<body>
 	<?php 
-		require_once($_SERVER['DOCUMENT_ROOT'].'/school/navbar.php'); ?>
+		require_once($_SERVER['DOCUMENT_ROOT'].'/school/navbar.php'); 
+		require_once($_SERVER['DOCUMENT_ROOT'].'/school/service/classManger.php');
+	?>
 
 	<div class='container'>
 		<div class='row'>
@@ -9,10 +11,10 @@
 			<div class="col-xs-10">
 				<div id="home_page">
 				<div style="width:100%;height:50px;">
-					<span class="pull-left">计科2班</span>
-					<span class="pull-right">我的职务：团支书</span>
+					<span class="pull-left"><?php echo $class_name; ?></span>
+					<span class="pull-right">我的职务：<?php echo $position; ?></span>
 				</div>
-				<div class="panel-group" >
+			<!--	<div class="panel-group" >
 					<div class="panel panel-default" data-toggle="collapse" data-parent="#courseDetail" href="#collapseOne" style="cursor:pointer">
 						<div class="panel-heading">
 							<h4 class="panel-title" >
@@ -27,9 +29,9 @@
 							</div>
 						</div>
 					</div>
-				</div>
-				<button class="btn btn-info pull-left" style="position:relative;bottom:5px;" onclick="send_message()">发布消息</button>
-				<button class="btn btn-info pull-left" style="position:relative;bottom:5px;" onclick="mang_mber()">管理班干</button>
+				</div> -->
+				<button class="btn btn-info pull-left" style="position:relative;bottom:5px;" <?php if($power<1) echo 'disabled = "true"';?>onclick="send_message()">发布消息</button>
+				<button class="btn btn-info pull-left" style="position:relative;bottom:5px;" <?php if($power<2) echo 'disabled = "true"';?>onclick="mang_mber()">管理班干</button>
 				</div>
 				
 				<div id="send_message_page">
@@ -54,7 +56,7 @@
 								 	<textarea class="form-control" rows="5" id ="message_intro"></textarea>
 								</div>
 							</div>
-							<input type="button" class="btn btn-info text-center" value="确定" onclick = "send()">
+							<input type="button" class="btn btn-info text-center" value="确定" onclick = "send(<?php echo $class_id; ?>)">
 						</form>
 					</div>
 				</div>
@@ -79,16 +81,27 @@
 								</tr>
 							</thead>
 							<tbody>
+							<?php
+								for($i =0 ;$i<$num; $i++) {
+							?>
 								<tr>
-									<td>黄炳麟</td>
-									<td>团支书</td>
+									<td><?php echo $result['data'][$i]['Stu_name']; ?></td>
+									<td><?php echo $result['data'][$i]['Position']; ?></td>
 									<td>
-											<input type="checkbox">发布消息
+									<?php
+										if($result['data'][$i]['Power'] == 2) {
+											echo '发布消息 管理班干';
+										}
+										else {
+											echo '发布消息';
+										}
+									?>		 
 									</td>
 									<td>
-										<button class="btn btn-info" style="position:relative;bottom:5px;" onclick="">删除成员</button>	
+										<button class="btn btn-info" style="position:relative;bottom:5px;" onclick="remove_leader(<?php echo $result['data'][$i]['Stu_ID']; ?>)">删除成员</button>	
 									</td>
-								</tr>								
+								</tr>		
+							<?php  } ?>						
 							</tbody>
 						</table>
 						<input type="button" class="btn btn-info text-center" value="确定">
@@ -106,16 +119,25 @@
 							<div class="form-group">
 								<label for="" class="col-xs-3 col-xs-offset-2 text-center">请输入学号：</label>
 								<div class="col-xs-4">
-									<input class="form-control" type="text"  name="native_place"/>
+									<input class="form-control" type="text"  id = "Stu_ID", name="native_place"/>
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="" class="col-xs-3 col-xs-offset-2 text-center">请输入权限：</label>
+								<label for="" class="col-xs-3 col-xs-offset-2 text-center">请输入职位：</label>
 								<div class="col-xs-4">
-									<input class="form-control" type="text"  name="native_place"/>
+									<input class="form-control" type="text"  id = "Position", name="native_place"/>
 								</div>
 							</div>
-							<input type="submit" class="btn btn-info" value="确定"/>
+							<div class="form-group">
+								<label for="" class="col-xs-3 col-xs-offset-2 text-center">请选择权限：</label>
+								<div class="col-xs-4">
+									<select class="form-control" id="Power">
+										<option value = '1'>发布消息</option>
+										<option value = '2'>发布消息 管理班干</option>
+									</select>
+								</div>
+							</div>
+							<input type="button" class="btn btn-info" value="确定" onclick = "add_leader()"/>
 						</form>
 					</div>
 				</div>
@@ -135,6 +157,10 @@
 		}
 		(function () {
 			init();
+			var url = location.href;
+			var index = url.indexOf("?");
+			if(index > 0)
+				mang_mber();
 		}) ();
 		function return_home(){
 			$("#home_page").removeClass("hide");
@@ -142,7 +168,7 @@
 			$("#mang_mbr_page").addClass("hide");
 		}
 		function send_message(){
-				$("#home_page").addClass("hide");
+			$("#home_page").addClass("hide");
 			$("#send_message_page").removeClass("hide");
 			$("#mang_mbr_page").addClass("hide");
 		}
@@ -150,8 +176,11 @@
 			$("#home_page").addClass("hide");
 			$("#send_message_page").addClass("hide");
 			$("#mang_mbr_page").removeClass("hide");
+			document.getElementById("Power").value = 1;
+			document.getElementById("Position").value = "";
+			document.getElementById("Stu_ID").value = "";
 		}
-		function send() {
+		function send(t) {
 			var message_title = document.getElementById("message_title").value;
 			var message_text = document.getElementById("message_intro").value;
 			var id = new Date().getTime();
@@ -160,11 +189,11 @@
 				url:'/school/route.php',
 				type:"POST",
 				contentType:"application/x-www-form-urlencoded; charset=UTF-8",
-				data : {"Account":account, "controller":"message", "method":"sendClassMessage", "Message_text":message_text, "Message_title":message_text, "message_id": id},
+				data : {"Account":account, "Class_ID": t, "controller":"message", "method":"sendClassMessage", "Message_text":message_text, "Message_title":message_text, "message_id": id},
 				datatype : "text",
 				async: true,
 				success:function(data) {
-					if(data.success = "true") {
+					if(data.success == true) {
 						alert("Send successfully!");
 
 					}
@@ -181,6 +210,60 @@
 			document.getElementById("message_intro").value = "";
 			return_home();
 		}
+		function remove_leader(t) {
+			var class_id = "<?php echo $class_id; ?>";
+			$.ajax({
+				url:'/school/route.php',
+				type:"POST",
+				contentType:"application/x-www-form-urlencoded; charset=UTF-8",
+				data : {"Class_ID": class_id, "Stu_ID":t, "controller":"classUnion", "method":"removeClassLeader"},
+				datatype : "text",
+				async: true,
+				success:function(data) {
+					if(data.success == true) {
+						alert("Remove successfully!");
+						location.replace("/school/student/stu_manage_class.php?");
+
+					}
+					else {
+						alert(data.data);
+					}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					 alert(XMLHttpRequest.status);
+
+				}
+			});
+		}
+		function add_leader(t) {
+			var class_id = "<?php echo $class_id; ?>";
+			var power = document.getElementById("Power").value;
+			var position = document.getElementById("Position").value;
+			var stu_id = document.getElementById("Stu_ID").value;
+			$.ajax({
+				url:'/school/route.php',
+				type:"POST",
+				contentType:"application/x-www-form-urlencoded; charset=UTF-8",
+				data : {"Class_ID": class_id, "Stu_ID":stu_id, "Position":position, "Power":power, "controller":"classUnion", "method":"addClassLeader"},
+				datatype : "text",
+				async: true,
+				success:function(data) {
+					if(data.success == true) {
+						alert("Add successfully!");
+						location.replace("/school/student/stu_manage_class.php?");
+
+					}
+					else {
+						alert(data.data);
+					}
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					 alert(XMLHttpRequest.status);
+
+				}
+			});
+		}
+
 
 	</script>
 </body>

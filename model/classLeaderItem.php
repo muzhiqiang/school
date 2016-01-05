@@ -71,15 +71,15 @@ class classLeaderItem{
 		$db->close();
 	}
 	
-	public function stuLinkClass($req, $lk, $arg) {
+	public function leaderLinkStudent($req, $lk, $arg) {
 		$db = new POD();
 		$p = $db->connect();
 		if($p == false) {
 			throw new Exception('Database connect failed');
 		}
-		$map = array('studentIdentityItem' =>'stu_identification_info', 
+		$map = array('classLeaderItem' =>'class_leader', 
 		'studentInfoItem' => 'stu_basic_info');
-		$table = array('stu_identification_info', 'stu_basic_info');
+		$table = array('class_leader', 'stu_basic_info');
 		$sql = $db->genLinkSql($req, $lk, $arg, $table, $map);
 		$res = $db->query($sql);
 		return $res;

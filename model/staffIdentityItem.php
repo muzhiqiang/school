@@ -29,12 +29,13 @@ class staffIdentityItem {
 		if($p == false) {
 			throw new Exception('Database connect failed');
 		}
-		$db->query('insert into emp_identification_info (Sta_ID, Address, Birth, ID_no,
+		$sql = 'insert into emp_identification_info (Sta_ID, Address, Birth, ID_no,
 		Race,Polit,Native_place,Tel,Health,Experience,Intro,Password) values(\''.
 		$this->Sta_ID.'\', \''.$this->Address.'\', \''.$this->Birth.'\', \''.$this->ID_no.
 		'\', \''.$this->Race.'\', \''.$this->Polit.'\', \''.$this->Native_place.'\', \''.
 		$this->Tel.'\', \''.$this->Health.'\', \''.$this->Experience.'\', \''.$this->Intro.'\', \''.$this->Password.
-		'\');');
+		'\');';
+		$db->query($sql);
 		$db->close();
 	}
 	

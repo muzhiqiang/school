@@ -138,13 +138,13 @@
 					<div class="form-group">
 						<label for="firstname" class="col-sm-2 control-label" >日志标题：</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="firstname" placeholder="请输入日志标题">
+							<input type="text" class="form-control" id="logtitle" placeholder="请输入日志标题">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="name" class="col-sm-2 control-label">日志内容：</label>
 						<div class="col-sm-10">
-							<textarea class="form-control" rows="5" id = "name", data-type =""></textarea>
+							<textarea class="form-control" rows="5" id = "logcontent", data-type =""></textarea>
 						</div>
 					</div>
 				</form>
@@ -223,12 +223,35 @@
 			location.replace("/school/student/stu_research.php?controller=researchGroup&method=showGrouplog&Res_group_id="+id+"&type="+type);
 
 		}
-		function removeLog(t) {
+		function remove_log(t) {
+
+			$.ajax({
+				url:'/school/route.php',
+				type:"POST",
+				contentType:"application/x-www-form-urlencoded; charset=UTF-8",
+				data : {"Log_ID":t, "controller":"researchGroup", "method":"removeLog"},
+				datatype : "json",
+				async: true,
+				success:function(data) {
+					if(data.success != true) {
+						alert(data.date);
+					}
+					else {
+						alert("delete successfully!");
+						location.reload();
+					}
+
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					 alert(XMLHttpRequest.status);
+
+				}
+			});
+
 		}
 
-		function update_log() {
+		function update_log(id) {
 			var content = document.getElementById("name").value;
-			var id = $(document.getElementById("name")).attr("data-type");
 			var date = new Date();
 			var update_date = date.getFullYear()+"/"+date.getMonth()+"/"+date.getDate();
 			$.ajax({
@@ -244,6 +267,38 @@
 					}
 					else {
 						alert("Update successfully!");
+						location.reload();
+					}
+
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					 alert(XMLHttpRequest.status);
+
+				}
+			});
+
+		}
+		function add_log() {
+			var content = document.getElementById("logcontent").value;
+			var date = new Date();
+			var create_date = date.getFullYear()+"/"+date.getMonth()+"/"+date.getDate();
+			var res_id <?php if(isset($_GET['Res_group_id'])) echo '= "'.$_GET['Res_group_id'].'"';?>;
+			var id <?php
+					echo '= "'.$_SESSION['Account'].'"';
+				?>;
+			$.ajax({
+				url:'/school/route.php',
+				type:"POST",
+				contentType:"application/x-www-form-urlencoded; charset=UTF-8",
+				data : {"Res_group_ID":res_id, "Create_date":create_date, "Update_data":create_date, "Stu_ID":id, "Log_content":content, "controller":"researchGroup", "method":"addLog"},
+				datatype : "json",
+				async: true,
+				success:function(data) {
+					if(data.success != true) {
+						alert(data.date);
+					}
+					else {
+						alert("Add successfully!");
 						location.reload();
 					}
 

@@ -4,6 +4,7 @@
 
 	$api = new APICaller();
 	$res = array('data' => '');
+	$list = array('data' =>array());
 	if(isset($_GET['group_ID'])) {
 
 		$_POST['Account'] = $_SESSION['Account'];
@@ -12,6 +13,11 @@
 
 		if($aso['success'] == false) {
 			$_SESSION['errno'] = $res['data'];
+			header('location:/school/404.php');
+		}
+		$list = $api->excute('studentAssocation', 'showMember');
+		if($list['success'] == false) {
+			$_SESSION['errno'] = $list['data'];
 			header('location:/school/404.php');
 		}
 

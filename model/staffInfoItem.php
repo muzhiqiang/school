@@ -22,10 +22,11 @@ class staffInfoItem{
 		if($p == false) {
 			throw new Exception('Database connect failed');
 		}
-		$db->query('insert into emp_basic_info (Sta_id, Sta_name, sex, Entry_time,
+		$sql = 'insert into emp_basic_info (Sta_id, Sta_name, sex, Entry_time,
 		Position,Power) values(\''.
 		$this->Sta_id.'\', \''.$this->Sta_name.'\', \''.$this->sex.'\', \''.$this->Entry_time.
-		'\', \''.$this->Position.'\', \''.$this->Power.'\');');
+		'\', \''.$this->Position.'\', \''.$this->Power.'\')';
+		$db->query($sql);
 		$db->close();
 	}
 	

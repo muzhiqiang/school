@@ -13,7 +13,8 @@
 		echo $result['data'];
 		exit();
 	}
-
-	header('location:/school/student/stu_pride.php');
-
+	if($_GET['type'] == 'student')
+		header('location:/school/student/stu_pride.php');
+	else
+		header('location:/school/teacher/tea_medal.php');		
 ?>

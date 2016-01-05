@@ -38,15 +38,16 @@ class message {
 	public function sendClassMessageAction() {
 
 		$this->addMessage_();
-		$this->util_requireArg('Account', $_POST);
-		$arg = array('Class_ID', 'Class_name');
+		$this->util_->requireArg('Account', $_POST);
+		$this->util_->requireArg('Class_ID', $_POST);
+		$arg = array('Class_name');
 		$req = array();
-		$req[0] = array('key' => 'Stu_ID', 'Stu_ID' => $_POST['Account']);
-		$res = $this->util_->searchRecord($req, $arg, 'studentInfoItem');
+		$req[0] = array('key' => 'Class_ID', 'Class_ID' => $_POST['Class_ID']);
+		$res = $this->util_->searchRecord($req, $arg, 'classItem');
 
 		$arg = array();
-		$default = array('Src_type' => $res['data'][0]['Class_name'], 'src_stu_id' => $_POST['Account'], 'Tar_type' => 'class', 'tar_stu_id' => $res['data'][0]['Class_ID']);
-		$this->util_addRecord($arg, $_POST, 'messageContraceItem', $default);
+		$default = array('Src_type' => $res[0]['Class_name'], 'src_stu_id' => $_POST['Account'], 'Tar_type' => 'class', 'tar_stu_id' => $_POST['Class_ID']);
+		$this->util_->addRecord($arg, $_POST, 'messageContraceItem', $default);
 
 	}
 

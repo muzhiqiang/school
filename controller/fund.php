@@ -18,6 +18,23 @@ class fund {
 		$this->util_->addRecord($arg, $_POST, 'fundItem', $default);
 	}
 
+	public function showNonVerifyFundAction() {
+		$req = array();
+		$req[0] = array('key' => 'Verify_statue', 'Verify_statue' => '未审核', 'table' => 'fundItem');
+		$arg = array('Req_res_group_id', 'Req_id', 'Req_time', 'Req_money', 'Req_intro');
+
+		return $this->util_->searchRecord($req, $arg, 'fundItem');
+
+	}
+
+	public function verifyFundAction() {
+
+		$key = array('Req_id');
+		$arg = array('Verify_statue', 'Verify_time');
+		$default = array('Sta_ID' => $_POST['Account']);
+		$this->util_->update($key, $arg, $_POST, 'fundItem', $defult);
+	}
+
 }
 
 ?>

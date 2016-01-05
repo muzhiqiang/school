@@ -144,8 +144,19 @@ class researchGroup {
 	// Append log
 	public function addLogAction() {
 
-		$arg = array('Res_group', 'Create_date', 'Update_date', 'Member_ID', 'Log_content');
-		$default = array();
+		$arg = array('Member_ID');
+		$this->util_->requireArg('Res_group_ID', $_POST);
+		$req = array();
+		$req[0] = array('key' => 'Res_group_ID', 'Res_group_ID' => $_POST['Res_group_ID']);
+		if(isset($_POST['Stu_ID'])) {
+			$req[1] = array('key' => 'Stu_ID', 'Stu_ID' => $_POST['Stu_ID']);
+		}
+		else {
+			$req[1] = array('key' => 'Tea_ID', 'Tea_ID' => $_POST['Tea_ID']);
+		}
+		$res = $this->util_->searchRecord($req, $arg, 'researchGroupMemberItem');
+		$arg = array('Res_group_ID', 'Create_date', 'Update_data', 'Log_content');
+		$default = array('Member_ID' => $res[0]['Member_ID']);
 		$this->util_->addRecord($arg, $_POST, 'researchGroupLogItem', $default);
 
 	}
@@ -155,7 +166,7 @@ class researchGroup {
 	public function showGroupLogAction() {
 
 		$this->util_->requireArg('Res_group_id', $_POST);
-		$arg = array('Log_ID', 'Create_date', 'Update_date', 'Stu_ID', 'Log_content');
+		$arg = array('Log_ID', 'Create_date', 'Update_date', 'Stu_ID', 'Tea_ID','Log_content');
 		$req = array();
 		$lk = array('Member_ID');
 		$req[0] = array('key' => 'Res_group_id', 'Res_group_id' => $_POST['Res_group_id'], 'table' => 'researchGroupLogItem');
@@ -187,6 +198,14 @@ class researchGroup {
 		$key = array('Log_ID');
 		$default = array();
 		$this->util_->updateRecord($key, $arg, $_POST, 'researchGroupLogItem', $default);
+	}
+
+	public function removeLogAction() {
+
+		$this->util_->requireArg('Log_ID', $_POST);
+		$req = array();
+		$req[0] = array('key' => 'Log_ID', 'Log_ID' => $_POST['Log_ID']);
+		$this->util_->removeRecord($req, 'researchGroupLogItem');
 	}
 
 }

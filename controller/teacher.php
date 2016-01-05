@@ -57,6 +57,15 @@ class teacher {
 		$identify->update($arg);
 	}
 
+	public function addLeaderAction() {
+
+		$key = array('Tea_ID');
+		$arg = array('Authority');
+		$default = array();
+		$this->util_->updateRecord($key, $arg, $_POST, 'teacherInfoItem', $default);
+	}
+		
+
 	// Add teacher
 	// basic info, identify info 
 	// init password '000000'

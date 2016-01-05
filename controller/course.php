@@ -19,7 +19,26 @@ class course {
 
 		$arg = array('Course', 'Tea_ID', 'Classroom', 'Teach_time', 'Total_time', 'Course_year_term', 'Property', 'Credit', 'Intro');
 		$default = array();
-		$this->util_->addRecord($arg, $_POST, 'CourseItem', $default);
+		$this->util_->addRecord($arg, $_POST, 'courseItem', $default);
+	}
+	public function removeCourseAction() {
+
+		$arg = array('Course_ID');
+		$this->util_->argCheck($arg, $_POST);
+		$req = array();
+		$req[0] =array('key' => 'Course_ID', 'Course_ID' => $_POST['Course_ID']);
+		return $this->util_->removeRecord($req, 'courseItem');
+	}
+	
+	public function showCourseListAction() {
+
+		$arg = array('Course_ID', 'Course', 'Property', 'Course_year_term', 'Tea_name');
+		$req = array();
+		$lk = array('Tea_ID');
+		require_once './model/courseItem.php';
+		$item = new courseItem();
+		return $item->courseLinkTeacher($req, $lk, $arg);
+		
 	}
 
 	public function showDetailCourseAction() {

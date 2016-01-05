@@ -52,10 +52,21 @@ class teacherAward {
 	public function addAwardAction() {
 
 		$arg = array('Award_time', 'Award_name', 'Award_intro');
-		$default = array('Tea_ID' => $_POST['Account'], 'Verify_statue' => '未通过');
+		$default = array('Tea_ID' => $_POST['Account'], 'Verify_statue' => '未审核');
 
 		$this->util_->addRecord($arg, $_POST, 'teacherAwardItem', $default);
 
+	}
+
+	public function teacherAwardListAction() {
+		
+		$req = array();
+		$req[0] = array('key' => 'Verify_statue', 'Verify_statue' => '未审核', 'table' => 'teacherAwardItem');
+		$arg = array('Tea_ID', 'Tea_name', 'Award_ID', 'Award_name', 'Award_intro', 'Award_time');
+		$lk = array('Tea_ID');
+		require_once './model/teacherAwardItem.php';
+		$item = new teacherAwardItem();
+		return $item->awardLinkTeacher($req, $lk, $arg);
 	}
 
 

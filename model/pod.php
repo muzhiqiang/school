@@ -30,7 +30,7 @@ class POD {
 		}
 
 		
-		if(substr($sql, 0, 1) == 'i' || substr($sql, 0, 1) == 'u') {
+		if(substr($sql, 0, 1) == 'i' || substr($sql, 0, 1) == 'u'||substr($sql, 0, 1) == 'd' ) {
 			return 'true';
 		}
 		$res = array();
@@ -98,8 +98,14 @@ class POD {
 				$sql = $sql.' ,';
 			}
 		}
-		$sql = $sql.' from '.$table.' where ';
+		$sql = $sql.' from '.$table;
 		$num = count($req);
+		if($num == 0) {
+			return $sql.';';
+		}
+		else {
+			$sql = $sql.' where ';
+		}
 		for($i =0; $i<$num; $i++) {
 			$tmp = $req[$i]['key'];
 			$sql = $sql.$tmp.' = \''.$req[$i][$tmp];
@@ -119,9 +125,9 @@ class POD {
 	public function genDeleteSql($req,$table){
 		$sql = 'delete ';
 		$num = count($req);
-		$sql = $sql.'* from '.$table.' where ';
-		for($i = 0 ; $i<num ; $i++){
-			$tmp = $req[$i]['Key'];
+		$sql = $sql.'from '.$table.' where ';
+		for($i = 0 ; $i<$num ; $i++){
+			$tmp = $req[$i]['key'];
 			$sql = $sql.$tmp.'=\''.$req[$i][$tmp];
 			if($i == $num - 1){
 				$sql = $sql.'\';';

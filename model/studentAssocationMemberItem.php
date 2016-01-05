@@ -85,6 +85,21 @@ public function __construct(){
 		return $res;
 	}
 
+	public function memberLinkInfo($req, $lk, $arg) {
+
+		$db = new POD();
+		$p = $db->connect();
+		if($p == false) {
+			throw new Exception('Database connect failed');
+		}
+		$map = array('studentAssocationMemberItem' => 'stu_union_member',
+			'studentInfoItem' => 'stu_basic_info');
+		$table = array('stu_union_member', 'stu_basic_info');
+		$sql = $db->genLinkSql($req, $lk, $arg, $table, $map);
+		$res = $db->query($sql);
+		return $res;
+	}
+
 	
 	
 }
