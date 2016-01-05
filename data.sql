@@ -34,4 +34,3 @@ insert into class_leader(class_id, stu_id, is_monitor, position, power) values (
 insert stu_union(group_name, intro) values('社联', '');
 insert stu_union_member(group_id, stu_id, is_leader, gro_position, power) values(1, 2013119, 0, '饮水机看守', 3);
 
-insert staff
