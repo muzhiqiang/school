@@ -11,21 +11,35 @@
 			<div class="col-xs-10">
 
 				<div id="activities_page">
-				<div style="width:100%;height:50px;">
-					<span class="pull-left">最近活动：</span>
-					<div class="form-group pull-right" style="position:relative;bottom:5px;">
-						<select class="form-control" id = "selectAssocation" onchange ="enterAssocation()">
-							<option></option>
-						<?php 
-							$num = count($res['data']);
-							for($i = 0; $i < $num; $i++) {
-						?>
-							<option value="<?php echo$res['data'][$i]['group_ID'];?>"><?php echo $res['data'][$i]['group_name']; ?></option>
-						<?php }?>
-						</select>
+					<div class='panel panel-warning panel-block'>
+						<div class='panel-heading'>
+							<div class='panel-title'>
+
+								<div style="width:100%;height:25px;">
+									<span class="pull-left">最近活动：</span>
+									<div class="form-group pull-right" style="position:relative;bottom:5px;">
+										<select class="form-control" id = "selectAssocation" onchange ="enterAssocation()">
+											<option></option>
+										<?php 
+											$num = count($res['data']);
+											for($i = 0; $i < $num; $i++) {
+										?>
+											<option value="<?php echo$res['data'][$i]['group_ID'];?>"><?php echo $res['data'][$i]['group_name']; ?></option>
+										<?php }?>
+										</select>
+									</div>
+									<span class="pull-right">进入我的组织：</span>
+								</div>
+
+							</div>
+						</div>
+						<div class='panel-body'>
+
+
+						</div>
 					</div>
-					<span class="pull-right">进入我的组织：</span>
-				</div>
+
+
 				<!--<div class="panel-group" id="">
 					<div class="panel panel-default" data-toggle="collapse" data-parent="#courseDetail" href="#collapseOne" style="cursor:pointer">
 						<div class="panel-heading">
@@ -45,32 +59,48 @@
 				</div>
 
 				<div id="orgnz_page">
-				<div style="width:100%;height:50px;">
-					<span class="pull-left"><?php if(isset($aso)) echo $aso['data'][0]['group_name']; ?></span>
-					<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="return_act_page()">返回</button>	
-					<span class="pull-right">我的职务：<?php if(isset($aso)) echo $aso['data'][0]['gro_position']; ?></span>
-				</div>
-				<div class="panel-group" >
-
-					<div class="panel panel-default" data-toggle="collapse" data-parent="#courseDetail" href="#collapseOne" style="cursor:pointer">
-						<div class="panel-heading">
-							<h4 class="panel-title" >
-								<span class="badge pull-left">计算机设计学院联谊</span>
-								<span class="text-center">时间：2015.12.12</span>
-								<span class="badge pull-right">地点：C12</span>
-							</h4>
-						</div>
-						<div id="collapseOne" class="panel-collapse collapse">
-							<div class="panel-body">
-								<p>请注意请注意，这周日要开会，时间是2341823，地点南校办公室！！</p>
-							</div>
+				<div class='panel panel-warning panel-block'>
+					<div class='panel-heading'>
+						<div class='panel-title'>
+							<span class=""><?php if(isset($aso)) echo $aso['data'][0]['group_name']; ?></span>
+							<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="return_act_page()">返回</button>	
+							<span class="pull-right">我的职务：<?php if(isset($aso)) echo $aso['data'][0]['gro_position']; ?></span>
 						</div>
 					</div>
 				</div>
-				<button class="btn btn-info pull-left" style="position:relative;bottom:5px;" onclick="send_message()" <?php if(isset($aso) && $aso['data'][0]['power']<1) echo 'disabled = "true"';?>>发布消息</button>
+					
+				<div class='panel panel-info panel-block'>
+					<div class='panel-heading'>
+						<div class='panel-title'>
+							最近消息：
+						</div>
+					</div>
+					<div class='panel-body'>
+
+						<div class="panel-group" >
+							<div class="panel panel-default" data-toggle="collapse" data-parent="#courseDetail" href="#collapseOne" style="cursor:pointer">
+								<div class="panel-heading">
+									<h4 class="panel-title" >
+										<span class="badge pull-left">计算机设计学院联谊</span>
+										<span class="text-center">时间：2015.12.12</span>
+										<span class="badge pull-right">地点：C12</span>
+									</h4>
+								</div>
+								<div id="collapseOne" class="panel-collapse collapse">
+									<div class="panel-body">
+										<p>请注意请注意，这周日要开会，时间是2341823，地点南校办公室！！</p>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<button class="btn btn-success pull-left" style="position:relative;bottom:5px;" onclick="send_message()" <?php if(isset($aso) && $aso['data'][0]['power']<1) echo 'disabled = "true"';?>>发布消息</button>
 				<button class="btn btn-info pull-left" style="position:relative;bottom:5px;" onclick="mang_mber()"<?php if(isset($aso) && $aso['data'][0]['power']<3) echo 'disabled = "true"';?>>管理成员</button>
-				<button class="btn btn-info pull-left" style="position:relative;bottom:5px;" onclick="publish_act()"<?php if(isset($aso) && $aso['data'][0]['power']<2) echo 'disabled = "true"';?>>发布活动</button>	
-				<button class="btn btn-info pull-left" style="position:relative;bottom:5px;" onclick="leave_orgnz()">离开组织</button>	
+				<button class="btn btn-warning pull-left" style="position:relative;bottom:5px;" onclick="publish_act()"<?php if(isset($aso) && $aso['data'][0]['power']<2) echo 'disabled = "true"';?>>发布活动</button>	
+				<button class="btn btn-primary pull-left" style="position:relative;bottom:5px;" onclick="leave_orgnz()">离开组织</button>	
 				</div>
 				
 				<div id="send_message_page">

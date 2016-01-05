@@ -5,7 +5,7 @@
 		<div class='row'>
 			<?php require_once(dirname(__FILE__)."/stu_leftSection.php") ?>
 			<div class="col-xs-10">
-				<div class='panel panel-default panel-block'>
+				<div class='panel panel-warning panel-block'>
 					<div class='panel-heading'>
 						<div class='panel-title'>
 							<span>我的成绩</span>
@@ -47,7 +47,7 @@
 						</table>
 					</div>
 				</div>
-				<div class='panel panel-default panel-block'>
+				<div class='panel panel-info panel-block'>
 					<div class='panel-heading'>
 						<div class='panel-title'>
 							<table class="table table-bordered text-center" id="courseTable">

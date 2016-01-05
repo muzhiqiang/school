@@ -7,6 +7,10 @@
 	<div class='container'>
 		<div class='row'>
 			<?php require_once("./tea_left_section.php") ?>
+
+
+
+
 			<div class="col-xs-10" id="home_page">
 
 				<div style="width:100%;height:50px;">
@@ -81,6 +85,10 @@
 				<button class="btn btn-success pull-left" style="position:relative;bottom:5px;" onclick="ask_medal()">申报项目成果</button>			
 			</div>
 
+
+
+
+
 			<div class="col-xs-10" id="my_log_page">
 				<div style="width:100%;height:50px;">
 					<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="return_home_page()">返回</button>
@@ -109,6 +117,9 @@
 				</div>
 			</div>
 
+
+
+
 			<div class="col-xs-10" id="edit_log_page">
 				<div style="width:100%;height:50px;">
 					<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="my_log()">取消编辑</button>
@@ -129,6 +140,10 @@
 					</div>
 				</form>
 			</div>
+
+
+
+
 
 			<div class="col-xs-10" id="manage_member_page">
 				<div class='panel panel-default panel-block'>
@@ -166,6 +181,10 @@
 				</div>
 			</div>
 
+
+
+
+
 			<div class="col-xs-10" id="ask_money_page">
 				<div class='panel panel-default panel-block'>
 					<div class='panel-heading'>
@@ -193,6 +212,11 @@
 					</div>
 				</div>
 			</div>
+
+
+
+
+
 
 			<div class="col-xs-10" id="ask_medal_page">
 
@@ -224,6 +248,10 @@
 			</div>
 		</div>
 	</div>
+
+
+
+
 	<script src="../public/javascripts/jquery.min.js"></script>
 	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
@@ -233,7 +261,7 @@
 			$("#edit_log_page").addClass("hide");
 			$("#manage_member_page").addClass("hide");
 			$("#ask_money_page").addClass("hide");
-			$("#ask_medal_page").addClass("hide");									
+			$("#ask_medal_page").addClass("hide");
 		}
 		(function () {
 			init();
@@ -265,6 +293,8 @@
 				}
 			});
 		}) ();
+
+
 		function my_log() {
 			$("#my_log_page").removeClass("hide");
 			$("#home_page").addClass("hide");

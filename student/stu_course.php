@@ -7,13 +7,13 @@
 		<div class='row'>
 			<?php require_once($_SERVER['DOCUMENT_ROOT'].'/school'.'/student/stu_leftSection.php') ?>
 			<div class="col-xs-10">
-				<div class='panel panel-default panel-block'>
+				<div class='panel panel-success panel-block'>
 					<div class='panel-heading'>
 						<div class='panel-title'>
 							<button class="btn btn-success active" onclick="courseTable(this)" id="tableBtn">课程表</button>
 							<button class="btn btn-info" onclick="courseDetail(this)" id="detailBtn">课程详情</button>
 							<button class="btn btn-default" id="chooseBtn" onclick="courseChoose(this)">选课</button>
-							<button class="btn btn-success pull-right" id = "searchBtn" data-type="tableContent" onclick ="search(this)">查询</button>
+							<button class="btn btn-info pull-right" id = "searchBtn" data-type="tableContent" onclick ="search(this)">查询</button>
 							
 							
 							<span class="pull-right" style="position:relative;top:5px;">学期</span>

@@ -10,10 +10,18 @@
 			<?php require_once($_SERVER['DOCUMENT_ROOT'].'/school/student/stu_leftSection.php') ?>
 			<div class="col-xs-10">
 				<div id="home_page">
-				<div style="width:100%;height:50px;">
-					<span class="pull-left"><?php echo $class_name; ?></span>
-					<span class="pull-right">我的职务：<?php echo $position; ?></span>
-				</div>
+					<div class='panel panel-info panel-block'>
+						<div class='panel-heading'>
+							<div class='panel-title'>
+								<div style="width:100%;height:25px;">
+									<span class="pull-left"><?php echo $class_name; ?></span>
+									<span class="pull-right">我的职务：<?php echo $position; ?></span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+								
 			<!--	<div class="panel-group" >
 					<div class="panel panel-default" data-toggle="collapse" data-parent="#courseDetail" href="#collapseOne" style="cursor:pointer">
 						<div class="panel-heading">

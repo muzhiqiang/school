@@ -36,7 +36,6 @@ class evaluate {
 		$req[0] = array('key' => 'Stu_ID', 'Stu_ID' => $_POST['Account']);
 		$req[1] = array('key' => 'Is_Evaluate', 'Is_Evaluate' => false);
 		$studentCourseItem = $this->util_->searchRecord($req, $arg, 'studentcourseItem');
-
 		$courseArr = array();
 		foreach ($studentCourseItem as $key => $item) {
 			$sql = "select c.Course_ID,c.Course,t.Tea_name from course as c,teacher_basic_info as t where c.Tea_ID = t.Tea_ID and c.Course_ID = '$item[Course_ID]' and (";

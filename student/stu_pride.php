@@ -7,37 +7,53 @@
 		<div class='row'>
 			<?php require_once($_SERVER['DOCUMENT_ROOT'].'/school'.'/student/stu_leftSection.php') ?>
 			<div class="col-xs-10" id="prideInfo">
-				<div style="width:100%;height:50px;">
-					<div class="form-group pull-left" style="position:relative;bottom:5px;">
-						<select class="form-control" id="searchYear">
-							<option value = "2013">2013</option>
-							<option value = "2014">2014</option>
-							<option value = "2015">2015</option>
-							<option value = "2016">2016</option>
-						</select>
+				<div class='panel panel-info panel-block'>
+					<div class='panel-heading'>
+						<div class='panel-title'>
+							<div style="width:100%;height:25px;">
+								<div class="form-group pull-left" style="position:relative;bottom:5px;">
+									<select class="form-control" id="searchYear">
+										<option value = "2013">2013</option>
+										<option value = "2014">2014</option>
+										<option value = "2015">2015</option>
+										<option value = "2016">2016</option>
+									</select>
+								</div>
+								<span class="pull-left">学年</span>
+								<div class="form-group pull-left" style="position:relative;bottom:5px;">
+									<select class="form-control" id="searchTerm">
+										<option value = "1">1</option>
+										<option value = "2">2</option>
+										<option value = "3">3</option>
+									</select>
+								</div>
+								<span class="pull-left" >学期</span>
+								<button class="btn btn-info pull-left" style="position:relative;bottom:5px;" onclick = "search()">查询</button>
+								<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="apply()">申请</button>
+							</div>						
+						</div>
 					</div>
-					<span class="pull-left">学年</span>
-					<div class="form-group pull-left" style="position:relative;bottom:5px;">
-						<select class="form-control" id="searchTerm">
-							<option value = "1">1</option>
-							<option value = "2">2</option>
-							<option value = "3">3</option>
-						</select>
-					</div>
-					<span class="pull-left" >学期</span>
-					<button class="btn btn-success pull-left" style="position:relative;bottom:5px;" onclick = "search()">查询</button>
-					<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="apply()">申请</button>
-				</div>
-				<div class="panel-group" id="awardDetail">
+					<div class='panel-body'>
+						<div class="panel-group" id="awardDetail">
 					
+						</div>
+					</div>
 				</div>
+
+
+
+				
+
 			</div>
+
+
+
 			<div class="col-xs-10 hide" id="prideApply">
-				<div class='panel panel-default panel-block'>
+				<div class='panel panel-success panel-block'>
 					<div class='panel-heading'>
 						<div class='panel-title'>
 							<sapn>奖项申请</span>
-							<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="return_home()">返回</button>	
+							<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="return_home()">返回</button>	
 						</div>
 					</div>
 					<div class='panel-body'>
@@ -72,7 +88,7 @@
 								 	<textarea class="form-control" rows="5" name = "Award_intro"></textarea>
 								</div>
 							</div>
-							<input type="submit" class="btn btn-info text-center" value="确定">
+							<input type="submit" class="btn btn-success text-center" value="确定">
 						</form>
 					</div>
 				</div>

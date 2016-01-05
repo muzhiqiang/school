@@ -1,10 +1,5 @@
 <div class='col-xs-2' id="leftSection">
 	<ul class='nav nav-pills nav-stacked text-center'>
-		<li id="tea_home">
-			<a class='row' href="./tea_home.php">
-				<p class='navbar-font'>我的首页</p>
-			</a>
-		</li>		
 		<li id="tea_info">
 			<a class='row' href="./tea_info.php">
 				<p class='navbar-font'>我的信息</p>

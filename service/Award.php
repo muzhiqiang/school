@@ -17,7 +17,7 @@
 	$num = count($result['data']);
 		for($i =0; $i <$num; $i++) {
 		$collapse = 'collapse'.$i;
-		echo '<div class="panel panel-default">
+		echo '<div class="panel panel-warning">
 			<div class="panel-heading">
 				<h4 class="panel-title">
 					<a data-toggle="collapse" data-parent="#courseDetail" href=#'.$collapse.'>

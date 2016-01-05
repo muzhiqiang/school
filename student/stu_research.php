@@ -8,16 +8,24 @@
 		<div class='row'>
 			<?php require_once($_SERVER['DOCUMENT_ROOT'].'/school/student/stu_leftSection.php') ?>
 			<div class="col-xs-10" id="home_page">
-
-				<div style="width:100%;height:50px;">
-					<span class="pull-left">选择科研小组</span>
-					<div class="form-group pull-left" style="position:relative;bottom:5px;">
-						<select class="form-control" id="searchGroup" onchange = "select()">
-						</select>
+				<div class='panel panel-info panel-block'>
+					<div class='panel-heading'>
+						<div class='panel-title'>
+							<div style="width:100%;height:25px;">
+								<span class="pull-left">选择科研小组</span>
+								<div class="form-group pull-left" style="position:relative;bottom:5px;">
+									<select class="form-control" id="searchGroup" onchange = "select()">
+									</select>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 
-				<div class='panel panel-default panel-block'>
+
+
+
+				<div class='panel panel-success panel-block'>
 					<div class='panel-heading'>
 						<div class='panel-title'>
 							<span>最近消息</span>
@@ -46,7 +54,7 @@
 					</div>
 				</div>
 
-				<div class='panel panel-default panel-block'>
+				<div class='panel panel-warning panel-block'>
 					<div class='panel-heading'>
 						<div class='panel-title'>
 							<span>工作日志</span>
@@ -59,7 +67,7 @@
 								$num = count($log);
 								for($i =0 ; $i<$num; $i++) {
 							?>
-							<div class="panel panel-default" data-toggle="collapse"  data-parent="#courseDetail" href="#collapse<?php echo $i?>" style="cursor:pointer">
+							<div class="panel panel-warning" data-toggle="collapse"  data-parent="#courseDetail" href="#collapse<?php echo $i?>" style="cursor:pointer">
 								<div class="panel-heading">
 									<h4 class="panel-title" >
 										<span><?php $title = substr($log[$i]['Log_content'], 0, 9); echo $title ?></span>
@@ -79,33 +87,45 @@
 			</div>
 
 			<div class="col-xs-10" id="my_log_page">
-				<div style="width:100%;height:50px;">
-					<span >我的日志</span>
-					<button class="btn btn-success" style="position:relative;bottom:5px;" onclick="new_log()">添加日志</button>
-					<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="return_home_page()">返回</button>
-				</div>
-				<div class="panel-group" id="message_detail">
-					<?php 
-							$num = count($mylog);
-							for($i =0; $i < $num; $i++) {
-					?>
-					<div class="panel panel-default" data-toggle="collapse" data-parent="#courseDetail" href="#collapse<?php echo $i?>" style="cursor:pointer">
-						<div class="panel-heading">
-							<h4 class="panel-title" >
-								<span id = "<?php echo $mylog[$i]['Log_ID'].'title';?>"><?php $title = substr($mylog[$i]['Log_content'], 0, 9); echo $title ?></span>
-								<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="remove_log(<?php echo $mylog[$i]['Log_ID'] ?>)">删除日志</button>
-								<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="edit_log(<?php echo $mylog[$i]['Log_ID'] ?>)">编辑日志</button>
-								<span class="badge pull-right"><?php echo $mylog[$i]['Update_date']; ?></span>
-							</h4>
-						</div>
-						<div id="collapse<?php echo $i; ?>" class="panel-collapse collapse">
-							<div class="panel-body">
-								<p id = "<?php echo $mylog[$i]['Log_ID'].'content';?>"><?php echo $mylog[$i]['Log_content']; ?></p>
+				<div class='panel panel-primary panel-block'>
+					<div class='panel-heading'>
+						<div class='panel-title'>
+							<div style="width:100%;height:25px;">
+								<span >我的日志</span>
+								<button class="btn btn-info" style="position:relative;bottom:5px;" onclick="new_log()">添加日志</button>
+								<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="return_home_page()">返回</button>
 							</div>
 						</div>
 					</div>
-					<?php } ?> 
+					<div class='panel-body'>
+						<div class="panel-group" id="message_detail">
+							<?php 
+									$num = count($mylog);
+									for($i =0; $i < $num; $i++) {
+							?>
+							<div class="panel panel-info" data-toggle="collapse" data-parent="#courseDetail" href="#collapse<?php echo $i?>" style="cursor:pointer">
+								<div class="panel-heading">
+									<h4 class="panel-title" >
+										<span id = "<?php echo $mylog[$i]['Log_ID'].'title';?>"><?php $title = substr($mylog[$i]['Log_content'], 0, 9); echo $title ?></span>
+										<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="remove_log(<?php echo $mylog[$i]['Log_ID'] ?>)">删除日志</button>
+										<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="edit_log(<?php echo $mylog[$i]['Log_ID'] ?>)">编辑日志</button>
+										<span class="badge pull-right"><?php echo $mylog[$i]['Update_date']; ?></span>
+									</h4>
+								</div>
+								<div id="collapse<?php echo $i; ?>" class="panel-collapse collapse">
+									<div class="panel-body">
+										<p id = "<?php echo $mylog[$i]['Log_ID'].'content';?>"><?php echo $mylog[$i]['Log_content']; ?></p>
+									</div>
+								</div>
+							</div>
+							<?php } ?> 
+						</div>
+					</div>
 				</div>
+
+
+
+				
 			</div>
 
 			<div class="col-xs-10" id="edit_log_page">
