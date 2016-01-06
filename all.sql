@@ -257,14 +257,7 @@ create table message_interconnect(
 	tar_type varchar(10),
 	tar_stu_id int,
 	send_time varchar(20),
-	primary key(trans_id),
-	constraint message_interconnect_fk1 foreign key(message_id) references message(message_id),
-	constraint message_interconnect_fk2 foreign key(src_stu_id) references stu_basic_info(stu_id),
-	constraint message_interconnect_fk3 foreign key(src_stu_id) references teacher_basic_info(tea_id),
-	constraint message_interconnect_fk4 foreign key(src_stu_id) references stu_union(group_id),
-	constraint message_interconnect_fk5 foreign key(src_stu_id) references res_group(res_group_id),
-	constraint message_interconnect_fk6 foreign key(src_stu_id) references emp_basic_info(sta_id),
-	constraint message_interconnect_fk7 foreign key(src_stu_id) references class(class_id)
+	primary key(trans_id)
 )DEFAULT CHARSET=utf8;
 
 

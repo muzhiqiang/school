@@ -13,7 +13,6 @@
 			$_SESSION['errno'] = $message['data'];
 			header('location:/school/404.php');
 		}
-print_r($message);
 	}
 
 

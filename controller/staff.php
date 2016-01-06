@@ -74,15 +74,7 @@ class staff {
 
 		$arg = array('Sta_ID', 'Sta_name', 'Position');
 		$req = array();
-		$req[0] = array('key' => 'Sex', 'Sex' => '男');
 		$res = $this->util_->searchRecord($req, $arg, 'staffInfoItem');
-
-		$req[0] = array('key' => 'Sex', 'Sex' => '女');
-		$tmp = $this->util_->searchRecord($req, $arg, 'staffInfoItem');
-
-		foreach($tmp as $t) {
-			array_push($res, $t);
-		}
 		return $res;
 	}
 

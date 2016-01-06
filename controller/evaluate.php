@@ -39,6 +39,9 @@ class evaluate {
 		$courseArr = array();
 		foreach ($studentCourseItem as $key => $item) {
 			$sql = "select c.Course_ID,c.Course,t.Tea_name from course as c,teacher_basic_info as t where c.Tea_ID = t.Tea_ID and c.Course_ID = '$item[Course_ID]' and (";
+			if(count($evaluateItem) == 0) {
+				return;
+			}			
 			foreach ($evaluateItem as $key => $value) {
 				if($key == 0) {
 					$sql .= "Course_year_term = '$value[Eva_year_term]'";

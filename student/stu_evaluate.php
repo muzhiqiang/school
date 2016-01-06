@@ -1,7 +1,12 @@
 <?php
 	require_once(dirname(__FILE__).'/stu_head.php');
 	require_once $_SERVER['DOCUMENT_ROOT'].'/school/service/studentEvaluate.php';
-	$result = json_decode($result['data']);
+	if($result['data'] != '') {
+		$result = json_decode($result['data']);
+	}
+	else {
+		$result = array();
+	}
 ?>
 <body>
 	<?php require_once(dirname(dirname(__FILE__)).'/navbar.php'); ?>
@@ -24,7 +29,7 @@
 							</thead>
 							<tbody>
 								<?php
-									
+									if(count($result) != 0) {
 									foreach ($result as $key => $value) {
 										$value = (array)$value;
 								?>
@@ -45,7 +50,7 @@
 										<input name="<?php echo 'Context'.$key; ?>" type="text" class="form-control"  placeholder="填写简短的评语">
 									</td>
 								</tr>
-								<?php } ?>							
+								<?php } }?>							
 							</tbody>
 						</table>
 						<input type="submit" class="btn btn-info text-center" value="确定">
