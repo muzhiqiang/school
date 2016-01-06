@@ -14,7 +14,7 @@
 
 			<div class='col-xs-10' id="homePage">
 
-				<div class='panel panel-default panel-block'>
+				<div class='panel panel-warning panel-block'>
 					<div class='panel-heading'>
 						<div class='panel-title'>
 								<button class="btn btn-success" style="" onclick="addOfficer()">增添职员</button>
@@ -62,7 +62,7 @@
 					</div>
 				</div>
 
-				<div class='panel panel-default panel-block'>
+				<div class='panel panel-info panel-block'>
 					<div class='panel-heading'>
 						<div class='panel-title'>
 								<button class="btn btn-success" style="" onclick="addCommitMem()">增添委员长</button>

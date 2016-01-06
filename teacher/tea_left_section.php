@@ -5,11 +5,13 @@
 				<p class='navbar-font'>我的信息</p>
 			</a>
 		</li>
+		<!--
 		<li id ="tea_message">
 			<a class='row' href="./tea_message.php">
 				<p class='navbar-font'>消息管理</p>
 			</a>
 		</li>
+		-->
 		<li id ="tea_classes" >
 			<a class='row' href="./tea_classes.php">
 				<p class='navbar-font'>授课安排</p>

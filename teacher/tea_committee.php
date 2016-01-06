@@ -9,7 +9,7 @@
 			<?php require_once("./tea_left_section.php") ?>
 			<div class="col-xs-10" id="home_page">
 				<h3>你好 委员长</h3>
-				<div class='panel panel-default panel-block'>
+				<div class='panel panel-info panel-block'>
 					<div class='panel-heading'>
 						<div class='panel-title'>
 							<span>最近消息</span>

@@ -7,7 +7,7 @@
 				<span class='icon-bar'></span>
 				<span class='icon-bar'></span>
 			</button>
-			<a class='navbar-brand' href='/games/gameList'>学院系统</a>
+			<span class='navbar-brand' >学院系统</span>
 		</div>
 		<div class='navbar-collapse collapse#navbar-head'>
 			<ul class='nav navbar-nav navbar-right'>

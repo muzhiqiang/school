@@ -9,14 +9,25 @@
 			<?php require_once("./tea_left_section.php") ?>
 			<div class="col-xs-10" id="home_page">
 
-				<div style="width:100%;height:50px;">
-					<span class="pull-left">选择科研小组</span>
-					<div class="form-group pull-left" style="position:relative;bottom:5px;">
-						<select class="form-control" id="searchGroup" onchange = "select()">
-						</select>
+				<div class='panel panel-success panel-block' >
+					<div class='panel-heading' >
+						<div class='panel-title'>
+
+							<div style="width:100%;height:25px;">
+								<span class="pull-left">选择科研小组</span>
+								<div class="form-group pull-left" style="position:relative;bottom:5px;">
+									<select class="form-control" id="searchGroup" onchange = "select()">
+									</select>
+								</div>
+								<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="startRes()">成立科研小组</button>
+							</div>
+
+						</div>
 					</div>
-					<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="startRes()">成立科研小组</button>
 				</div>
+
+
+
 
 			<!--	<div class='panel panel-default panel-block'>
 					<div class='panel-heading'>
@@ -47,7 +58,7 @@
 					</div>
 				</div> -->
 
-				<div class='panel panel-default panel-block'>
+				<div class='panel panel-warning panel-block'>
 					<div class='panel-heading'>
 						<div class='panel-title'>
 							<span>工作日志</span>

@@ -8,7 +8,7 @@
 		<div class='row'>
 			<?php require_once("emp_leftSection.php"); ?>
 			<div class='col-xs-10'>
-				<div class='panel panel-default panel-block'>
+				<div class='panel panel-success panel-block'>
 					<div class='panel-heading'>
 						<div class='panel-title'>
 							<span>基本信息</span>
@@ -33,9 +33,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class='col-xs-10'>
-				<div class='panel panel-default panel-block'>
+				<div class='panel panel-info panel-block'>
 					<div class='panel-heading'>
 						<div class='panel-title'>
 							<span>身份信息</span>

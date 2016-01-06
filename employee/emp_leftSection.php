@@ -1,20 +1,24 @@
 <div class='col-xs-2' id="leftSection">
 	<ul class='nav nav-pills nav-stacked text-center'>
+		<!--
 		<li id="emp_homePage">
 			<a class='row' href="./emp_homePage.php">
 				<p class='navbar-font'>我的首页</p>
 			</a>
-		</li>		
+		</li>	
+		-->	
 		<li id="emp_info">
 			<a class='row' href="./emp_info.php">
 				<p class='navbar-font'>我的信息</p>
 			</a>
 		</li>
+				<!--
 		<li id ="emp_message">
 			<a class='row' href="./emp_message.php">
 				<p class='navbar-font'>消息管理</p>
 			</a>
 		</li>
+		-->
 		<?php 
 			if($_SESSION['Position'] == '办公室') {
 		?>

@@ -20,11 +20,13 @@
 				<p class='navbar-font'>获奖记录</p>
 			</a>
 		</li>
+		<!--
 		<li id="stu_message" >
 			<a class='row' href="./stu_message.php">
 				<p class='navbar-font'>消息管理</p>
 			</a>
 		</li>
+		-->
 		<li id="stu_evaluate">
 			<a class='row' href="./stu_evaluate.php">
 				<p class='navbar-font'>评价系统</p>
