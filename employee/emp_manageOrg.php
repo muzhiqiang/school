@@ -60,7 +60,7 @@
 							<div class="form-group">
 								<label for="" class="col-xs-3 col-xs-offset-2 text-center">学生组织名字：</label>
 								<div class="col-xs-4">
-									<input class="form-control" type="text" name="group_name"/>
+									<input class="form-control" type="text" name="Group_name"/>
 								</div>
 							</div>
 							<div class="form-group">

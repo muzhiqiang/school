@@ -38,6 +38,19 @@ class researchGroup {
 		return $res;
 	}
 
+	public function showGroupMemberAction() {
+
+		$arg = array('Member_ID', 'Stu_name', 'Member_type', 'Stu_ID');
+		$this->util_->requireArg('Res_group_id', $_POST);
+		$lk = array('Stu_ID');
+		$req = array();
+		$req[0] = array('key' => 'Res_group_ID', 'Res_group_ID' => $_POST['Res_group_id'], 'table' => 'researchGroupMemberItem');
+
+		require_once './model/researchGroupMemberItem.php';
+		$item = new researchGroupMemberItem();
+		return $item->memberLinkStudent($req, $lk, $arg);	
+	} 
+
 	public function showTeacherGroupAction() {
 
 		$this->util_->requireArg('Account', $_POST);
@@ -63,9 +76,9 @@ class researchGroup {
 	public function addResearchGroupMemberAction() {
 
 		//TODO:: power
-		$arg = array('Member_ID', 'Res_group_ID', 'Member_type', 'Stu_ID');
-		$deafult = array('Tea_ID' => $_POST['Account'], 'power' =>'init');
-		$this->util_->addRecord($arg, $_POST, 'researchGroupMenberItem', $default);
+		$arg = array('Res_group_ID', 'Stu_ID', 'Member_ID', 'Tea_ID');
+		$default = array('Member_type' => '组员');
+		$this->util_->addRecord($arg, $_POST, 'researchGroupMemberItem', $default);
 	}
 
 	// delete group accoding to group id
@@ -75,6 +88,11 @@ class researchGroup {
 
 	// delete group member by group leader
 	public function removeResearchGroupMemberAction() {
+	
+		$this->util_->requireArg('Member_ID', $_POST);
+		$req = array();
+		$req[0] = array('key' => 'Member_ID', 'Member_ID' => $_POST['Member_ID']);
+		$this->util_->removeRecord($req, 'researchGroupMemberItem');
 
 	}
 
@@ -95,10 +113,10 @@ class researchGroup {
 	// show the non-verify project to the check teacher
 	public function showNonVerifyProjectAction() {
 
-		$arg = array('Result_ID', 'Res_group_name', 'Result_time', 'Verify_statue');
+		$arg = array('Result_ID', 'Res_group_name', 'Project', 'Result_time', 'Verify_statue');
 		$lk = array('Res_group_ID');
 		$req = array();
-		$req[0] = array('key' => 'Verify_statue', 'Verify_statue' => 'non-verify', 'table' => 'researchGroupProjectItem');
+		$req[0] = array('key' => 'Verify_statue', 'Verify_statue' => '未审核', 'table' => 'researchGroupProjectItem');
 
 		require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/researchGroupProjectItem.php';
 		$item = new researchGroupProjectItem();
@@ -137,7 +155,7 @@ class researchGroup {
 		$key = array('Result_ID');
 		$arg = array('Verify_statue');
 		$default = array('Tea_ID' => $_POST['Account']);
-		$this->util_->updateRecord($key, $arg, $_POST, 'researchGroupProjectItem');
+		$this->util_->updateRecord($key, $arg, $_POST, 'researchGroupProjectItem', $default);
 
 	}
 

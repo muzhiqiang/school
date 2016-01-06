@@ -59,12 +59,11 @@
 			$("#needTab").addClass("active");
 		}	
 		function agree(t) {
-			location.replace("/school/employee/emp_mangePride.php?controller=fund&method=verifyFund&Verify_statue=通过&id="+t);
+			location.replace("/school/employee/emp_moneyRequest.php?controller=fund&method=verifyFund&Verify_statue=通过&id="+t);
 		}	
 		function disagree(t) {
-			location.replace("/school/employee/emp_mangePride.php?controller=fund&method=verifyFund&Verify_statue=不通过&id="+t);
+			location.replace("/school/employee/emp_moneyRequest.php?controller=fund&method=verifyFund&Verify_statue=不通过&id="+t);
 		}	
-		}
 	</script>
 </body>
 </html>

@@ -68,7 +68,8 @@ class researchGroupProjectItem{
 		}
 		$table = 'res_group_achievement';
 		//#########################
-		$req = array('Result_ID'=>$this->Result_ID);
+		$req = array();
+		$req[0] = array('Result_ID'=>$this->Result_ID);
 		$sql = $db->genUpdateSql($req,$arg,$table);
 		$db->query($sql);
 		$db->close();

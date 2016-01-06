@@ -47,42 +47,12 @@
 								</tr>
 							</thead>
 							<tbody id ="tableContent">
-								<tr>
-									<td>第一节课</td>
-								</tr>
-								<tr>
-									<td>第二节课</td>
-								</tr>
-								<tr>
-									<td>第三节课</td>
-								</tr>
-								<tr>
-									<td>第四节课</td>
-								</tr>
-								<tr>
-									<td>第五节课</td>
-								</tr>
-								<tr>
-									<td>第六节课</td>
-								</tr>
-								<tr>
-									<td>第七节课</td>
-								</tr>
-								<tr>
-									<td>第八节课</td>
-								</tr>
-								<tr>
-									<td>第九节课</td>
-								</tr>
-								<tr>
-									<td>第十节课</td>
-								</tr>
-								<tr>
-									<td>第十一节课</td>
-								</tr>
-								<tr>
-									<td>第十二节课</td>
-								</tr>
+								<tr><td>第一节课<br>第二节课</td></tr>
+								<tr><td>第三节课<br>第四节课</td</tr>
+								<tr><td>第五节课<br>第六节课</td></tr>
+								<tr><td>第七节课<br>第八节课</td></tr>
+								<tr><td>第九节课<br>第十节课</td></tr>
+								<tr><td>第十一节课<br>第十二节课</td></tr>
 							</tbody>
 						</table>
 					</div>

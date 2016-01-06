@@ -23,9 +23,10 @@ public function __construct(){
 		if($p == false) {
 			throw new Exception('Database connect failed');
 		}
-		$db->query('insert into stu_union_member (Stu_no, Is_Leader, Gro_position,
-		Power) values(\''.$this->Stu_no.'\', \''.$this->Is_Leader.'\', \''.$this->Gro_position.
-		'\', \''.$this->Power.'\');');
+		$sql = 'insert into stu_union_member (Stu_id, Group_ID, Is_Leader, Gro_position,
+		Power) values(\''.$this->Stu_ID.'\', \''.$this->Group_ID.'\' ,\''.$this->Is_Leader.'\', \''.$this->Gro_position.
+		'\', \''.$this->Power.'\');';
+		$db->query($sql);
 		$db->close();
 	}
 	

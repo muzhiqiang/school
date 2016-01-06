@@ -30,9 +30,9 @@ class fund {
 	public function verifyFundAction() {
 
 		$key = array('Req_id');
-		$arg = array('Verify_statue', 'Verify_time');
+		$arg = array('Verify_statue');
 		$default = array('Sta_ID' => $_POST['Account']);
-		$this->util_->update($key, $arg, $_POST, 'fundItem', $defult);
+		$this->util_->updateRecord($key, $arg, $_POST, 'fundItem', $default);
 	}
 
 }

@@ -88,8 +88,8 @@ class Util {
 		foreach($arg as $tmp) {
 			$argList[$tmp] = $src[$tmp];
 		}
-		foreach($default as $tmp) {
-			$argList[$tmp] = $src[$tmp];
+		foreach($default as $key => $value) {
+			$argList[$key] = $default[$key];
 		}
 
 		$item->update($argList);

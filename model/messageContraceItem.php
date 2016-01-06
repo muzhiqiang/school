@@ -24,10 +24,11 @@ class messageContraceItem{
 		if($p == false) {
 			throw new Exception('Database connect failed');
 		}
-		$db->query('insert into message_interconnect (message_id, Src_type, src_stu_id,
-		Tar_type,tar_stu_id,Send_time) values(\''.
-		$this->message_id.'\', \''.$this->Src_type.'\', \''.$this->src_stu_id.
-		'\', \''.$this->Tar_type.'\', \''.$this->tar_stu_id.'\', \''.$this->Send_time.'\');');
+		$sql = 'insert into message_interconnect (message_id, Src_type, src_stu_id,Tar_type,tar_stu_id,Send_time) values(\''.
+		$this->message_id.'\', \''.$this->Src_type.'\', \''.$this->src_stu_id
+		.'\', \''.$this->Tar_type.'\', \''.$this->tar_stu_id.'\', \''.$this->Send_time.'\');';
+throw new Exception($sql);
+		$db->query($sql);
 		$db->close();
 	}
 	

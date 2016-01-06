@@ -4,14 +4,13 @@
 	$api = new APICaller();
 	if(isset($_GET['id'])) {
 
-		$tmp = $api->excute($_GET['controller'], $_GET['method']);
 		$_POST['Req_id'] = $_GET['id'];
 		$_POST['Verify_statue'] = $_GET['Verify_statue'];
+		$tmp = $api->excute($_GET['controller'], $_GET['method']);
 		if($tmp['success'] != 1) {
 			$_SESSION['errno'] =  $tmp['data'];
 			header('location:/school/404.php');
 		}
-
 
 	}
 
@@ -23,4 +22,5 @@
 	}
 
 
+//exit();
 ?>

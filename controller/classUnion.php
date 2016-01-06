@@ -71,7 +71,7 @@ class classUnion {
 	public function addClassMonitorAction() {
 
 		$arg = array('Class_ID', 'Stu_ID');
-		$default = array('Is_monitor' => '1', 'Position' => 'Monitor', 'Power' =>'');
+		$default = array('Is_monitor' => '1', 'Position' => 'Monitor', 'Power' =>'4');
 		$this->util_->addRecord($arg, $_POST, 'classLeaderItem', $default);
 	}
 
@@ -100,6 +100,26 @@ class classUnion {
 		$res = $item->classLinkStaff($req, $lk, $arg);
 		
 		return $res;
+	}
+
+	public function showStaffClassListAction() {
+		
+		$arg = array('Class_ID', 'Dept', 'Year', 'Class_name', 'Major');
+		$req = array();
+		$req[0] = array('key' => 'Sta_ID', 'Sta_ID' => $_POST['Account']);
+		$res = $this->util_->searchRecord($req, $arg, 'classItem');
+		
+		return $res;
+	}
+
+	public function showStudentListAction() {
+
+		$this->util_->requireArg('Class_ID', $_POST);
+		$arg = array('Stu_name', 'Stu_ID', 'Sex');
+		$req = array();
+		$req[0] = array('key' => 'Class_ID', 'Class_ID' => $_POST['Class_ID']);	
+
+		return $this->util_->searchRecord($req, $arg, 'studentInfoItem');
 	}
 
 

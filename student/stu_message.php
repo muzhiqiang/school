@@ -1,6 +1,9 @@
 <?php require_once($_SERVER['DOCUMENT_ROOT'].'/school'.'/student/stu_head.php'); ?>
 <body>
-	<?php require_once($_SERVER['DOCUMENT_ROOT'].'/school'.'/navbar.php'); ?>
+	<?php
+		require_once($_SERVER['DOCUMENT_ROOT'].'/school'.'/navbar.php');
+		require_once($_SERVER['DOCUMENT_ROOT'].'/school'.'/service/message.php');
+	?>
 	<div class='container'>
 		<div class='row'>
 			<?php require_once($_SERVER['DOCUMENT_ROOT'].'/school'.'/student/stu_leftSection.php'); ?>
@@ -8,50 +11,33 @@
 				<div class='panel panel-warning panel-block'>
 					<div class='panel-heading'>
 						<div style="width:100%;height:25px;">
-							<span class="pull-left">消息来源：</span>
-							<div class="form-group pull-left" style="position:relative;bottom:5px;">
-								<select class="form-control" id="year">
-									<option>全部</option>
-									<option>教务员</option>
-									<option>辅导员</option>
-									<option>班干</option>
-									<option>学生组织</option>
-									<option>科研组织</option>
-								</select>
-							</div>
-							<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="send()">发送消息</button>
+							<span class="pull-left">消息管理：</span>
+
+							
 						</div>
 					</div>
 					<div class='panel-body'>
 						<div class="panel-group" id="message_detail">
-							<div class="panel panel-success" data-toggle="collapse" data-parent="#courseDetail" href="#collapseOne" style="cursor:pointer">
+							<?php 
+								$num = count($message['data']);
+								for($i =0 ;$i <$num; $i++) {
+									$c = 'collapse'.$i;
+							?>
+							<div class="panel panel-success" data-toggle="collapse" data-parent="#courseDetail" href="#<?php echo $c; ?>" style="cursor:pointer">
 								<div class="panel-heading">
 									<h4 class="panel-title" >
-										<span class="badge pull-left">学生创新俱乐部</span>
-										<span class="text-center">基于php的学院管理系统</span>
-										<span class="badge pull-right">2015.10.31</span>
+										<span class="badge pull-left"><php echo $message['data'][$i]['Src_type'] ?></span>
+										<span class="text-center"><php echo $message['data'][$i]['message_title'] ?></span>
+						
 									</h4>
 								</div>
-								<div id="collapseOne" class="panel-collapse collapse">
+								<div id="<?php echo $c; ?>" class="panel-collapse collapse">
 									<div class="panel-body">
-										<p>请注意请注意，这周日要开会，时间是2341823，地点南校办公室！！</p>
+										<p><php echo $message['data'][$i]['message_text'] ?></p>
 									</div>
 								</div>
 							</div>
-							<div class="panel panel-success" data-toggle="collapse" data-parent="#courseDetail" href="#collapseOne" style="cursor:pointer">
-								<div class="panel-heading">
-									<h4 class="panel-title" >
-										<span class="badge pull-left">学生创新俱乐部</span>
-										<span class="text-center">基于php的学院管理系统</span>
-										<span class="badge pull-right">2015.10.31</span>
-									</h4>
-								</div>
-								<div id="collapseOne" class="panel-collapse collapse">
-									<div class="panel-body">
-										<p>请注意请注意，这周日要开会，时间是2341823，地点南校办公室！！</p>
-									</div>
-								</div>
-							</div>
+							<?php } ?>
 						</div>
 					</div>
 				</div>

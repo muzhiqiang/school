@@ -85,6 +85,21 @@ class researchGroupMemberItem{
 		$res = $db->query($sql);
 		return $res;
 	}
+
+	public function memberLinkStudent($req, $lk, $arg) {
+
+		$db = new POD();
+		$p = $db->connect();
+		if($p == false) {
+			throw new Exception('Database connect failed');
+		}
+		$map = array('studentInfoItem' => 'stu_basic_info', 'researchGroupMemberItem' => 'res_member');
+		$table = array('stu_basic_info', 'res_member');
+		$sql = $db->genLinkSql($req, $lk, $arg, $table, $map);
+
+		$res = $db->query($sql);
+		return $res;
+	}
 	
 	
 }

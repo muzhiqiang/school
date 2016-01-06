@@ -51,6 +51,7 @@ public function __construct(){
 		}
 		$table = 'teacher_basic_info';
 		$sql = $db->genSearchSql($req, $arg, $table);
+
 		$res = $db->query($sql);
 		$db->close();
 		return $res;

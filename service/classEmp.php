@@ -2,6 +2,7 @@
 
 	require_once $_SERVER['DOCUMENT_ROOT'].'/school/service/APICaller.php';
 	$api = new APICaller();
+
 	if(isset($_GET['controller'])) {
 
 		$tmp = $api->excute($_GET['controller'], $_GET['method']);

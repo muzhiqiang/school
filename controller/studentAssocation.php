@@ -86,19 +86,19 @@ class studentAssocation {
 
 	public function addAssocationAction() {
 
-		$arg = array('group_name', 'Intro');
+		$arg = array('Group_name', 'Intro');
 		$default = array();
 		$this->util_->addRecord($arg, $_POST, 'studentAssocationItem', $default);
 
 		$this->util_->requireArg('Stu_ID', $_POST);
 		$req = array();
-		$req[0] =array('key' => 'group_name', 'group_name' => $_POST['group_name']);
+		$req[0] =array('key' => 'group_name', 'group_name' => $_POST['Group_name']);
 		$arg = array('group_ID');
-		$tmp = $this->util_->searchRecord($req, $_POST, $arg, 'studentAssocationItem');
 
+		$tmp = $this->util_->searchRecord($req, $arg, 'studentAssocationItem');
 		
 		$arg =array('Stu_ID');
-		$default = array('Group_ID' => $res[0]['group_ID'], 'is_leader' => '1', 'Gro_Position' => '创设人', 'Power' => '4');
+		$default = array('Group_ID' => $tmp[0]['group_ID'], 'Is_Leader' => '1', 'Gro_position' => '创设人', 'Power' => '4');
 		$this->util_->addRecord($arg, $_POST, 'studentAssocationMemberItem', $default);
 
 	}

@@ -7,10 +7,6 @@
 	<div class='container'>
 		<div class='row'>
 			<?php require_once("./tea_left_section.php") ?>
-
-
-
-
 			<div class="col-xs-10" id="home_page">
 
 				<div style="width:100%;height:50px;">
@@ -19,9 +15,10 @@
 						<select class="form-control" id="searchGroup" onchange = "select()">
 						</select>
 					</div>
+					<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="startRes()">成立科研小组</button>
 				</div>
 
-				<div class='panel panel-default panel-block'>
+			<!--	<div class='panel panel-default panel-block'>
 					<div class='panel-heading'>
 						<div class='panel-title'>
 							<span>最近消息</span>
@@ -45,16 +42,16 @@
 									</div>
 								</div>
 							</div>
-							<?php } ?> 
+							<?php } ?>  
 						</div> 
 					</div>
-				</div>
+				</div> -->
 
 				<div class='panel panel-default panel-block'>
 					<div class='panel-heading'>
 						<div class='panel-title'>
 							<span>工作日志</span>
-							<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="my_log()">我的日志</button>
+							<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="my_log()" id ="mylog_btn" disabled ="disabled">我的日志</button>
 						</div>
 					</div>
 					<div class='panel-body'>
@@ -80,17 +77,51 @@
 						</div>
 					</div>
 				</div>
-				<button class="btn btn-success pull-left" style="position:relative;bottom:5px;" onclick="manage_member()">管理成员</button>
-				<button class="btn btn-success pull-left" style="position:relative;bottom:5px;" onclick="ask_money()">申报资金</button>
-				<button class="btn btn-success pull-left" style="position:relative;bottom:5px;" onclick="ask_medal()">申报项目成果</button>			
+				<button class="btn btn-success pull-left" style="position:relative;bottom:5px;" onclick="manage_member()" id ="manager_btn" disabled ="disabled">管理成员</button>
+				<button class="btn btn-success pull-left" style="position:relative;bottom:5px;" onclick="ask_money()" id ="money_btn" disabled ="disabled">申报资金</button>
+				<button class="btn btn-success pull-left" style="position:relative;bottom:5px;" onclick="ask_medal()" id ="project_btn" disabled ="disabled">申报项目成果</button>			
 			</div>
 
+			<div class="col-xs-10 hide" id="group_page">
+				<div class='panel panel-default panel-block'>
+					<div class='panel-heading'>
+						<div class='panel-title'>
+							<sapn>科研小组创建</span>
+							<button class="btn btn-info pull-right" style="position:relative;bottom:5px;" onclick="return_home_page()">返回</button>							
+						</div>
+					</div>
+					<div class='panel-body'>
+						<form class="form-horizontal text-center" method = "POST" role="form">
+							<div class="form-group">
+								<label for="firstname" class="col-sm-2 control-label">科研小组名称</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control"  placeholder="请输入名称" id="Res_group_name">
+								</div>
+							</div>
+				
+							<div class="form-group">
+							 	<label for="name" class="col-sm-2 control-label">项目名称</label>
+							 	<div class="col-sm-10">
+								 	<input type="text" class="form-control" id = "project"></textarea>
+								</div>
+							</div>
+							<div class="form-group">
+							 	<label for="name" class="col-sm-2 control-label">项目简介</label>
+							 	<div class="col-sm-10">
+								 	<textarea class="form-control" rows="5" id = "Intro"></textarea>
+								</div>
+							</div>
+							<input type="button" class="btn btn-info text-center" value="确定" onclick = "stablish()">
+						</form>
+					</div>
+				</div>
 
-
+			</div>
 
 
 			<div class="col-xs-10" id="my_log_page">
 				<div style="width:100%;height:50px;">
+					<button class="btn btn-success pull-left" style="position:relative;bottom:5px;" onclick="new_log()">添加日志</button>
 					<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="return_home_page()">返回</button>
 				</div>
 				<div class="panel-group" id="message_detail">
@@ -116,6 +147,29 @@
 					<?php } ?> 
 				</div>
 			</div>
+
+			<div class="col-xs-10" id="new_log_page">
+				<div style="width:100%;height:50px;">
+					<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="my_log()">取消添加</button>
+					<button class="btn btn-success pull-right" style="position:relative;bottom:5px;" onclick="add_log()">确定</button>
+				</div>
+				<form class="form-horizontal text-center" role="form" >
+					<div class="form-group">
+						<label for="firstname" class="col-sm-2 control-label" >日志标题：</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="firstname" placeholder="请输入日志标题">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="name" class="col-sm-2 control-label">日志内容：</label>
+						<div class="col-sm-10">
+							<textarea class="form-control" rows="5" id = "name", data-type =""></textarea>
+						</div>
+					</div>
+				</form>
+			</div>
+
+
 
 
 
@@ -145,6 +199,7 @@
 
 
 
+
 			<div class="col-xs-10" id="manage_member_page">
 				<div class='panel panel-default panel-block'>
 					<div class='panel-heading'>
@@ -164,23 +219,40 @@
 								</tr>
 							</thead>
 							<tbody>
+							<?php $num = count($member['data']);
+								for($i=0; $i<$num; $i++) { ?>
 								<tr>
-									<td>黄炳麟</td>
-									<td>荣誉主席</td>
+									<td><?php echo $member['data'][$i]['Stu_name']; ?></td>
+									<td><?php echo $member['data'][$i]['Member_type']; ?></td>
+									<td>发布日志</td>
 									<td>
-											<input type="checkbox">发布活动</td>
+										<button class="btn btn-info" style="position:relative;bottom:5px;" onclick="remove_member(<?php echo $member['data'][$i]['Member_ID']; ?>)">删除成员</button>	
 									</td>
-									<td>
-										<button class="btn btn-info" style="position:relative;bottom:5px;" onclick="">删除成员</button>	
-									</td>
-								</tr>								
+								</tr>	<?php }?>							
 							</tbody>
 						</table>
 						<input type="button" class="btn btn-info text-center" value="确定">
 					</div>
 				</div>
+				<div class='panel panel-default panel-block'>
+					<div class='panel-heading'>
+						<div class='panel-title'>
+							添加成员
+						</div>
+					</div>
+					<div class='panel-body'>
+						<form  method="POST" role="form" class="form-horizontal " id="editForm">
+							<div class="form-group">
+								<label for="" class="col-xs-3 col-xs-offset-2 text-center">请输入ID:</label>
+								<div class="col-xs-4">
+									<input class="form-control" type="text"  id="Stu_ID"/>
+								</div>
+							</div>
+							<input type="button" class="btn btn-info" value="确定" onclick ="add_member()"/>
+						</form>
+					</div>
+				</div>	
 			</div>
-
 
 
 
@@ -216,8 +288,6 @@
 
 
 
-
-
 			<div class="col-xs-10" id="ask_medal_page">
 
 				<div class='panel panel-default panel-block'>
@@ -248,10 +318,6 @@
 			</div>
 		</div>
 	</div>
-
-
-
-
 	<script src="../public/javascripts/jquery.min.js"></script>
 	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
@@ -261,7 +327,9 @@
 			$("#edit_log_page").addClass("hide");
 			$("#manage_member_page").addClass("hide");
 			$("#ask_money_page").addClass("hide");
-			$("#ask_medal_page").addClass("hide");
+			$("#ask_medal_page").addClass("hide");	
+			$("#new_log_page").addClass("hide");	
+			$("#group_page").addClass("hide");	
 		}
 		(function () {
 			init();
@@ -292,16 +360,23 @@
 
 				}
 			});
+			var url = location.href;
+			var index = url.indexOf("?");
+			if(index > 0) {
+				document.getElementById('manager_btn').disabled = false;
+				document.getElementById('mylog_btn').disabled = false;
+				document.getElementById('project_btn').disabled = false;
+				document.getElementById('money_btn').disabled = false;
+			}
 		}) ();
-
-
 		function my_log() {
 			$("#my_log_page").removeClass("hide");
 			$("#home_page").addClass("hide");
 			$("#edit_log_page").addClass("hide");
 			$("#manage_member_page").addClass("hide");
 			$("#ask_money_page").addClass("hide");
-			$("#ask_medal_page").addClass("hide");			
+			$("#ask_medal_page").addClass("hide");
+			$("#new_log_page").addClass("hide");			
 		}
 		function return_home_page(){
 			$("#my_log_page").addClass("hide");
@@ -309,7 +384,19 @@
 			$("#edit_log_page").addClass("hide");
 			$("#manage_member_page").addClass("hide");
 			$("#ask_money_page").addClass("hide");
-			$("#ask_medal_page").addClass("hide");			
+			$("#ask_medal_page").addClass("hide");
+			$("#new_log_page").addClass("hide");	
+			$("#group_page").addClass("hide");		
+		}
+		function startRes() {
+			$("#my_log_page").addClass("hide");
+			$("#home_page").addClass("hide");
+			$("#edit_log_page").addClass("hide");
+			$("#manage_member_page").addClass("hide");
+			$("#ask_money_page").addClass("hide");
+			$("#ask_medal_page").addClass("hide");	
+			$("#new_log_page").addClass("hide");
+			$("#group_page").removeClass("hide");
 		}
 		function edit_log(){
 			$("#my_log_page").addClass("hide");
@@ -317,7 +404,8 @@
 			$("#edit_log_page").removeClass("hide");
 			$("#manage_member_page").addClass("hide");
 			$("#ask_money_page").addClass("hide");
-			$("#ask_medal_page").addClass("hide");						
+			$("#ask_medal_page").addClass("hide");
+			$("#new_log_page").addClass("hide");						
 		}
 		function manage_member(){
 			$("#my_log_page").addClass("hide");
@@ -325,7 +413,8 @@
 			$("#edit_log_page").addClass("hide");
 			$("#manage_member_page").removeClass("hide");
 			$("#ask_money_page").addClass("hide");
-			$("#ask_medal_page").addClass("hide");						
+			$("#ask_medal_page").addClass("hide");	
+			$("#new_log_page").addClass("hide");					
 		}
 		function ask_money(){
 			$("#my_log_page").addClass("hide");
@@ -333,7 +422,8 @@
 			$("#edit_log_page").addClass("hide");
 			$("#manage_member_page").addClass("hide");
 			$("#ask_money_page").removeClass("hide");
-			$("#ask_medal_page").addClass("hide");						
+			$("#ask_medal_page").addClass("hide");		
+			$("#new_log_page").addClass("hide");				
 		}
 		function ask_medal(){
 			$("#my_log_page").addClass("hide");
@@ -341,8 +431,18 @@
 			$("#edit_log_page").addClass("hide");
 			$("#manage_member_page").addClass("hide");
 			$("#ask_money_page").addClass("hide");
-			$("#ask_medal_page").removeClass("hide");						
+			$("#ask_medal_page").removeClass("hide");	
+			$("#new_log_page").addClass("hide");					
 		}	
+		function new_log(){
+			$("#my_log_page").addClass("hide");
+			$("#home_page").addClass("hide");
+			$("#edit_log_page").addClass("hide");
+			$("#manage_member_page").addClass("hide");
+			$("#ask_money_page").addClass("hide");
+			$("#ask_medal_page").addClass("hide");	
+			$("#new_log_page").removeClass("hide");					
+		}			
 		function select() {
 			var id = document.getElementById('searchGroup').value;
 			var type = "<?php echo $_SESSION['Type']; ?>";
@@ -395,7 +495,7 @@
 						alert(data.data);
 					}
 					else {
-						alert("Add Project Successfully!");
+						alert("Apply Successfully!");
 						return_home_page();
 					}
 
@@ -405,36 +505,80 @@
 
 				}
 			});
-		}	
-		function add_log() {
-			var content = document.getElementById("logcontent").value;
-			var date = new Date();
-			var create_date = date.getFullYear()+"/"+date.getMonth()+"/"+date.getDate();
+		}
+
+		function stablish() {
+			var id = "<?php echo $_SESSION['Account']; ?>";
+			var rid = document.getElementById('Res_group_name').value;
+			var project = document.getElementById('project').value;
+			var intro = document.getElementById('Intro').value;	
+			$.ajax({
+				url:'/school/route.php',
+				type:"POST",
+				contentType:"application/x-www-form-urlencoded; charset=UTF-8",
+				data : {"controller":"researchGroup", "method":"addResearchGroup", "Res_group_name":rid , "project": project, "Intro":intro, "Account":id},
+				datatype : "json",
+				async: true,
+				success:function(data) {
+					if(data.success != true) {
+						alert(data.data);
+					}
+					else {
+						alert("Establish group Successfully!");
+						location.reload();
+					}
+
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					 alert(XMLHttpRequest.status);
+
+				}
+			});
+		}
+		function remove_member(t) {
+
+			$.ajax({
+				url:'/school/route.php',
+				type:"POST",
+				contentType:"application/x-www-form-urlencoded; charset=UTF-8",
+				data : {"controller":"researchGroup", "method":"removeResearchGroupMember","Member_ID":t },
+				datatype : "json",
+				async: true,
+				success:function(data) {
+					if(data.success != true) {
+						alert(data.data);
+					}
+					else {
+						alert("Successfully Remove!");
+						location.reload();
+					}
+
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					 alert(XMLHttpRequest.status);
+
+				}
+			});
+		}
+		function add_member() {
+			var id = "<?php echo $_SESSION['Account']; ?>";
 			var res_id <?php if(isset($_GET['Res_group_id'])) echo '= "'.$_GET['Res_group_id'].'"';?>;
-			var type <?php
-				if($_SESSION['type'] == 'student') {
-					echo '= "Stu_ID"';
-				}
-				else {
-					echo '= "Tea_ID"';
-				}
-				?>;
-			var id <?php
-					echo '= "'.$_SESSION['Account'].'"';
-				?>;
+			var date = new Date();			
+			var create_date = date.getTime();
+			var stu_id = document.getElementById('Stu_ID').value;
 			$.ajax({
 				url:'/school/route.php',
 				type:"POST",
 				contentType:"application/x-www-form-urlencoded; charset=UTF-8",
-				data : {"Create_date":create_date, type:id, "Log_content":content, "controller":"researchGroup", "method":"updateLog"},
+				data : {"controller":"researchGroup", "method":"addResearchGroupMember","Member_ID":create_date, "Stu_ID": stu_id,"Res_group_ID":res_id, "Tea_ID": id},
 				datatype : "json",
 				async: true,
 				success:function(data) {
 					if(data.success != true) {
-						alert(data.date);
+						alert(data.data);
 					}
 					else {
-						alert("Update successfully!");
+						alert("Add Successfully!");
 						location.reload();
 					}
 
@@ -444,62 +588,6 @@
 
 				}
 			});
-
-		}
-		function removeLog(t) {
-
-			$.ajax({
-				url:'/school/route.php',
-				type:"POST",
-				contentType:"application/x-www-form-urlencoded; charset=UTF-8",
-				data : {"Log_ID":t, "controller":"researchGroup", "method":"removeLog"},
-				datatype : "json",
-				async: true,
-				success:function(data) {
-					if(data.success != true) {
-						alert(data.date);
-					}
-					else {
-						alert("delete successfully!");
-						location.reload();
-					}
-
-				},
-				error: function(XMLHttpRequest, textStatus, errorThrown) {
-					 alert(XMLHttpRequest.status);
-
-				}
-			});
-
-		}
-
-		function update_log(id) {
-			var content = document.getElementById("name").value;
-			var date = new Date();
-			var update_date = date.getFullYear()+"/"+date.getMonth()+"/"+date.getDate();
-			$.ajax({
-				url:'/school/route.php',
-				type:"POST",
-				contentType:"application/x-www-form-urlencoded; charset=UTF-8",
-				data : {"Log_ID":id, "Update_date":update_date, "Log_content":content, "controller":"researchGroup", "method":"updateLog"},
-				datatype : "json",
-				async: true,
-				success:function(data) {
-					if(data.success != true) {
-						alert(data.date);
-					}
-					else {
-						alert("Update successfully!");
-						location.reload();
-					}
-
-				},
-				error: function(XMLHttpRequest, textStatus, errorThrown) {
-					 alert(XMLHttpRequest.status);
-
-				}
-			});
-
-		}				
+		}			
 	</script>
 </body>

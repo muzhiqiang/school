@@ -30,6 +30,21 @@ class teacher {
 	
 	}
 
+	public function committeeListAction() {
+
+		$arg = array('Tea_ID', 'Tea_name', 'Sex');
+		$req = array();
+		$req[0] = array('key' => 'Authority', 'Authority' => '1');
+		return $this->util_->searchRecord($req, $arg, 'teacherInfoItem');
+	}
+
+	public function teacherListAction() {
+
+		$arg = array('Tea_ID', 'Tea_name', 'Sex', 'Rank', 'Entry_time');
+		$req = array();
+		return $this->util_->searchRecord($req, $arg, 'teacherInfoItem');
+	}
+
 	public function getAuthorityAction() {
 
 		$arg =array('Authority');
@@ -73,12 +88,13 @@ class teacher {
 
 		// TODO:: Authority
 		$infoArg = array('Tea_ID', 'Tea_name', 'Sex', 'Rank', 'Entry_time');
-		$default = array('Authority' => 'default');
-		$this->util_->addRecord($infoArg, $_POST, 'teacherInfo', $default);
+		$default = array('Authority' => '0');
+		$this->util_->addRecord($infoArg, $_POST, 'teacherInfoItem', $default);
 
-		$infoArg = array('Tea_ID', 'Address', 'Birth', 'ID_no', 'Race', 'Polit', 'Native_place', 'Tel', 'Health', 'Experience', 'Intro');
+		$infoArg = array();
 		$default['Password'] = '000000';
-		$this->util_->addRecord($infoArg, $_POST, 'teacherIdentify', $default);
+		$default['Tea_ID'] = $_POST['Tea_ID'];
+		$this->util_->addRecord($infoArg, $_POST, 'teacherIdentityItem', $default);
 	}
 
 	//

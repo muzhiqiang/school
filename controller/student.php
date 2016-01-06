@@ -71,10 +71,10 @@ class student {
 		$default = array();
 		$this->util_->addRecord($arg, $_POST, 'studentInfoItem', $default);
 
-		$arg = array('Stu_ID', 'Loc', 'Birth', 'ID_no', 'Race', 'Polit', 'Native_place', 'Tel',
-		'Health', 'Entroll_time', 'Intro');
+		$arg = array();
 		$default['Password'] = '000000';
-		$this->util_->addRecord($arg, $_POST, 'studentIdentifyItem', $default);		
+		$default['Stu_ID'] = $_POST['Stu_ID'];
+		$this->util_->addRecord($arg, $_POST, 'studentIdentityItem', $default);		
 	}
 
 	//TODO:: info, identify, group delete
@@ -87,7 +87,7 @@ class student {
 	// Argument old password OP, new password NP
 	public function changePasswordAction() {
 
-		require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/studentIdentifyItem.php';
+		require $_SERVER['DOCUMENT_ROOT'].'/school'.'/model/studentIdentityItem.php';
 
 		$this->util_->requireArg('OP');
 		$this->util_->requireArg('NP');
@@ -104,6 +104,16 @@ class student {
 		$identify->Stu_ID = $_POST['Account'];
 		$arg1 = array('Password' => $_POST['NP']);
 		$identify->update($arg1);
+	}
+
+	public function studentListAction() {
+
+		$this->util_->requireArg('Class_ID', $_POST);
+		$arg = array("Stu_ID", "Stu_name", "Sex");
+		$req = array();
+		$req[0] = array('key' => 'Class_ID', 'Class_ID' => $_POST['Class_ID']);
+		return $this->util_->searchRecord($req, $arg, 'studentInfoItem');
+
 	}
 
 

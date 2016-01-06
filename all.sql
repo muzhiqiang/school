@@ -180,7 +180,7 @@ create table stu_course(
 	stu_id int,
 	score varchar(10),
 	is_fail char(1) default 0,
-	is_evalute tinyint(1) NOT NULL default 0,	
+	is_evaluate tinyint(1) NOT NULL default 0,	
 	primary key(course_id,stu_id),
 	constraint stu_course_fk1 foreign key(course_id) references course(course_id),
 	constraint stu_course_fk2 foreign key(stu_id) references stu_basic_info(stu_id)

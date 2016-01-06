@@ -72,11 +72,12 @@
 				<p class='navbar-font'>班级管理（辅导员）</p>
 			</a>
 		</li>
+<!--
 		<li  id="emp_manageStudent">
 			<a class='row' href="./emp_manageStudent.php">
 				<p class='navbar-font'>学生管理</p>
 			</a>
-		</li>
+		</li> -->
 		<li id="emp_managePride">
 			<a class='row' href="./emp_managePride.php">
 				<p class='navbar-font'>获奖审查</p>
